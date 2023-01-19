@@ -90,9 +90,9 @@
     <!--other strings-->
     <string name="total_time">WORKOUT TIME</string>
     <string name="colon">:</string>
-    <string name="preparation_text_example">PREPARE YOURSELF</string>
-    <string name="work_text_example">WORK</string>
-    <string name="rest_text_example">REST</string>
+    <string name="preparation_text">PREPARE YOURSELF</string>
+    <string name="work_text">WORK</string>
+    <string name="rest_text">REST</string>
 
 
 </resources>

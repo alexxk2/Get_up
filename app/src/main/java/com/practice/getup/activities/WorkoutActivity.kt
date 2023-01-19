@@ -52,6 +52,7 @@ class WorkoutActivity : AppCompatActivity() {
     private fun startTimer() {
 
         if (isTimerOn) return
+        switchStagesNames()
 
         timer = object : CountDownTimer(totalTimeForLocalTimer, 1000) {
 
@@ -92,19 +93,17 @@ class WorkoutActivity : AppCompatActivity() {
                 }
 
                 totalTimeForGlobalTimer -= fixedTimeForSet
-                binding.currentStageView.text = setsDone.toString()
 
-                if (isWorkTime == true || isWorkTime == null) {
-                    totalTimeForLocalTimer = restTime
-                    isWorkTime = false
-
-                } else {
+                if (isWorkTime == false || isWorkTime == null) {
                     totalTimeForLocalTimer = workTime
                     isWorkTime = true
+
+                } else {
+                    totalTimeForLocalTimer = restTime
+                    isWorkTime = false
                 }
 
                 if (setsDone == options.numberOfSets * 2) {
-                    binding.currentStageView.text = "Тренировка закончена"
                     binding.startButton.visibility = View.INVISIBLE
                     binding.pauseButton.visibility = View.INVISIBLE
                     binding.restartButton.visibility = View.VISIBLE
@@ -118,7 +117,7 @@ class WorkoutActivity : AppCompatActivity() {
         switchControlButton()
     }
 
-    //потом подумать над текстовыми полями над таймером
+
     private fun pauseTimer() {
         if (!isTimerOn) return
         timer.cancel()
@@ -180,6 +179,7 @@ class WorkoutActivity : AppCompatActivity() {
         return timeToShow
     }
 
+    //некорректно работает, не доводит индикатор до конца, как будто только до 99%
     private fun updateGlobalProgressIndicator(
         totalTimeMs: Long,
         fixedTimeForSet: Long,
@@ -190,17 +190,24 @@ class WorkoutActivity : AppCompatActivity() {
         binding.globalProgressIndicator.progress = (timePassedSec / totalTimeSec * 100).toInt()
     }
 
+    //надо отрефакторить
     private fun switchStagesNames(){
-        with(binding){
+        with(binding) {
             when (isWorkTime) {
                 null -> {
-                   /*currentStageView.text = resources.*/
+                    upcomingStageView.text = resources.getText(R.string.work_text)
+                    currentStageView.text = resources.getText(R.string.preparation_text)
+                    complitedStageView.text = resources.getText(R.string.rest_text)
                 }
                 true -> {
-
+                    upcomingStageView.text = resources.getText(R.string.rest_text)
+                    currentStageView.text = resources.getText(R.string.work_text)
+                    complitedStageView.text = resources.getText(R.string.rest_text)
                 }
                 false -> {
-
+                    upcomingStageView.text = resources.getText(R.string.work_text)
+                    currentStageView.text = resources.getText(R.string.rest_text)
+                    complitedStageView.text = resources.getText(R.string.work_text)
                 }
             }
         }
