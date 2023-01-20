@@ -107,6 +107,11 @@ class WorkoutActivity : AppCompatActivity() {
                     binding.startButton.visibility = View.INVISIBLE
                     binding.pauseButton.visibility = View.INVISIBLE
                     binding.restartButton.visibility = View.VISIBLE
+                    updateGlobalProgressIndicator(
+                        totalWorkoutTime,
+                        fixedTimeForSet,
+                        0
+                    )
                     return
                 }
                 startTimer()
@@ -127,6 +132,7 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     //перенести все в отдельный класс таймер после добавления текстовых полей и тд
+    //добавить звуки на тиканье таймера 3 2 1 и звук переключения
     private fun restartTimer() {
         if (isTimerOn) return
         //simply sets all values to default, может как то упростить установку на дефолт
@@ -179,7 +185,7 @@ class WorkoutActivity : AppCompatActivity() {
         return timeToShow
     }
 
-    //некорректно работает, не доводит индикатор до конца, как будто только до 99%
+
     private fun updateGlobalProgressIndicator(
         totalTimeMs: Long,
         fixedTimeForSet: Long,
@@ -192,22 +198,28 @@ class WorkoutActivity : AppCompatActivity() {
 
     //надо отрефакторить
     private fun switchStagesNames(){
+
+        val workSetsLeft = "${(options.numberOfSets - setsDone/2)} left"
         with(binding) {
             when (isWorkTime) {
                 null -> {
-                    upcomingStageView.text = resources.getText(R.string.work_text)
-                    currentStageView.text = resources.getText(R.string.preparation_text)
-                    complitedStageView.text = resources.getText(R.string.rest_text)
+                    upcomingStageView.text = getString(R.string.work_text)
+                    currentStageView.text = getString(R.string.preparation_text)
+                    complitedStageView.text = getString(R.string.rest_text)
+                    setsLeftView.visibility  = View.INVISIBLE
                 }
                 true -> {
-                    upcomingStageView.text = resources.getText(R.string.rest_text)
-                    currentStageView.text = resources.getText(R.string.work_text)
-                    complitedStageView.text = resources.getText(R.string.rest_text)
+                    upcomingStageView.text = getString(R.string.rest_text)
+                    currentStageView.text = getString(R.string.work_text)
+                    complitedStageView.text = getString(R.string.rest_text)
+                    setsLeftView.visibility  = View.VISIBLE
+                    setsLeftView.text = workSetsLeft
                 }
                 false -> {
-                    upcomingStageView.text = resources.getText(R.string.work_text)
-                    currentStageView.text = resources.getText(R.string.rest_text)
-                    complitedStageView.text = resources.getText(R.string.work_text)
+                    upcomingStageView.text = getString(R.string.work_text)
+                    currentStageView.text = getString(R.string.rest_text)
+                    complitedStageView.text = getString(R.string.work_text)
+                    setsLeftView.visibility  = View.INVISIBLE
                 }
             }
         }
