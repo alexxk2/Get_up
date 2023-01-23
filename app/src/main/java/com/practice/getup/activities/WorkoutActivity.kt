@@ -1,5 +1,6 @@
 package com.practice.getup.activities
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -13,6 +14,10 @@ class WorkoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWorkoutBinding
     private lateinit var options: Options
     private lateinit var timer: CountDownTimer
+    private lateinit var countDownPlayer: MediaPlayer
+    private lateinit var workTimePlayer: MediaPlayer
+    private lateinit var restTimePlayer: MediaPlayer
+    private lateinit var workoutFinishPlayer: MediaPlayer
 
     private var totalTimeForLocalTimer: Long = 0
     private var totalTimeForGlobalTimer: Long = 0
@@ -30,6 +35,10 @@ class WorkoutActivity : AppCompatActivity() {
         options = intent.getParcelableExtra(OPTIONS)!!
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
+        countDownPlayer = MediaPlayer.create(this, R.raw.sound_countdown)
+        workTimePlayer = MediaPlayer.create(this, R.raw.sound_work_start)
+        restTimePlayer = MediaPlayer.create(this, R.raw.sound_rest_start)
+        workoutFinishPlayer = MediaPlayer.create(this, R.raw.sound_workout_finish)
 
         val preparationTime = (options.preparingTime * 1000).toLong()
 
@@ -54,6 +63,7 @@ class WorkoutActivity : AppCompatActivity() {
         if (isTimerOn) return
         switchStagesNames()
 
+
         timer = object : CountDownTimer(totalTimeForLocalTimer, 1000) {
 
             val workTime = (options.workTime * 1000).toLong()
@@ -68,6 +78,7 @@ class WorkoutActivity : AppCompatActivity() {
                 false -> restTime
             }
 
+
             override fun onTick(millisUntilFinished: Long) {
 
                 //allows to resume to the timer with the same time left
@@ -80,11 +91,16 @@ class WorkoutActivity : AppCompatActivity() {
                     fixedTimeForSet,
                     millisUntilFinished
                 )
+
+                if (millisUntilFinished <= 3000) countDownPlayer.start()
+
             }
 
             override fun onFinish() {
                 setsDone++
                 isTimerOn = false
+
+
 
                 timePassed += when (isWorkTime) {
                     null -> preparationTime
@@ -102,6 +118,13 @@ class WorkoutActivity : AppCompatActivity() {
                     totalTimeForLocalTimer = restTime
                     isWorkTime = false
                 }
+
+                when (isWorkTime) {
+                    true -> workTimePlayer.start()
+                    else -> restTimePlayer.start()
+
+                }
+
 
                 if (setsDone == options.numberOfSets * 2) {
                     binding.startButton.visibility = View.INVISIBLE
@@ -132,7 +155,7 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     //перенести все в отдельный класс таймер после добавления текстовых полей и тд
-    //добавить звуки на тиканье таймера 3 2 1 и звук переключения
+    //добавить звук об окончании тренировки, звук и плеер готов, надо понять куда вставить
     private fun restartTimer() {
         if (isTimerOn) return
         //simply sets all values to default, может как то упростить установку на дефолт
@@ -192,34 +215,35 @@ class WorkoutActivity : AppCompatActivity() {
         millisUntilFinished: Long
     ) {
         val totalTimeSec = (totalTimeMs / 1000).toDouble()
-        val timePassedSec = (((fixedTimeForSet + timePassed) - millisUntilFinished) / 1000).toDouble()
+        val timePassedSec =
+            (((fixedTimeForSet + timePassed) - millisUntilFinished) / 1000).toDouble()
         binding.globalProgressIndicator.progress = (timePassedSec / totalTimeSec * 100).toInt()
     }
 
     //надо отрефакторить
-    private fun switchStagesNames(){
+    private fun switchStagesNames() {
 
-        val workSetsLeft = "${(options.numberOfSets - setsDone/2)} left"
+        val workSetsLeft = "${(options.numberOfSets - setsDone / 2)} left"
         with(binding) {
             when (isWorkTime) {
                 null -> {
                     upcomingStageView.text = getString(R.string.work_text)
                     currentStageView.text = getString(R.string.preparation_text)
                     complitedStageView.text = getString(R.string.rest_text)
-                    setsLeftView.visibility  = View.INVISIBLE
+                    setsLeftView.visibility = View.INVISIBLE
                 }
                 true -> {
                     upcomingStageView.text = getString(R.string.rest_text)
                     currentStageView.text = getString(R.string.work_text)
                     complitedStageView.text = getString(R.string.rest_text)
-                    setsLeftView.visibility  = View.VISIBLE
+                    setsLeftView.visibility = View.VISIBLE
                     setsLeftView.text = workSetsLeft
                 }
                 false -> {
                     upcomingStageView.text = getString(R.string.work_text)
                     currentStageView.text = getString(R.string.rest_text)
                     complitedStageView.text = getString(R.string.work_text)
-                    setsLeftView.visibility  = View.INVISIBLE
+                    setsLeftView.visibility = View.INVISIBLE
                 }
             }
         }
