@@ -40,7 +40,7 @@ class Timer(private val context: Context, private val options: Options) :
     //параметры для передачи во вьюшки
     private lateinit var localTime: String
     private lateinit var globalTime: String
-    private var progressNumber: Int = 0
+    private var progressNumberForIdicator: Int = 0
 
 
     val fixedTimeForSet = when (isWorkTime) {
@@ -98,8 +98,7 @@ class Timer(private val context: Context, private val options: Options) :
             binding.pauseButton.visibility = View.INVISIBLE
             binding.restartButton.visibility = View.VISIBLE
 
-            */
-/*  workoutFinishPlayer.start()*//*
+  workoutFinishPlayer.start()
 
             updateGlobalProgressIndicator(
                 totalWorkoutTime,
@@ -136,26 +135,17 @@ class Timer(private val context: Context, private val options: Options) :
         binding.restartButton.visibility = View.INVISIBLE
     }
 
-    private fun switchControlButton() {
-        if (isTimerOn) {
-            binding.startButton.visibility = View.INVISIBLE
-            binding.pauseButton.visibility = View.VISIBLE
-        } else {
-            binding.pauseButton.visibility = View.INVISIBLE
-            binding.startButton.visibility = View.VISIBLE
-            binding.startButton.text = resources.getText(R.string.resume_button)
-        }
-    }
+
 
     private fun updateGlobalTime(fixedTimeForSet: Long, millisUntilFinished: Long) {
         val timePassed = fixedTimeForSet - millisUntilFinished
         val totalSecondsLeft = ((totalTimeForGlobalTimer - timePassed) / 1000).toInt()
-        binding.generalTimerView.text = calculateTimeToShow(totalSecondsLeft)
+        globalTime = calculateTimeToShow(totalSecondsLeft)
     }
 
     private fun updateLocalTime(millisUntilFinished: Long) {
         val totalSecondsLeft = (millisUntilFinished / 1000).toInt()
-        binding.localTimerView.text = calculateTimeToShow(totalSecondsLeft)
+        localTime = calculateTimeToShow(totalSecondsLeft)
     }
 
     //padStart adds 0 before time figure if necessary
@@ -175,6 +165,16 @@ class Timer(private val context: Context, private val options: Options) :
         return timeToShow
     }
 
+    private fun switchControlButton() {
+        if (isTimerOn) {
+            binding.startButton.visibility = View.INVISIBLE
+            binding.pauseButton.visibility = View.VISIBLE
+        } else {
+            binding.pauseButton.visibility = View.INVISIBLE
+            binding.startButton.visibility = View.VISIBLE
+            binding.startButton.text = resources.getText(R.string.resume_button)
+        }
+    }
 
     private fun updateGlobalProgressIndicator(
         totalTimeMs: Long,
@@ -184,9 +184,10 @@ class Timer(private val context: Context, private val options: Options) :
         val totalTimeSec = (totalTimeMs / 1000).toDouble()
         val timePassedSec =
             (((fixedTimeForSet + timePassed) - millisUntilFinished) / 1000).toDouble()
-        binding.globalProgressIndicator.progress = (timePassedSec / totalTimeSec * 100).toInt()
+        progressNumberForIdicator = (timePassedSec / totalTimeSec * 100).toInt()
     }
 
 
 
-}*/
+}
+*/

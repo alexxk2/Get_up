@@ -8,7 +8,7 @@ import android.view.View
 import com.practice.getup.R
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.Options
-import com.practice.getup.model.Timer
+
 import java.util.*
 
 class WorkoutActivity : AppCompatActivity() {
@@ -28,7 +28,6 @@ class WorkoutActivity : AppCompatActivity() {
     private var setsDone = -1
     private var isWorkTime: Boolean? = null
     private var timePassed: Long = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -61,6 +60,7 @@ class WorkoutActivity : AppCompatActivity() {
         binding.restartButton.setOnClickListener { restartTimer() }
 
 
+
     }
 
     private fun startTimer() {
@@ -68,8 +68,8 @@ class WorkoutActivity : AppCompatActivity() {
         if (isTimerOn) return
         switchStagesNames()
 
-
         timer = object : CountDownTimer(totalTimeForLocalTimer, 1000) {
+
 
             val workTime = (options.workTime * 1000).toLong()
             val restTime = (options.restTime * 1000).toLong()
@@ -158,7 +158,7 @@ class WorkoutActivity : AppCompatActivity() {
 
     }
 
-    //перенести все в отдельный класс таймер после добавления текстовых полей и тд
+
     private fun restartTimer() {
         if (isTimerOn) return
         //simply sets all values to default, может как то упростить установку на дефолт
@@ -172,6 +172,7 @@ class WorkoutActivity : AppCompatActivity() {
         binding.restartButton.visibility = View.INVISIBLE
     }
 
+    //оставляем
     private fun switchControlButton() {
         if (isTimerOn) {
             binding.startButton.visibility = View.INVISIBLE
@@ -261,10 +262,4 @@ class WorkoutActivity : AppCompatActivity() {
         const val OPTIONS = "OPTIONS"
     }
 
-    //проверять сокрытость свойств
-    val timer2 = Timer(this, options)
-
-    fun xxx(){
-        //timer2.
-    }
 }
