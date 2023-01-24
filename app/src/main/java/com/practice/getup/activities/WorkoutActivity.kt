@@ -8,6 +8,8 @@ import android.view.View
 import com.practice.getup.R
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.Options
+import com.practice.getup.model.Timer
+import java.util.*
 
 class WorkoutActivity : AppCompatActivity() {
 
@@ -47,6 +49,9 @@ class WorkoutActivity : AppCompatActivity() {
 
         totalTimeForLocalTimer = preparationTime
         totalTimeForGlobalTimer = totalWorkoutTime
+
+        updateLocalTime(preparationTime)
+        updateGlobalTime(preparationTime, preparationTime)
 
         binding.startButton.setOnClickListener {
             startTimer()
@@ -91,16 +96,12 @@ class WorkoutActivity : AppCompatActivity() {
                     fixedTimeForSet,
                     millisUntilFinished
                 )
-
                 if (millisUntilFinished <= 3000) countDownPlayer.start()
-
             }
 
             override fun onFinish() {
                 setsDone++
                 isTimerOn = false
-
-
 
                 timePassed += when (isWorkTime) {
                     null -> preparationTime
@@ -119,26 +120,29 @@ class WorkoutActivity : AppCompatActivity() {
                     isWorkTime = false
                 }
 
+                if (setsDone == options.numberOfSets * 2) isWorkTime = null
+
                 when (isWorkTime) {
                     true -> workTimePlayer.start()
-                    else -> restTimePlayer.start()
-
+                    false -> restTimePlayer.start()
+                    null -> workoutFinishPlayer.start()
                 }
-
 
                 if (setsDone == options.numberOfSets * 2) {
                     binding.startButton.visibility = View.INVISIBLE
                     binding.pauseButton.visibility = View.INVISIBLE
                     binding.restartButton.visibility = View.VISIBLE
+
+                    /*  workoutFinishPlayer.start()*/
                     updateGlobalProgressIndicator(
                         totalWorkoutTime,
                         fixedTimeForSet,
                         0
                     )
+
                     return
                 }
                 startTimer()
-
             }
         }.start()
         isTimerOn = true
@@ -155,7 +159,6 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     //перенести все в отдельный класс таймер после добавления текстовых полей и тд
-    //добавить звук об окончании тренировки, звук и плеер готов, надо понять куда вставить
     private fun restartTimer() {
         if (isTimerOn) return
         //simply sets all values to default, может как то упростить установку на дефолт
@@ -229,13 +232,16 @@ class WorkoutActivity : AppCompatActivity() {
                 null -> {
                     upcomingStageView.text = getString(R.string.work_text)
                     currentStageView.text = getString(R.string.preparation_text)
-                    complitedStageView.text = getString(R.string.rest_text)
+                    complitedStageView.visibility = View.INVISIBLE
                     setsLeftView.visibility = View.INVISIBLE
                 }
                 true -> {
                     upcomingStageView.text = getString(R.string.rest_text)
                     currentStageView.text = getString(R.string.work_text)
-                    complitedStageView.text = getString(R.string.rest_text)
+                    complitedStageView.visibility = View.VISIBLE
+                    if (setsDone == 0) {
+                        complitedStageView.text = getString(R.string.preparation_text)
+                    } else complitedStageView.text = getString(R.string.rest_text)
                     setsLeftView.visibility = View.VISIBLE
                     setsLeftView.text = workSetsLeft
                 }
@@ -253,5 +259,12 @@ class WorkoutActivity : AppCompatActivity() {
 
     companion object {
         const val OPTIONS = "OPTIONS"
+    }
+
+    //проверять сокрытость свойств
+    val timer2 = Timer(this, options)
+
+    fun xxx(){
+        //timer2.
     }
 }

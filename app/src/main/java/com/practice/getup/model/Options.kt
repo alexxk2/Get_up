@@ -13,7 +13,7 @@ data class Options(
     val exerciseType: Int
 ) : Parcelable {
     companion object {
-        @JvmStatic val DEFAULT = Options(10,30, 60,5, R.string.exercise2)
+        @JvmStatic val DEFAULT = Options(10,5, 10,2, R.string.exercise2)
     }
 }
 
