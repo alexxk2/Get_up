@@ -5,15 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import com.practice.getup.interfaces.AdvancedTimer
 import com.practice.getup.R
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.Options
+import com.practice.getup.model.SuperTimer
 
 class WorkoutActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWorkoutBinding
     private lateinit var options: Options
     private lateinit var timer: CountDownTimer
+    private lateinit var testTimer: SuperTimer
     private lateinit var countDownPlayer: MediaPlayer
     private lateinit var workTimePlayer: MediaPlayer
     private lateinit var restTimePlayer: MediaPlayer
@@ -52,15 +55,23 @@ class WorkoutActivity : AppCompatActivity() {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime, preparationTime)
 
-        binding.startButton.setOnClickListener {
+        //рабочий таймер закомментирован
+        /*binding.startButton.setOnClickListener {
             startTimer()
 
         }
         binding.pauseButton.setOnClickListener { pauseTimer() }
 
-        binding.restartButton.setOnClickListener { restartTimer() }
+        binding.restartButton.setOnClickListener { restartTimer() }*/
 
 
+        binding.startButton.setOnClickListener {
+            testTimer.start()
+
+        }
+        binding.pauseButton.setOnClickListener { testTimer.pauseTimer() }
+
+        binding.restartButton.setOnClickListener { testTimer.restartTimer() }
 
     }
 
@@ -255,19 +266,213 @@ class WorkoutActivity : AppCompatActivity() {
 
     }
 
-   /* val newTimer = object :com.practice.getup.model.Timer(this, options){
-
-        override fun onTick(millisUntilFinished: Long) {
-           restartTimer()
-        }
-
-    }
-      */
-
-
-
     companion object {
         const val OPTIONS = "OPTIONS"
     }
+
+
+    //делаю инкапсулированный объект
+    private fun createTimer() {
+
+
+         testTimer = object : SuperTimer((options.preparingTime * 1000).toLong(), 1000){
+
+            lateinit var countDownPlayer: MediaPlayer
+            lateinit var workTimePlayer: MediaPlayer
+            lateinit var restTimePlayer: MediaPlayer
+            lateinit var workoutFinishPlayer: MediaPlayer
+            var totalTimeForLocalTimer: Long = 0
+            var totalTimeForGlobalTimer: Long = 0
+            var isTimerOn = false
+
+            var setsDone = -1
+            var isWorkTime: Boolean? = null
+            var timePassed: Long = 0
+
+            val workTime = (options.workTime * 1000).toLong()
+            val restTime = (options.restTime * 1000).toLong()
+            val preparationTime = (options.preparingTime * 1000).toLong()
+            val numberOfSets = (options.numberOfSets)
+            val totalWorkoutTime = (workTime + restTime) * numberOfSets + preparationTime
+
+            val fixedTimeForSet = when (isWorkTime) {
+                null -> preparationTime
+                true -> workTime
+                false -> restTime
+            }
+
+
+            override fun onTick(millisUntilFinished: Long) {
+                isTimerOn = true
+                switchStagesNames()
+                //allows to resume to the timer with the same time left
+                totalTimeForLocalTimer = millisUntilFinished
+
+                updateLocalTime(millisUntilFinished)
+                updateGlobalTime(fixedTimeForSet, millisUntilFinished)
+                updateGlobalProgressIndicator(
+                    fixedTimeForSet,
+                    millisUntilFinished
+                )
+                if (millisUntilFinished <= 3000) countDownPlayer.start()
+            }
+
+            override fun onFinish() {
+                setsDone++
+                isTimerOn = false
+
+                timePassed += when (isWorkTime) {
+                    null -> preparationTime
+                    true -> workTime
+                    false -> restTime
+                }
+
+                totalTimeForGlobalTimer -= fixedTimeForSet
+
+                if (isWorkTime == false || isWorkTime == null) {
+                    totalTimeForLocalTimer = workTime
+                    isWorkTime = true
+
+                } else {
+                    totalTimeForLocalTimer = restTime
+                    isWorkTime = false
+                }
+
+                if (setsDone == options.numberOfSets * 2) isWorkTime = null
+
+                when (isWorkTime) {
+                    true -> workTimePlayer.start()
+                    false -> restTimePlayer.start()
+                    null -> workoutFinishPlayer.start()
+                }
+
+                if (setsDone == options.numberOfSets * 2) {
+                    binding.startButton.visibility = View.INVISIBLE
+                    binding.pauseButton.visibility = View.INVISIBLE
+                    binding.restartButton.visibility = View.VISIBLE
+
+                    /*  workoutFinishPlayer.start()*/
+                    updateGlobalProgressIndicator(
+                        fixedTimeForSet,
+                        0
+                    )
+
+                    return
+                }
+                start()
+            }
+
+             override fun pauseTimer() {
+                if (!isTimerOn) return
+                timer.cancel()
+                isTimerOn = false
+                switchControlButton()
+
+            }
+
+             override fun restartTimer() {
+                if (isTimerOn) return
+                //simply sets all values to default, может как то упростить установку на дефолт
+                totalTimeForLocalTimer = ((options.preparingTime) * 1000).toLong()
+                totalTimeForGlobalTimer =
+                    with(options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
+                setsDone = -1
+                isWorkTime = null
+                timePassed = 0
+                startTimer()
+                binding.restartButton.visibility = View.INVISIBLE
+            }
+
+            private fun switchControlButton() {
+                if (isTimerOn) {
+                    binding.startButton.visibility = View.INVISIBLE
+                    binding.pauseButton.visibility = View.VISIBLE
+                } else {
+                    binding.pauseButton.visibility = View.INVISIBLE
+                    binding.startButton.visibility = View.VISIBLE
+                    binding.startButton.text = resources.getText(R.string.resume_button)
+                }
+            }
+
+            private fun updateGlobalTime(fixedTimeForSet: Long, millisUntilFinished: Long) {
+                val timePassed = fixedTimeForSet - millisUntilFinished
+                val totalSecondsLeft = ((totalTimeForGlobalTimer - timePassed) / 1000).toInt()
+                binding.generalTimerView.text = calculateTimeForTimersUpdaters(totalSecondsLeft)
+            }
+
+            private fun updateLocalTime(millisUntilFinished: Long) {
+                val totalSecondsLeft = (millisUntilFinished / 1000).toInt()
+                binding.localTimerView.text = calculateTimeForTimersUpdaters(totalSecondsLeft)
+            }
+
+            private fun calculateTimeForTimersUpdaters(totalSecondsLeft: Int): String {
+
+                val secondsToShow = (totalSecondsLeft % 60).toString().padStart(2, '0')
+                val minutesToShow = ((totalSecondsLeft / 60) % 60).toString().padStart(2, '0')
+                val hoursToShow = (totalSecondsLeft / 3600)
+
+                val timeToShow = when {
+                    (hoursToShow > 0) -> {
+                        hoursToShow.toString().padStart(2, '0')
+                        "$hoursToShow : $minutesToShow : $secondsToShow"
+                    }
+                    else -> "$minutesToShow : $secondsToShow"
+                }
+                return timeToShow
+            }
+
+
+            private fun updateGlobalProgressIndicator(
+                fixedTimeForSet: Long,
+                millisUntilFinished: Long
+            ) {
+                val totalTimeMs = with(options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
+                val totalTimeSec = (totalTimeMs / 1000).toDouble()
+                val timePassedSec =
+                    (((fixedTimeForSet + timePassed) - millisUntilFinished) / 1000).toDouble()
+                binding.globalProgressIndicator.progress = (timePassedSec / totalTimeSec * 100).toInt()
+            }
+
+
+            //надо отрефакторить
+            private fun switchStagesNames() {
+
+                val workSetsLeft = "${(options.numberOfSets - setsDone / 2)} left"
+                with(binding) {
+                    when (isWorkTime) {
+                        null -> {
+                            upcomingStageView.text = getString(R.string.work_text)
+                            currentStageView.text = getString(R.string.preparation_text)
+                            complitedStageView.visibility = View.INVISIBLE
+                            setsLeftView.visibility = View.INVISIBLE
+                        }
+                        true -> {
+                            upcomingStageView.text = getString(R.string.rest_text)
+                            currentStageView.text = getString(R.string.work_text)
+                            complitedStageView.visibility = View.VISIBLE
+                            if (setsDone == 0) {
+                                complitedStageView.text = getString(R.string.preparation_text)
+                            } else complitedStageView.text = getString(R.string.rest_text)
+                            setsLeftView.visibility = View.VISIBLE
+                            setsLeftView.text = workSetsLeft
+                        }
+                        false -> {
+                            upcomingStageView.text = getString(R.string.work_text)
+                            currentStageView.text = getString(R.string.rest_text)
+                            complitedStageView.text = getString(R.string.work_text)
+                            setsLeftView.visibility = View.INVISIBLE
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+
+    }
+
+
+
 
 }
