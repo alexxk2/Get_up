@@ -8,7 +8,7 @@ import android.view.View
 import com.practice.getup.R
 
 
-class Timer(private val context: Context, private val options: Options) :
+abstract class Timer(private val context: Context, private val options: Options) :
     CountDownTimer((options.preparingTime * 1000).toLong(), 1000) {
 
 
@@ -18,16 +18,17 @@ class Timer(private val context: Context, private val options: Options) :
 
 
     private var isTimerOn = false
-    private var setsDone = -1 //для передачи во вьюшку
+    private var setsDone = -1
 
-    private var isWorkTime: Boolean? = null //для передачи во вьюшку
+    private var isWorkTime: Boolean? = null
     private var timePassed: Long = 0
 
     // плееры для звуков
     private val countDownPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.sound_countdown)
     private val workTimePlayer: MediaPlayer = MediaPlayer.create(context, R.raw.sound_work_start)
     private val restTimePlayer: MediaPlayer = MediaPlayer.create(context, R.raw.sound_rest_start)
-    private val workoutFinishPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.sound_workout_finish)
+    private val workoutFinishPlayer: MediaPlayer =
+        MediaPlayer.create(context, R.raw.sound_workout_finish)
 
     //константы из options
     private val preparationTime = (options.preparingTime * 1000).toLong()
@@ -37,13 +38,7 @@ class Timer(private val context: Context, private val options: Options) :
     private val totalWorkoutTime = (workTime + restTime) * numberOfSets + preparationTime
 
 
-    //параметры для передачи во вьюшки
-    private lateinit var localTime: String
-    private lateinit var globalTime: String
-    private var progressNumberForIdicator: Int = 0
-
-
-    val fixedTimeForSet = when (isWorkTime) {
+    private val fixedTimeForSet = when (isWorkTime) {
         null -> preparationTime
         true -> workTime
         false -> restTime
@@ -98,7 +93,7 @@ class Timer(private val context: Context, private val options: Options) :
             binding.pauseButton.visibility = View.INVISIBLE
             binding.restartButton.visibility = View.VISIBLE
 
-  workoutFinishPlayer.start()
+            workoutFinishPlayer.start()
 
             updateGlobalProgressIndicator(
                 totalWorkoutTime,
@@ -134,7 +129,6 @@ class Timer(private val context: Context, private val options: Options) :
         startTimer()
         binding.restartButton.visibility = View.INVISIBLE
     }
-
 
 
     private fun updateGlobalTime(fixedTimeForSet: Long, millisUntilFinished: Long) {
@@ -173,6 +167,7 @@ class Timer(private val context: Context, private val options: Options) :
             binding.pauseButton.visibility = View.INVISIBLE
             binding.startButton.visibility = View.VISIBLE
             binding.startButton.text = resources.getText(R.string.resume_button)
+
         }
     }
 
@@ -186,7 +181,6 @@ class Timer(private val context: Context, private val options: Options) :
             (((fixedTimeForSet + timePassed) - millisUntilFinished) / 1000).toDouble()
         progressNumberForIdicator = (timePassedSec / totalTimeSec * 100).toInt()
     }
-
 
 
 }

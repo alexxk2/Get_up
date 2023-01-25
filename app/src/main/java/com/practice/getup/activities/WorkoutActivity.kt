@@ -9,8 +9,6 @@ import com.practice.getup.R
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.Options
 
-import java.util.*
-
 class WorkoutActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWorkoutBinding
@@ -28,6 +26,8 @@ class WorkoutActivity : AppCompatActivity() {
     private var setsDone = -1
     private var isWorkTime: Boolean? = null
     private var timePassed: Long = 0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -54,6 +54,7 @@ class WorkoutActivity : AppCompatActivity() {
 
         binding.startButton.setOnClickListener {
             startTimer()
+
         }
         binding.pauseButton.setOnClickListener { pauseTimer() }
 
@@ -92,11 +93,11 @@ class WorkoutActivity : AppCompatActivity() {
                 updateLocalTime(millisUntilFinished)
                 updateGlobalTime(fixedTimeForSet, millisUntilFinished)
                 updateGlobalProgressIndicator(
-                    totalWorkoutTime,
                     fixedTimeForSet,
                     millisUntilFinished
                 )
                 if (millisUntilFinished <= 3000) countDownPlayer.start()
+
             }
 
             override fun onFinish() {
@@ -135,7 +136,6 @@ class WorkoutActivity : AppCompatActivity() {
 
                     /*  workoutFinishPlayer.start()*/
                     updateGlobalProgressIndicator(
-                        totalWorkoutTime,
                         fixedTimeForSet,
                         0
                     )
@@ -158,7 +158,6 @@ class WorkoutActivity : AppCompatActivity() {
 
     }
 
-
     private fun restartTimer() {
         if (isTimerOn) return
         //simply sets all values to default, может как то упростить установку на дефолт
@@ -172,7 +171,6 @@ class WorkoutActivity : AppCompatActivity() {
         binding.restartButton.visibility = View.INVISIBLE
     }
 
-    //оставляем
     private fun switchControlButton() {
         if (isTimerOn) {
             binding.startButton.visibility = View.INVISIBLE
@@ -187,16 +185,15 @@ class WorkoutActivity : AppCompatActivity() {
     private fun updateGlobalTime(fixedTimeForSet: Long, millisUntilFinished: Long) {
         val timePassed = fixedTimeForSet - millisUntilFinished
         val totalSecondsLeft = ((totalTimeForGlobalTimer - timePassed) / 1000).toInt()
-        binding.generalTimerView.text = calculateTimeToShow(totalSecondsLeft)
+        binding.generalTimerView.text = calculateTimeForTimersUpdaters(totalSecondsLeft)
     }
 
     private fun updateLocalTime(millisUntilFinished: Long) {
         val totalSecondsLeft = (millisUntilFinished / 1000).toInt()
-        binding.localTimerView.text = calculateTimeToShow(totalSecondsLeft)
+        binding.localTimerView.text = calculateTimeForTimersUpdaters(totalSecondsLeft)
     }
 
-    //padStart adds 0 before time figure if necessary
-    private fun calculateTimeToShow(totalSecondsLeft: Int): String {
+    private fun calculateTimeForTimersUpdaters(totalSecondsLeft: Int): String {
 
         val secondsToShow = (totalSecondsLeft % 60).toString().padStart(2, '0')
         val minutesToShow = ((totalSecondsLeft / 60) % 60).toString().padStart(2, '0')
@@ -214,15 +211,16 @@ class WorkoutActivity : AppCompatActivity() {
 
 
     private fun updateGlobalProgressIndicator(
-        totalTimeMs: Long,
         fixedTimeForSet: Long,
         millisUntilFinished: Long
     ) {
+        val totalTimeMs = with(options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
         val totalTimeSec = (totalTimeMs / 1000).toDouble()
         val timePassedSec =
             (((fixedTimeForSet + timePassed) - millisUntilFinished) / 1000).toDouble()
         binding.globalProgressIndicator.progress = (timePassedSec / totalTimeSec * 100).toInt()
     }
+
 
     //надо отрефакторить
     private fun switchStagesNames() {
@@ -256,6 +254,16 @@ class WorkoutActivity : AppCompatActivity() {
         }
 
     }
+
+   /* val newTimer = object :com.practice.getup.model.Timer(this, options){
+
+        override fun onTick(millisUntilFinished: Long) {
+           restartTimer()
+        }
+
+    }
+      */
+
 
 
     companion object {
