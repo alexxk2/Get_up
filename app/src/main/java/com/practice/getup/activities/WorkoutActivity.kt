@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import com.practice.getup.interfaces.AdvancedTimer
 import com.practice.getup.R
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.Options
@@ -31,7 +30,6 @@ class WorkoutActivity : AppCompatActivity() {
     private var timePassed: Long = 0
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -39,7 +37,8 @@ class WorkoutActivity : AppCompatActivity() {
         options = intent.getParcelableExtra(OPTIONS)!!
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        countDownPlayer = MediaPlayer.create(this, R.raw.sound_countdown)
+        //рабочий таймер закомментирован
+        /*countDownPlayer = MediaPlayer.create(this, R.raw.sound_countdown)
         workTimePlayer = MediaPlayer.create(this, R.raw.sound_work_start)
         restTimePlayer = MediaPlayer.create(this, R.raw.sound_rest_start)
         workoutFinishPlayer = MediaPlayer.create(this, R.raw.sound_workout_finish)
@@ -54,8 +53,8 @@ class WorkoutActivity : AppCompatActivity() {
 
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime, preparationTime)
+*/
 
-        //рабочий таймер закомментирован
         /*binding.startButton.setOnClickListener {
             startTimer()
 
@@ -63,7 +62,7 @@ class WorkoutActivity : AppCompatActivity() {
         binding.pauseButton.setOnClickListener { pauseTimer() }
 
         binding.restartButton.setOnClickListener { restartTimer() }*/
-
+        createTimer()
 
         binding.startButton.setOnClickListener {
             testTimer.start()
@@ -75,7 +74,7 @@ class WorkoutActivity : AppCompatActivity() {
 
     }
 
-    private fun startTimer() {
+    /*private fun startTimer() {
 
         if (isTimerOn) return
         switchStagesNames()
@@ -145,7 +144,7 @@ class WorkoutActivity : AppCompatActivity() {
                     binding.pauseButton.visibility = View.INVISIBLE
                     binding.restartButton.visibility = View.VISIBLE
 
-                    /*  workoutFinishPlayer.start()*/
+                    *//*  workoutFinishPlayer.start()*//*
                     updateGlobalProgressIndicator(
                         fixedTimeForSet,
                         0
@@ -264,25 +263,28 @@ class WorkoutActivity : AppCompatActivity() {
             }
         }
 
-    }
+    }*/
 
     companion object {
         const val OPTIONS = "OPTIONS"
     }
 
 
-    //делаю инкапсулированный объект
+    //делаю инкапсулированный объект #1
     private fun createTimer() {
 
+        var testValue = (options.preparingTime * 1000).toLong()
+        testTimer = object : SuperTimer(testValue, 1000) {
 
-         testTimer = object : SuperTimer((options.preparingTime * 1000).toLong(), 1000){
 
-            lateinit var countDownPlayer: MediaPlayer
-            lateinit var workTimePlayer: MediaPlayer
-            lateinit var restTimePlayer: MediaPlayer
-            lateinit var workoutFinishPlayer: MediaPlayer
-            var totalTimeForLocalTimer: Long = 0
-            var totalTimeForGlobalTimer: Long = 0
+            val countDownPlayer: MediaPlayer = MediaPlayer()
+            val workTimePlayer: MediaPlayer = MediaPlayer()
+            val restTimePlayer: MediaPlayer = MediaPlayer()
+            val workoutFinishPlayer: MediaPlayer = MediaPlayer()
+
+            var totalTimeForLocalTimer: Long = (options.preparingTime * 1000).toLong()
+            var totalTimeForGlobalTimer: Long =
+                with(options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
             var isTimerOn = false
 
             var setsDone = -1
@@ -295,10 +297,16 @@ class WorkoutActivity : AppCompatActivity() {
             val numberOfSets = (options.numberOfSets)
             val totalWorkoutTime = (workTime + restTime) * numberOfSets + preparationTime
 
-            val fixedTimeForSet = when (isWorkTime) {
+            val fixedSetTime = when (isWorkTime) {
                 null -> preparationTime
                 true -> workTime
                 false -> restTime
+            }
+
+            init {
+                updateLocalTime(preparationTime)
+                updateGlobalTime(preparationTime)
+                millisInFuture = 50_000L
             }
 
 
@@ -309,9 +317,8 @@ class WorkoutActivity : AppCompatActivity() {
                 totalTimeForLocalTimer = millisUntilFinished
 
                 updateLocalTime(millisUntilFinished)
-                updateGlobalTime(fixedTimeForSet, millisUntilFinished)
+                updateGlobalTime(millisUntilFinished)
                 updateGlobalProgressIndicator(
-                    fixedTimeForSet,
                     millisUntilFinished
                 )
                 if (millisUntilFinished <= 3000) countDownPlayer.start()
@@ -326,8 +333,8 @@ class WorkoutActivity : AppCompatActivity() {
                     true -> workTime
                     false -> restTime
                 }
-
-                totalTimeForGlobalTimer -= fixedTimeForSet
+                    //10 - 10
+                totalTimeForGlobalTimer -= fixedSetTime
 
                 if (isWorkTime == false || isWorkTime == null) {
                     totalTimeForLocalTimer = workTime
@@ -337,6 +344,8 @@ class WorkoutActivity : AppCompatActivity() {
                     totalTimeForLocalTimer = restTime
                     isWorkTime = false
                 }
+                changeLocalTime()
+//                changeMillisInFuture(totalTimeForLocalTimer)
 
                 if (setsDone == options.numberOfSets * 2) isWorkTime = null
 
@@ -353,16 +362,15 @@ class WorkoutActivity : AppCompatActivity() {
 
                     /*  workoutFinishPlayer.start()*/
                     updateGlobalProgressIndicator(
-                        fixedTimeForSet,
                         0
                     )
 
                     return
                 }
-                start()
+                testTimer.start()
             }
 
-             override fun pauseTimer() {
+            override fun pauseTimer() {
                 if (!isTimerOn) return
                 timer.cancel()
                 isTimerOn = false
@@ -370,7 +378,7 @@ class WorkoutActivity : AppCompatActivity() {
 
             }
 
-             override fun restartTimer() {
+            override fun restartTimer() {
                 if (isTimerOn) return
                 //simply sets all values to default, может как то упростить установку на дефолт
                 totalTimeForLocalTimer = ((options.preparingTime) * 1000).toLong()
@@ -379,7 +387,7 @@ class WorkoutActivity : AppCompatActivity() {
                 setsDone = -1
                 isWorkTime = null
                 timePassed = 0
-                startTimer()
+                testTimer.start()
                 binding.restartButton.visibility = View.INVISIBLE
             }
 
@@ -394,9 +402,10 @@ class WorkoutActivity : AppCompatActivity() {
                 }
             }
 
-            private fun updateGlobalTime(fixedTimeForSet: Long, millisUntilFinished: Long) {
-                val timePassed = fixedTimeForSet - millisUntilFinished
-                val totalSecondsLeft = ((totalTimeForGlobalTimer - timePassed) / 1000).toInt()
+            private fun updateGlobalTime(millisUntilFinished: Long) {
+
+                val timePassed = fixedSetTime - millisUntilFinished
+                val totalSecondsLeft = ((totalTimeForGlobalTimer - timePassed) / 1000).toInt()//9000
                 binding.generalTimerView.text = calculateTimeForTimersUpdaters(totalSecondsLeft)
             }
 
@@ -422,15 +431,14 @@ class WorkoutActivity : AppCompatActivity() {
             }
 
 
-            private fun updateGlobalProgressIndicator(
-                fixedTimeForSet: Long,
-                millisUntilFinished: Long
-            ) {
-                val totalTimeMs = with(options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
+            private fun updateGlobalProgressIndicator(millisUntilFinished: Long) {
+                val totalTimeMs =
+                    with(options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
                 val totalTimeSec = (totalTimeMs / 1000).toDouble()
                 val timePassedSec =
-                    (((fixedTimeForSet + timePassed) - millisUntilFinished) / 1000).toDouble()
-                binding.globalProgressIndicator.progress = (timePassedSec / totalTimeSec * 100).toInt()
+                    (((fixedSetTime + timePassed) - millisUntilFinished) / 1000).toDouble()
+                binding.globalProgressIndicator.progress =
+                    (timePassedSec / totalTimeSec * 100).toInt()
             }
 
 
@@ -467,12 +475,20 @@ class WorkoutActivity : AppCompatActivity() {
 
             }
 
+            fun changeLocalTime(){
+                testValue = totalTimeForLocalTimer
+            }
+
         }
 
 
+
     }
+    //делаю инкапсулированный объект #2
+    private fun createTimer2(){
 
 
+    }
 
 
 }

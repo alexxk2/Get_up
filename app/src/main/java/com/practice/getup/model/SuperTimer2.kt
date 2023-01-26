@@ -3,7 +3,7 @@ package com.practice.getup.model
 import android.os.CountDownTimer
 import com.practice.getup.interfaces.AdvancedTimer
 
-abstract class SuperTimer(var millisInFuture: Long, countDownInterval: Long) : CountDownTimer(
+abstract class SuperTimer2(var millisInFuture: Long, countDownInterval: Long) : CountDownTimer(
     millisInFuture,
     countDownInterval
 ), AdvancedTimer {
