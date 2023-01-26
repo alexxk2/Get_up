@@ -8,7 +8,7 @@ abstract class SuperTimer(var millisInFuture: Long, countDownInterval: Long) : C
     countDownInterval
 ), AdvancedTimer {
 
-    //abstract override fun onTick(millisUntilFinished: Long)
+    abstract override fun onTick(millisUntilFinished: Long)
 
     abstract override fun onFinish()
 
@@ -16,7 +16,5 @@ abstract class SuperTimer(var millisInFuture: Long, countDownInterval: Long) : C
 
     abstract override fun restartTimer()
 
-    fun changeMillisInFuture(newTotalTimeForLocal: Long){
-        millisInFuture = newTotalTimeForLocal
-    }
+
 }
