@@ -2,7 +2,7 @@ package com.practice.getup.interfaces
 
 interface AdvancedTimer {
 
-    //fun start()
+    fun start()
 
     fun pauseTimer()
 
