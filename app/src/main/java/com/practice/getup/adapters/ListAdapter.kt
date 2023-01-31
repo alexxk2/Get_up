@@ -61,6 +61,7 @@ class ListAdapter(
             buttonAdd.tag = item
         }
 
+         //TODO add normal pictures not gif
         //load gif images via Glide
         Glide.with(context).load(item.gifImageResourceId).into(holder.binding.itemGifImage)
 

@@ -17,7 +17,7 @@ class WorkoutActivity : AppCompatActivity() {
     private lateinit var options: Options
     private lateinit var timer: SuperTimer
 
-
+    //TODO не сохраняет текущее положение данных при повороте во всех активностях
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -35,9 +35,10 @@ class WorkoutActivity : AppCompatActivity() {
 
         binding.restartButton.setOnClickListener { timer.restartTimer() }
 
+
     }
 
-//    идея: сделать recycler view (кастомный с анимацией) и поместить его в объект таймера, там можно
+//    TODO идея: сделать recycler view (кастомный с анимацией) и поместить его в объект таймера, там можно
 //    будет привязать вьюхолдеры к любым данным в объекте, а значит можно будет вертеть recycler view
 //    как хочешь и кнопки сделать активные, надо найти как сделать, чтобы recycler view сам крутился +
 //    была одна выделенная вьюшка

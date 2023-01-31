@@ -49,6 +49,7 @@ class ListActivity : AppCompatActivity() {
                 Snackbar.make(binding.recyclerView, R.string.snackbar_delete, Snackbar.LENGTH_SHORT)
                     .setAction(R.string.snackbar_got_it) {}
                     .show()
+
             }
             override fun onClickExercise(exercise: Exercise) {
                 val intent = Intent(this@ListActivity, DetailActivity::class.java)
