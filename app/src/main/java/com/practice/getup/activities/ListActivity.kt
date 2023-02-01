@@ -3,6 +3,7 @@ package com.practice.getup.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.Animation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
@@ -24,6 +25,8 @@ class ListActivity : AppCompatActivity() {
 
         loadRecycleView(DataSource().loadExercise())
 
+        //TODO когда отжимаешь все чипы то надо, чтобы все пропадало или сделать, чтобы all levels
+        //было не отжимаемым
         with(binding)
         {
             chipEasy.setOnClickListener {
@@ -49,6 +52,8 @@ class ListActivity : AppCompatActivity() {
                 Snackbar.make(binding.recyclerView, R.string.snackbar_delete, Snackbar.LENGTH_SHORT)
                     .setAction(R.string.snackbar_got_it) {}
                     .show()
+                //binding.recyclerView.smoothScrollToPosition(4)
+
 
             }
             override fun onClickExercise(exercise: Exercise) {
@@ -62,6 +67,7 @@ class ListActivity : AppCompatActivity() {
                     .show()
             }
         })
+
 
         binding.recyclerView.setHasFixedSize(true)
     }
