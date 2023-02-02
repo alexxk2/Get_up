@@ -4,7 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
 import com.practice.getup.adapters.ListAdapter
@@ -52,8 +55,10 @@ class ListActivity : AppCompatActivity() {
                 Snackbar.make(binding.recyclerView, R.string.snackbar_delete, Snackbar.LENGTH_SHORT)
                     .setAction(R.string.snackbar_got_it) {}
                     .show()
-                //binding.recyclerView.smoothScrollToPosition(4)
 
+                //работает, но надо фиксить чтобы анимация не пропадала
+                binding.recyclerView.smoothScrollToPosition(4)
+                binding.recyclerView[4].animation = AnimationUtils.loadAnimation(this@ListActivity, R.anim.has_focus_animation)
 
             }
             override fun onClickExercise(exercise: Exercise) {
@@ -68,7 +73,7 @@ class ListActivity : AppCompatActivity() {
             }
         })
 
-
+        binding.recyclerView.startLayoutAnimation()
         binding.recyclerView.setHasFixedSize(true)
     }
 }

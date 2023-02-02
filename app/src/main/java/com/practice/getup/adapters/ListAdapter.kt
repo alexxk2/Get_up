@@ -4,7 +4,10 @@ import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.practice.getup.R
@@ -20,10 +23,9 @@ class ListAdapter(
 
 ): RecyclerView.Adapter<ListAdapter.ListViewHolder>(), View.OnClickListener{
 
+
     //create viewholder for adapter via binding
-    class ListViewHolder(
-        val binding: ListItemBinding
-    ): RecyclerView.ViewHolder(binding.root)
+    class ListViewHolder(val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root)
 
     //create onClick method (necessary)
     override fun onClick(v: View?) {
@@ -45,6 +47,7 @@ class ListAdapter(
         binding.buttonDelete.setOnClickListener(this)
         binding.buttonAdd.setOnClickListener(this)
 
+
         return ListViewHolder(binding)
     }
 
@@ -60,6 +63,7 @@ class ListAdapter(
             buttonDelete.tag = item
             buttonAdd.tag = item
         }
+
 
          //TODO add normal pictures not gif
         //load gif images via Glide
@@ -92,6 +96,8 @@ class ListAdapter(
 
 
     }
+
+
 
     override fun getItemCount() = dataSet.size
 
