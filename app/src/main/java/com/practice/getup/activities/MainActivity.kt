@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.databinding.ActivityMainBinding
 import com.practice.getup.model.Options
 

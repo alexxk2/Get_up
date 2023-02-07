@@ -6,23 +6,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import androidx.activity.viewModels
 import com.practice.getup.R
+import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.Options
 import com.practice.getup.model.SuperTimer
 
+
 class WorkoutActivity : AppCompatActivity() {
 
+    private val viewModel: WorkoutViewModel by viewModels{ViewModelFactory(this)}
+
     private lateinit var binding: ActivityWorkoutBinding
-    private lateinit var options: Options
+    private lateinit var _options: Options
+    val options = _options
     private lateinit var timer: SuperTimer
+
 
     //TODO не сохраняет текущее положение данных при повороте во всех активностях
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
-        options = intent.getParcelableExtra(OPTIONS)!!
+        _options = intent.getParcelableExtra(OPTIONS)!!
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         createTimer(this)
@@ -49,10 +56,10 @@ class WorkoutActivity : AppCompatActivity() {
 
             private lateinit var temporaryTimer: CountDownTimer
 
-            val workTime = (options.workTime * 1000).toLong()
-            val restTime = (options.restTime * 1000).toLong()
-            val preparationTime = (options.preparingTime * 1000).toLong()
-            val numberOfSets = (options.numberOfSets)
+            val workTime = (_options.workTime * 1000).toLong()
+            val restTime = (_options.restTime * 1000).toLong()
+            val preparationTime = (_options.preparingTime * 1000).toLong()
+            val numberOfSets = (_options.numberOfSets)
             val totalWorkoutTime = (workTime + restTime) * numberOfSets + preparationTime
 
             val countDownPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.sound_countdown)
@@ -123,7 +130,7 @@ class WorkoutActivity : AppCompatActivity() {
                         }
 
 
-                        if (setsDone == options.numberOfSets * 2) isWorkTime = null
+                        if (setsDone == _options.numberOfSets * 2) isWorkTime = null
 
                         when (isWorkTime) {
                             true -> workTimePlayer.start()
@@ -131,12 +138,10 @@ class WorkoutActivity : AppCompatActivity() {
                             null -> finishTimePlayer.start()
                         }
 
-                        if (setsDone == options.numberOfSets * 2) {
+                        if (setsDone == _options.numberOfSets * 2) {
                             binding.startButton.visibility = View.INVISIBLE
                             binding.pauseButton.visibility = View.INVISIBLE
                             binding.restartButton.visibility = View.VISIBLE
-
-                            //updateGlobalProgressIndicator(0)
 
                             return
                         }
@@ -160,9 +165,9 @@ class WorkoutActivity : AppCompatActivity() {
             override fun restartTimer() {
                 if (isTimerOn) return
                 //simply sets all values to default, может как то упростить установку на дефолт
-                totalTimeForLocalTimer = ((options.preparingTime) * 1000).toLong()
+                totalTimeForLocalTimer = ((_options.preparingTime) * 1000).toLong()
                 totalTimeForGlobalTimer =
-                    with(options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
+                    with(_options) { ((workTime + restTime) * numberOfSets + preparingTime) * 1000 }.toLong()
                 setsDone = -1
                 isWorkTime = null
                 timePassed = 0
@@ -222,7 +227,7 @@ class WorkoutActivity : AppCompatActivity() {
             //надо отрефакторить
             private fun switchStagesNames() {
 
-                val workSetsLeft = "${(options.numberOfSets - setsDone / 2)} left"
+                val workSetsLeft = "${(_options.numberOfSets - setsDone / 2)} left"
                 with(binding) {
                     when (isWorkTime) {
                         null -> {
