@@ -1,27 +1,22 @@
 package com.practice.getup.activities
 
-import android.content.Context
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import androidx.activity.viewModels
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.Options
-import com.practice.getup.model.SuperTimer
 
 
 class WorkoutActivity : AppCompatActivity() {
 
-    private val viewModel: WorkoutViewModel by viewModels{ViewModelFactory(this)}
 
     private lateinit var binding: ActivityWorkoutBinding
-    private lateinit var _options: Options
-    val options = _options
-    private lateinit var timer: SuperTimer
+
+    private val viewModel: WorkoutViewModel by viewModels{ViewModelFactory(this)}
+    //private lateinit var timer: SuperTimer
 
 
     //TODO не сохраняет текущее положение данных при повороте во всех активностях
@@ -29,10 +24,32 @@ class WorkoutActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        _options = intent.getParcelableExtra(OPTIONS)!!
+
+
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        createTimer(this)
+        viewModel.isTimerOn.observe(this) { isTimerOn ->
+            switchControlButton(isTimerOn)
+        }
+
+        viewModel.localTimeToShow.observe(this) { localTimeToShow ->
+            binding.localTimerView.text = localTimeToShow
+        }
+
+        viewModel.globalTimeToShow.observe(this) { globalTimeToShow ->
+            binding.generalTimerView.text = globalTimeToShow
+        }
+
+        viewModel.indicatorProgressValue.observe(this) { indicatorProgressValue ->
+            binding.globalProgressIndicator.progress = indicatorProgressValue
+        }
+
+        binding.startButton.setOnClickListener { viewModel.startTimer() }
+        binding.pauseButton.setOnClickListener { viewModel.pauseTimer() }
+        //TODO изменить цвет нажатой клавиши - сейчас фиолетовый
+        binding.restartButton.setOnClickListener { viewModel.restartTimer() }
+
+       /* createTimer(this)
 
         binding.startButton.setOnClickListener {
             timer.start()
@@ -40,16 +57,38 @@ class WorkoutActivity : AppCompatActivity() {
         }
         binding.pauseButton.setOnClickListener { timer.pauseTimer() }
 
-        binding.restartButton.setOnClickListener { timer.restartTimer() }
+        binding.restartButton.setOnClickListener { timer.restartTimer() }*/
 
 
+    }
+
+
+    //TODO готово для переноса
+    private fun switchControlButton(isTimerOn: Boolean?) {
+        when (isTimerOn) {
+            true -> {
+                binding.startButton.visibility = View.INVISIBLE
+                binding.pauseButton.visibility = View.VISIBLE
+            }
+            false -> {
+                binding.startButton.text = resources.getText(R.string.resume_button)
+                binding.pauseButton.visibility = View.INVISIBLE
+                binding.startButton.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.startButton.text = resources.getText(R.string.start_button)
+                binding.pauseButton.visibility = View.INVISIBLE
+                binding.startButton.visibility = View.VISIBLE
+
+            }
+        }
     }
 
 //    TODO идея: сделать recycler view (кастомный с анимацией) и поместить его в объект таймера, там можно
 //    будет привязать вьюхолдеры к любым данным в объекте, а значит можно будет вертеть recycler view
 //    как хочешь и кнопки сделать активные, надо найти как сделать, чтобы recycler view сам крутился +
 //    была одна выделенная вьюшка
-    private fun createTimer(context: Context) {
+   /* private fun createTimer(context: Context) {
 
 
         timer = object : SuperTimer() {
@@ -260,7 +299,7 @@ class WorkoutActivity : AppCompatActivity() {
         }
 
 
-    }
+    }*/
 
     companion object {
         const val OPTIONS = "OPTIONS"
