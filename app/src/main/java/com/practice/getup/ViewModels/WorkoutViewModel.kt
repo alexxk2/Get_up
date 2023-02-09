@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.practice.getup.model.Options
+import com.practice.getup.model.TimerStages
 
 class WorkoutViewModel(private val options: Options) : ViewModel() {
 
@@ -28,12 +29,16 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private var totalTimeForGlobalTimer: Long = totalWorkoutTime
     private var fixedSetTime = preparationTime
 
+
     private var setsDone = -1
     private var isWorkTime: Boolean? = null
     private var timePassed: Long = 0
 
     //тестовая переменная
     var test = 0L
+
+    private var _timerStage = MutableLiveData(TimerStages.PREPARATION)
+    val timerStage: LiveData<TimerStages> = _timerStage
 
     private val _isTimerOn = MutableLiveData<Boolean?>(null)
     val isTimerOn: LiveData<Boolean?> = _isTimerOn
@@ -44,15 +49,14 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private val _globalTimeToShow = MutableLiveData("")
     val globalTimeToShow: LiveData<String> = _globalTimeToShow
 
-    private val _indicatorProgressValue = MutableLiveData(0)
+    private val _indicatorProgressValue = MutableLiveData<Int>()
     val indicatorProgressValue: LiveData<Int> = _indicatorProgressValue
 
 
     init {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
-        //updateGlobalProgressIndicator(preparationTime)
-
+        _indicatorProgressValue.value = 0
     }
 
 
@@ -72,6 +76,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
 
             override fun onTick(millisUntilFinished: Long) {
                 _isTimerOn.value = true
+                _timerStage.value = TimerStages.RESUME
                 //TODO перенести свичстейджес
                 //switchStagesNames()
                 //allows to resume to the timer with the same time left
@@ -79,11 +84,8 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
 
                 updateLocalTime(millisUntilFinished)
                 updateGlobalTime(millisUntilFinished)
-                updateGlobalProgressIndicator(
-                    millisUntilFinished
-                )
+                updateGlobalProgressIndicator(millisUntilFinished)
                 //if (millisUntilFinished <= 3000) countDownPlayer.start()
-
 
             }
 
@@ -103,8 +105,10 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                     isWorkTime = false
                 }
 
-
-                if (setsDone == options.numberOfSets * 2) isWorkTime = null
+                if (setsDone == options.numberOfSets * 2) {
+                    isWorkTime = null
+                    _timerStage.value = TimerStages.RESTART
+                }
 
                 /* when (isWorkTime) {
                      true -> workTimePlayer.start()
@@ -114,12 +118,12 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
 
                 if (setsDone == options.numberOfSets * 2) return
 
+
                 startTimer()
             }
 
         }.start()
         _isTimerOn.value = true
-
     }
 
 
@@ -127,6 +131,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         if (_isTimerOn.value != true) return
         timer.cancel()
         _isTimerOn.value = false
+        _timerStage.value = TimerStages.PAUSE
     }
 
     fun restartTimer() {
@@ -134,7 +139,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         setValuesToDefault()
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
-        updateGlobalProgressIndicator(preparationTime)
     }
 
     private fun setValuesToDefault() {
@@ -145,7 +149,8 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         isWorkTime = null
         _isTimerOn.value = null
         timePassed = 0
-
+        _timerStage.value = TimerStages.PREPARATION
+        _indicatorProgressValue.value = 0
     }
 
     private fun updateGlobalTime(millisUntilFinished: Long) {
@@ -181,26 +186,12 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         val totalTimeSec = (totalWorkoutTime / 1000).toDouble()
         val onTickMethodCorrection: Long = 1000
         val timePassedSec =
-            (((timePassed + fixedSetTime) - (millisUntilFinished )) / 1000).toDouble()
+            ((timePassed + fixedSetTime - (millisUntilFinished - onTickMethodCorrection)) / 1000).toDouble()
 
         _indicatorProgressValue.value = (timePassedSec / totalTimeSec * 100).toInt()
-
-        /*binding.globalProgressIndicator.progress =
-            (timePassedSec / totalTimeSec * 100).toInt()*/
     }
 
-    private fun updateGlobalProgressIndicator2(millisUntilFinished: Long) {
 
-        val totalTimeSec = (totalWorkoutTime / 1000).toDouble()
-        val onTickMethodCorrection: Long = 1000
-        val timePassedSec =
-            (((timePassed + fixedSetTime) - (millisUntilFinished )) / 1000).toDouble()
-
-        _indicatorProgressValue.value = (timePassedSec / totalTimeSec * 100).toInt()
-
-        /*binding.globalProgressIndicator.progress =
-            (timePassedSec / totalTimeSec * 100).toInt()*/
-    }
 
 
     //надо отрефакторить

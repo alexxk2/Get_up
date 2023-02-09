@@ -3,17 +3,21 @@ package com.practice.getup.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.databinding.ActivityWorkoutBinding
-import com.practice.getup.model.Options
+import com.practice.getup.model.TimerStages
 
 
 class WorkoutActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityWorkoutBinding
+    private lateinit var animOfAppear: Animation
+    private lateinit var animOfDisappear: Animation
 
     private val viewModel: WorkoutViewModel by viewModels{ViewModelFactory(this)}
     //private lateinit var timer: SuperTimer
@@ -28,8 +32,13 @@ class WorkoutActivity : AppCompatActivity() {
 
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        viewModel.isTimerOn.observe(this) { isTimerOn ->
-            switchControlButton(isTimerOn)
+        animOfAppear = AnimationUtils.loadAnimation(this, R.anim.appear)
+        animOfDisappear = AnimationUtils.loadAnimation(this, R.anim.disappear)
+
+
+
+        viewModel.timerStage.observe(this) { timerStage ->
+            switchControlButton(timerStage)
         }
 
         viewModel.localTimeToShow.observe(this) { localTimeToShow ->
@@ -62,23 +71,39 @@ class WorkoutActivity : AppCompatActivity() {
 
     }
 
+    private fun switchControlButton(timerStage: TimerStages) {
+        when (timerStage) {
 
-    //TODO готово для переноса
-    private fun switchControlButton(isTimerOn: Boolean?) {
-        when (isTimerOn) {
-            true -> {
-                binding.startButton.visibility = View.INVISIBLE
-                binding.pauseButton.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.startButton.text = resources.getText(R.string.resume_button)
-                binding.pauseButton.visibility = View.INVISIBLE
-                binding.startButton.visibility = View.VISIBLE
-            }
-            else -> {
+            TimerStages.PREPARATION -> {
+                binding.pauseButton.translationX = 0f
+                binding.startButton.translationX = 0f
+
                 binding.startButton.text = resources.getText(R.string.start_button)
                 binding.pauseButton.visibility = View.INVISIBLE
                 binding.startButton.visibility = View.VISIBLE
+                binding.restartButton.visibility = View.INVISIBLE
+            }
+
+            TimerStages.RESUME -> {
+                binding.pauseButton.translationX = -175f
+                binding.startButton.translationX = -175f
+                binding.restartButton.translationX = 175f
+
+                binding.startButton.visibility = View.INVISIBLE
+                binding.pauseButton.visibility = View.VISIBLE
+                binding.restartButton.visibility = View.VISIBLE
+            }
+            TimerStages.PAUSE -> {
+                binding.startButton.text = resources.getText(R.string.resume_button)
+                binding.pauseButton.visibility = View.INVISIBLE
+                binding.startButton.visibility = View.VISIBLE
+
+            }
+            TimerStages.RESTART -> {
+                binding.restartButton.translationX = 0f
+
+                binding.pauseButton.visibility = View.INVISIBLE
+                binding.startButton.visibility = View.INVISIBLE
 
             }
         }

@@ -56,9 +56,11 @@ class ListActivity : AppCompatActivity() {
                     .setAction(R.string.snackbar_got_it) {}
                     .show()
 
-                //работает, но надо фиксить чтобы анимация не пропадала
+                //TODO работает, но надо фиксить чтобы анимация не пропадала
                 binding.recyclerView.smoothScrollToPosition(4)
                 binding.recyclerView[4].animation = AnimationUtils.loadAnimation(this@ListActivity, R.anim.has_focus_animation)
+                binding.recyclerView[4].scaleX =1.2f
+                binding.recyclerView[4].scaleY =1.2f
 
             }
             override fun onClickExercise(exercise: Exercise) {
