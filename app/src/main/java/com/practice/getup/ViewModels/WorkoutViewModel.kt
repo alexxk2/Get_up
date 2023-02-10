@@ -33,15 +33,11 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private var setsDone = -1
     private var isWorkTime: Boolean? = null
     private var timePassed: Long = 0
+    private var isTimerOn:Boolean = false
 
-    //тестовая переменная
-    var test = 0L
 
     private var _timerStage = MutableLiveData(TimerStages.PREPARATION)
     val timerStage: LiveData<TimerStages> = _timerStage
-
-    private val _isTimerOn = MutableLiveData<Boolean?>(null)
-    val isTimerOn: LiveData<Boolean?> = _isTimerOn
 
     private val _localTimeToShow = MutableLiveData("")
     val localTimeToShow: LiveData<String> = _localTimeToShow
@@ -62,7 +58,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
 
      fun startTimer() {
 
-        if (_isTimerOn.value == true) return
+        if (isTimerOn) return
         //TODO перенести свичстейджес
         //switchStagesNames()
 
@@ -72,11 +68,13 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
             false -> restTime
         }
 
+        _timerStage.value = TimerStages.RESUME
+
         timer = object : CountDownTimer(totalTimeForLocalTimer, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
-                _isTimerOn.value = true
-                _timerStage.value = TimerStages.RESUME
+                isTimerOn = true
+
                 //TODO перенести свичстейджес
                 //switchStagesNames()
                 //allows to resume to the timer with the same time left
@@ -91,7 +89,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
 
             override fun onFinish() {
                 setsDone++
-                _isTimerOn.value = false
+                isTimerOn = false
                 timePassed += fixedSetTime
 
                 totalTimeForGlobalTimer -= fixedSetTime
@@ -123,14 +121,14 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
             }
 
         }.start()
-        _isTimerOn.value = true
+        isTimerOn = true
     }
 
 
     fun pauseTimer() {
-        if (_isTimerOn.value != true) return
+        if (!isTimerOn) return
         timer.cancel()
-        _isTimerOn.value = false
+        isTimerOn = false
         _timerStage.value = TimerStages.PAUSE
     }
 
@@ -147,7 +145,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         fixedSetTime = preparationTime
         setsDone = -1
         isWorkTime = null
-        _isTimerOn.value = null
+        isTimerOn = false
         timePassed = 0
         _timerStage.value = TimerStages.PREPARATION
         _indicatorProgressValue.value = 0

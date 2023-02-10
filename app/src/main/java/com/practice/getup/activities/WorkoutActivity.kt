@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.Animation.RESTART
 import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
 import androidx.activity.viewModels
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
@@ -16,8 +19,8 @@ class WorkoutActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityWorkoutBinding
-    private lateinit var animOfAppear: Animation
-    private lateinit var animOfDisappear: Animation
+
+
 
     private val viewModel: WorkoutViewModel by viewModels{ViewModelFactory(this)}
     //private lateinit var timer: SuperTimer
@@ -28,14 +31,7 @@ class WorkoutActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-
-
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
-
-        animOfAppear = AnimationUtils.loadAnimation(this, R.anim.appear)
-        animOfDisappear = AnimationUtils.loadAnimation(this, R.anim.disappear)
-
-
 
         viewModel.timerStage.observe(this) { timerStage ->
             switchControlButton(timerStage)
@@ -75,36 +71,22 @@ class WorkoutActivity : AppCompatActivity() {
         when (timerStage) {
 
             TimerStages.PREPARATION -> {
-                binding.pauseButton.translationX = 0f
-                binding.startButton.translationX = 0f
-
-                binding.startButton.text = resources.getText(R.string.start_button)
-                binding.pauseButton.visibility = View.INVISIBLE
-                binding.startButton.visibility = View.VISIBLE
-                binding.restartButton.visibility = View.INVISIBLE
+               showPrepStageButtons()
             }
 
             TimerStages.RESUME -> {
-                binding.pauseButton.translationX = -175f
-                binding.startButton.translationX = -175f
-                binding.restartButton.translationX = 175f
-
-                binding.startButton.visibility = View.INVISIBLE
-                binding.pauseButton.visibility = View.VISIBLE
-                binding.restartButton.visibility = View.VISIBLE
+                showResumeStageButtons()
+                //binding.pauseButton.animation = animationStartToLeft
+               // binding.restartButton.animation = animationStartToRight
             }
             TimerStages.PAUSE -> {
-                binding.startButton.text = resources.getText(R.string.resume_button)
-                binding.pauseButton.visibility = View.INVISIBLE
-                binding.startButton.visibility = View.VISIBLE
-
+                showPauseStageButtons()
             }
             TimerStages.RESTART -> {
-                binding.restartButton.translationX = 0f
-
-                binding.pauseButton.visibility = View.INVISIBLE
-                binding.startButton.visibility = View.INVISIBLE
-
+                showRestartStageButtons()
+                //binding.startButton.animation = animationEndToRight
+               // binding.pauseButton.animation = animationEndToRight
+                //binding.restartButton.animation = animationEndToLeft
             }
         }
     }
@@ -326,9 +308,40 @@ class WorkoutActivity : AppCompatActivity() {
 
     }*/
 
-    companion object {
+    companion object{
         const val OPTIONS = "OPTIONS"
     }
+
+    private fun showResumeStageButtons() {
+        binding.pauseButton.animate().translationX(-175f)
+        binding.startButton.animate().translationX(-175f)
+        binding.restartButton.animate().translationX(175f)
+        binding.pauseButton.visibility = View.VISIBLE
+        binding.startButton.visibility = View.INVISIBLE
+        binding.restartButton.visibility = View.VISIBLE
+    }
+
+    private fun showPrepStageButtons() {
+        binding.pauseButton.animate().translationX(0f)
+        binding.startButton.animate().translationX(0f)
+        binding.startButton.text = resources.getText(R.string.start_button)
+        binding.pauseButton.visibility = View.INVISIBLE
+        binding.startButton.visibility = View.VISIBLE
+        binding.restartButton.visibility = View.INVISIBLE
+    }
+
+    private fun showPauseStageButtons() {
+        binding.startButton.text = resources.getText(R.string.resume_button)
+        binding.pauseButton.visibility = View.INVISIBLE
+        binding.startButton.visibility = View.VISIBLE
+    }
+
+    private fun showRestartStageButtons() {
+        binding.restartButton.animate().translationX(0f)
+        binding.pauseButton.visibility = View.INVISIBLE
+        binding.startButton.visibility = View.INVISIBLE
+    }
+
 }
 
 

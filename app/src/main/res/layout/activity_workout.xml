@@ -124,6 +124,7 @@
         android:textColor="@color/main_app_color_soft"
         android:textSize="18sp"
         android:visibility="invisible"
+        app:rippleColor = "@color/main_app_color_super_soft"
         app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
         app:layout_constraintStart_toStartOf="@+id/local_timer_view"
         app:layout_constraintTop_toBottomOf="@id/local_timer_view"
