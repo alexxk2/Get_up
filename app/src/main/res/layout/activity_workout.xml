@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".activities.WorkoutActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/local_timer_view"/>
 
     <TextView
         android:id="@+id/local_timer_view"
@@ -36,56 +43,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/current_stage_view"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="110dp"
-        android:gravity="bottom"
-        android:text="@string/preparation_text"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/local_timer_view"
-        app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
-        app:layout_constraintStart_toStartOf="@+id/local_timer_view" />
-
-
-    <TextView
-        android:id="@+id/upcoming_stage_view"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/work_text"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/current_stage_view"
-        app:layout_constraintEnd_toStartOf="@+id/current_stage_view"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/complited_stage_view"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/current_stage_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/current_stage_view" />
-
-
-    <TextView
-        android:id="@+id/sets_left_view"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="bottom"
-        android:textColor="@color/grey"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/current_stage_view"
-        app:layout_constraintStart_toEndOf="@+id/current_stage_view" />
 
 
     <Button
@@ -124,10 +81,10 @@
         android:textColor="@color/main_app_color_soft"
         android:textSize="18sp"
         android:visibility="invisible"
-        app:rippleColor = "@color/main_app_color_super_soft"
         app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
         app:layout_constraintStart_toStartOf="@+id/local_timer_view"
         app:layout_constraintTop_toBottomOf="@id/local_timer_view"
+        app:rippleColor="@color/main_app_color_super_soft"
         app:strokeColor="@color/main_app_color_soft" />
 
 

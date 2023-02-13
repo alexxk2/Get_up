@@ -1,11 +1,13 @@
 package com.practice.getup.ViewModels
 
+import android.content.res.Resources
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.practice.getup.model.Options
 import com.practice.getup.model.TimerStages
+import java.util.ResourceBundle
 
 class WorkoutViewModel(private val options: Options) : ViewModel() {
 
@@ -54,7 +56,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         updateGlobalTime(preparationTime)
         _indicatorProgressValue.value = 0
     }
-
 
      fun startTimer() {
 
