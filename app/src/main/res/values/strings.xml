@@ -91,9 +91,9 @@
     <string name="total_time">WORKOUT TIME</string>
     <string name="colon">:</string>
     <string name="ready_text">READY</string>
-    <string name="sets_left">1 left</string>
+    <string name="sets_left">%1$d left</string>
     <string name="work_text">WORK</string>
     <string name="rest_text">REST</string>
-
+    <string name="empty_string" />
 
 </resources>

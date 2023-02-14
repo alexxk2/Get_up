@@ -9,9 +9,12 @@ import android.view.animation.Animation.RESTART
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
+import com.practice.getup.adapters.WorkoutAdapter
 import com.practice.getup.databinding.ActivityWorkoutBinding
+import com.practice.getup.model.Stage
 import com.practice.getup.model.TimerStages
 
 
@@ -49,6 +52,12 @@ class WorkoutActivity : AppCompatActivity() {
             binding.globalProgressIndicator.progress = indicatorProgressValue
         }
 
+        viewModel.stageList.observe(this){stageList ->
+            binding.recyclerView.layoutManager = LinearLayoutManager(this)
+            binding.recyclerView.adapter = WorkoutAdapter(this,stageList)
+            binding.recyclerView.setHasFixedSize(true)
+        }
+
         binding.startButton.setOnClickListener { viewModel.startTimer() }
         binding.pauseButton.setOnClickListener { viewModel.pauseTimer() }
         //TODO изменить цвет нажатой клавиши - сейчас фиолетовый
@@ -69,27 +78,22 @@ class WorkoutActivity : AppCompatActivity() {
 
     private fun switchControlButton(timerStage: TimerStages) {
         when (timerStage) {
-
             TimerStages.PREPARATION -> {
                showPrepStageButtons()
             }
-
             TimerStages.RESUME -> {
                 showResumeStageButtons()
-                //binding.pauseButton.animation = animationStartToLeft
-               // binding.restartButton.animation = animationStartToRight
             }
             TimerStages.PAUSE -> {
                 showPauseStageButtons()
             }
             TimerStages.RESTART -> {
                 showRestartStageButtons()
-                //binding.startButton.animation = animationEndToRight
-               // binding.pauseButton.animation = animationEndToRight
-                //binding.restartButton.animation = animationEndToLeft
             }
         }
     }
+
+
 
 //    TODO идея: сделать recycler view (кастомный с анимацией) и поместить его в объект таймера, там можно
 //    будет привязать вьюхолдеры к любым данным в объекте, а значит можно будет вертеть recycler view

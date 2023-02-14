@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="64dp">
 
     <TextView
         android:id="@+id/stage_name"
@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginStart="8dp"
-        android:text="@string/sets_left"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="@+id/stage_name"
         app:layout_constraintStart_toEndOf="@id/stage_name"

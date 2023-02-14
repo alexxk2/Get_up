@@ -1,10 +1,10 @@
 package com.practice.getup.activities
 
-import android.app.Activity
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.practice.getup.ViewModels.WorkoutViewModel
-import com.practice.getup.activities.WorkoutActivity.Companion.OPTIONS
+
 
 class ViewModelFactory(private val workoutActivity: WorkoutActivity) : ViewModelProvider.Factory {
 
@@ -21,3 +21,7 @@ class ViewModelFactory(private val workoutActivity: WorkoutActivity) : ViewModel
         return viewModel as T
     }
 }
+
+
+
+

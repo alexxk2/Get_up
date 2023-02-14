@@ -1,18 +1,20 @@
 package com.practice.getup.ViewModels
 
-import android.content.res.Resources
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.practice.getup.R
 import com.practice.getup.model.Options
+import com.practice.getup.model.Stage
 import com.practice.getup.model.TimerStages
-import java.util.ResourceBundle
+import com.practice.getup.activities.UiText
 
 class WorkoutViewModel(private val options: Options) : ViewModel() {
 
 
     private lateinit var timer: CountDownTimer
+
 
     private val workTime = (options.workTime * 1000).toLong()
     private val restTime = (options.restTime * 1000).toLong()
@@ -50,11 +52,14 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private val _indicatorProgressValue = MutableLiveData<Int>()
     val indicatorProgressValue: LiveData<Int> = _indicatorProgressValue
 
+    private val _stageList = MutableLiveData<List<Stage>>()
+    val stageList: LiveData<List<Stage>> = _stageList
 
     init {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
         _indicatorProgressValue.value = 0
+        createStages(numberOfSets)
     }
 
      fun startTimer() {
@@ -190,7 +195,21 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         _indicatorProgressValue.value = (timePassedSec / totalTimeSec * 100).toInt()
     }
 
+    private fun createStages(numberOfSets: Int){
+        val ready = UiText.StringResource(R.string.ready_text)
+        val work = UiText.StringResource(R.string.work_text)
+        val rest = UiText.StringResource(R.string.rest_text)
+        val emptyString = UiText.StringResource(R.string.empty_string)
 
+        val listOfStages = mutableListOf<Stage>()
+
+        for (n in 1 .. numberOfSets){
+            listOfStages.add(Stage(rest,emptyString))
+            listOfStages.add(Stage(work,UiText.StringResource(R.string.sets_left,n)))
+        }
+        listOfStages.add(Stage(ready,emptyString))
+        _stageList.value = listOfStages
+    }
 
 
     //надо отрефакторить

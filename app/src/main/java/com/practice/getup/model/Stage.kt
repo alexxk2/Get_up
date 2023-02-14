@@ -1,6 +1,8 @@
 package com.practice.getup.model
 
+import com.practice.getup.activities.UiText
+
 data class Stage(
-    val stageName: String,
-    val setsLeft:Int
+    val stageName: UiText,
+    val setsLeft: UiText
 )
