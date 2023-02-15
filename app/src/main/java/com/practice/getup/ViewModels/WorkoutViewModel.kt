@@ -40,7 +40,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private var isTimerOn:Boolean = false
 
 
-    private var _timerStage = MutableLiveData(TimerStages.PREPARATION)
+    private val _timerStage = MutableLiveData(TimerStages.PREPARATION)
     val timerStage: LiveData<TimerStages> = _timerStage
 
     private val _localTimeToShow = MutableLiveData("")
@@ -55,11 +55,15 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private val _stageList = MutableLiveData<List<Stage>>()
     val stageList: LiveData<List<Stage>> = _stageList
 
+    private val _currentStagePosition = MutableLiveData<Int>()
+    val currentStagePosition: LiveData<Int> = _currentStagePosition
+
     init {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
         _indicatorProgressValue.value = 0
         createStages(numberOfSets)
+        _currentStagePosition.value = numberOfSets*2
     }
 
      fun startTimer() {
@@ -97,8 +101,10 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                 setsDone++
                 isTimerOn = false
                 timePassed += fixedSetTime
-
+                _currentStagePosition.value = _currentStagePosition.value!! - 1
                 totalTimeForGlobalTimer -= fixedSetTime
+
+
 
                 if (isWorkTime == false || isWorkTime == null) {
                     totalTimeForLocalTimer = workTime
@@ -155,6 +161,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         timePassed = 0
         _timerStage.value = TimerStages.PREPARATION
         _indicatorProgressValue.value = 0
+        _currentStagePosition.value = numberOfSets*2
     }
 
     private fun updateGlobalTime(millisUntilFinished: Long) {
@@ -212,38 +219,5 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     }
 
 
-    //надо отрефакторить
-    /* private fun switchStagesNames() {
 
-         val workSetsLeft = "${(options.numberOfSets - setsDone / 2)} left"
-         with(binding) {
-             when (isWorkTime) {
-                 null -> {
-                     upcomingStageView.text = getString(com.practice.getup.R.string.work_text)
-                     currentStageView.text = getString(com.practice.getup.R.string.preparation_text)
-                     complitedStageView.visibility = android.view.View.INVISIBLE
-                     setsLeftView.visibility = android.view.View.INVISIBLE
-                 }
-                 true -> {
-                     upcomingStageView.text = getString(com.practice.getup.R.string.rest_text)
-                     currentStageView.text = getString(com.practice.getup.R.string.work_text)
-                     complitedStageView.visibility = android.view.View.VISIBLE
-                     if (setsDone == 0) {
-                         complitedStageView.text =
-                             getString(com.practice.getup.R.string.preparation_text)
-                     } else complitedStageView.text =
-                         getString(com.practice.getup.R.string.rest_text)
-                     setsLeftView.visibility = android.view.View.VISIBLE
-                     setsLeftView.text = workSetsLeft
-                 }
-                 false -> {
-                     upcomingStageView.text = getString(com.practice.getup.R.string.work_text)
-                     currentStageView.text = getString(com.practice.getup.R.string.rest_text)
-                     complitedStageView.text = getString(com.practice.getup.R.string.work_text)
-                     setsLeftView.visibility = android.view.View.INVISIBLE
-                 }
-             }
-         }
-
-     }*/
 }

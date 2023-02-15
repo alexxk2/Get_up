@@ -3,18 +3,13 @@ package com.practice.getup.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.Animation.RESTART
-import android.view.animation.AnimationUtils
-import android.view.animation.TranslateAnimation
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.adapters.WorkoutAdapter
 import com.practice.getup.databinding.ActivityWorkoutBinding
-import com.practice.getup.model.Stage
 import com.practice.getup.model.TimerStages
 
 
@@ -54,8 +49,13 @@ class WorkoutActivity : AppCompatActivity() {
 
         viewModel.stageList.observe(this){stageList ->
             binding.recyclerView.layoutManager = LinearLayoutManager(this)
-            binding.recyclerView.adapter = WorkoutAdapter(this,stageList)
+            binding.recyclerView.adapter = WorkoutAdapter(this,0,stageList,)
             binding.recyclerView.setHasFixedSize(true)
+        }
+
+        viewModel.currentStagePosition.observe(this){currentStagePosition->
+            scrollToCurrentStage(currentStagePosition)
+
         }
 
         binding.startButton.setOnClickListener { viewModel.startTimer() }
@@ -63,15 +63,6 @@ class WorkoutActivity : AppCompatActivity() {
         //TODO изменить цвет нажатой клавиши - сейчас фиолетовый
         binding.restartButton.setOnClickListener { viewModel.restartTimer() }
 
-       /* createTimer(this)
-
-        binding.startButton.setOnClickListener {
-            timer.start()
-
-        }
-        binding.pauseButton.setOnClickListener { timer.pauseTimer() }
-
-        binding.restartButton.setOnClickListener { timer.restartTimer() }*/
 
 
     }
@@ -93,6 +84,14 @@ class WorkoutActivity : AppCompatActivity() {
         }
     }
 
+    private fun scrollToCurrentStage(currentStagePosition: Int){
+
+
+        //binding.recyclerView.smoothScrollToPosition(currentStagePosition)
+        binding.recyclerView.smoothScrollBy(0,100)
+        /*binding.recyclerView[currentStagePosition].scaleY = 1.4f
+        binding.recyclerView[currentStagePosition].scaleX = 1.4f*/
+    }
 
 
 //    TODO идея: сделать recycler view (кастомный с анимацией) и поместить его в объект таймера, там можно
