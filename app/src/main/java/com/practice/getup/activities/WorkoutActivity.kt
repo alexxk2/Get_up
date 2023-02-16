@@ -1,11 +1,14 @@
 package com.practice.getup.activities
 
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.adapters.WorkoutAdapter
@@ -51,6 +54,8 @@ class WorkoutActivity : AppCompatActivity() {
             binding.recyclerView.layoutManager = LinearLayoutManager(this)
             binding.recyclerView.adapter = WorkoutAdapter(this,0,stageList,)
             binding.recyclerView.setHasFixedSize(true)
+
+
         }
 
         viewModel.currentStagePosition.observe(this){currentStagePosition->
@@ -62,8 +67,6 @@ class WorkoutActivity : AppCompatActivity() {
         binding.pauseButton.setOnClickListener { viewModel.pauseTimer() }
         //TODO изменить цвет нажатой клавиши - сейчас фиолетовый
         binding.restartButton.setOnClickListener { viewModel.restartTimer() }
-
-
 
     }
 
@@ -88,11 +91,17 @@ class WorkoutActivity : AppCompatActivity() {
 
 
         //binding.recyclerView.smoothScrollToPosition(currentStagePosition)
-        binding.recyclerView.smoothScrollBy(0,100)
-        /*binding.recyclerView[currentStagePosition].scaleY = 1.4f
-        binding.recyclerView[currentStagePosition].scaleX = 1.4f*/
-    }
 
+        //binding.recyclerView.layoutManager?.scrollToPosition(currentStagePosition)
+
+        binding.recyclerView.apply {
+            (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(currentStagePosition,150)
+        }
+
+
+
+    }
+    private fun convertDpToPx(dp: Int) = dp * Resources.getSystem().displayMetrics.density.toInt()
 
 //    TODO идея: сделать recycler view (кастомный с анимацией) и поместить его в объект таймера, там можно
 //    будет привязать вьюхолдеры к любым данным в объекте, а значит можно будет вертеть recycler view
