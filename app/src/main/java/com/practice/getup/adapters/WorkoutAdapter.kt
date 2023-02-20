@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.getup.R
 import com.practice.getup.databinding.WorkoutItemBinding
@@ -13,7 +14,6 @@ import com.practice.getup.activities.UiText
 
 class WorkoutAdapter(
     private val context: Context,
-    private var bestPosition: Int,
     private val dataSet: List<Stage>) :
     RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
@@ -32,17 +32,20 @@ class WorkoutAdapter(
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
         val item = dataSet[position]
 
+
         holder.binding.stageName.text = item.stageName.asString(context)
         holder.binding.numberOfSetsLeft.text = item.setsLeft.asString(context)
 
-      /*  if (position == bestPosition) {
-            holder.binding.stageName.scaleX = 1.3f
-            holder.binding.stageName.scaleY = 1.3f
-        }*/
-        /*if (item.setsLeft > 0) {
-            holder.binding.numberOfSetsLeft.text =
-                context.getString(R.string.sets_left, item.setsLeft)
-        }*/
+        if (item.hasFocus) {
+            //holder.binding.stageName.setTextColor(Color.parseColor("#ff5b56"))
+            holder.binding.constraintLayout.animate().scaleX(1.3f)
+            holder.binding.constraintLayout.animate().scaleY(1.3f)
+        }
+        if (!item.hasFocus) {
+            //holder.binding.stageName.setTextColor(Color.parseColor("#bdbdbd"))
+            holder.binding.constraintLayout.animate().scaleX(1.0f)
+            holder.binding.constraintLayout.animate().scaleY(1.0f)
+        }
 
     }
 
