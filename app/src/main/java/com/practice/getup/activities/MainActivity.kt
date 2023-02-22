@@ -1,5 +1,6 @@
 package com.practice.getup.activities
 
+import android.app.ActivityManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         options = savedInstanceState?.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
 
@@ -50,6 +52,8 @@ class MainActivity : AppCompatActivity() {
         binding.buttonWatchList.setOnClickListener { onListClick() }
 
         binding.buttonStart.setOnClickListener { onStartClick() }
+
+
 
     }
 

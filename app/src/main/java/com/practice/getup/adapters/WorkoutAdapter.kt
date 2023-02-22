@@ -1,22 +1,52 @@
 package com.practice.getup.adapters
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.practice.getup.R
+import com.bumptech.glide.Glide.init
 import com.practice.getup.databinding.WorkoutItemBinding
 import com.practice.getup.model.Stage
-import com.practice.getup.activities.UiText
+
+
+class WorkoutDiffCallback(
+    private val oldList: List<Stage>,
+    private val newList: List<Stage>
+): DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int = oldList.size
+
+    override fun getNewListSize(): Int = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldStage = oldList[oldItemPosition]
+        val newStage = newList[newItemPosition]
+        return oldStage.id == newStage.id
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldStage = oldList[oldItemPosition]
+        val newStage = newList[newItemPosition]
+        return oldStage == newStage
+    }
+}
 
 class WorkoutAdapter(
     private val context: Context,
-    private val dataSet: List<Stage>) :
+    private val dataSetInput: MutableList<Stage>
+    ) :
     RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
+    private var dataSet: List<Stage> = dataSetInput
+
+
+    fun setData(input: MutableList<Stage> ){
+        val diffCallback = WorkoutDiffCallback(dataSet,input)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        dataSet = input
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     class WorkoutViewHolder(val binding: WorkoutItemBinding) :
         RecyclerView.ViewHolder(binding.root)

@@ -52,8 +52,8 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private val _indicatorProgressValue = MutableLiveData<Int>()
     val indicatorProgressValue: LiveData<Int> = _indicatorProgressValue
 
-    private val _stageList = MutableLiveData<List<Stage>>()
-    val stageList: LiveData<List<Stage>> = _stageList
+    private val _stageList = MutableLiveData<MutableList<Stage>>()
+    val stageList: LiveData<MutableList<Stage>> = _stageList
 
     private val _currentStagePosition = MutableLiveData<Int>()
     val currentStagePosition: LiveData<Int> = _currentStagePosition
@@ -62,7 +62,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
         _indicatorProgressValue.value = 0
-        createStages(numberOfSets)
+        _stageList.value = createListOfStages()
         _currentStagePosition.value = numberOfSets * 2
     }
 
@@ -104,8 +104,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                 _currentStagePosition.value = _currentStagePosition.value!! - 1
                 totalTimeForGlobalTimer -= fixedSetTime
 
-                changeFocus(_currentStagePosition.value ?: 0)
-
+                changeFocus(_currentStagePosition.value?: 0)
 
                 if (isWorkTime == false || isWorkTime == null) {
                     totalTimeForLocalTimer = workTime
@@ -150,6 +149,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         setValuesToDefault()
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
+        changeFocus(_currentStagePosition.value ?: 0)
     }
 
     private fun setValuesToDefault() {
@@ -163,6 +163,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         _timerStage.value = TimerStages.PREPARATION
         _indicatorProgressValue.value = 0
         _currentStagePosition.value = numberOfSets * 2
+        _stageList.value = createListOfStages()
     }
 
     private fun updateGlobalTime(millisUntilFinished: Long) {
@@ -203,7 +204,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         _indicatorProgressValue.value = (timePassedSec / totalTimeSec * 100).toInt()
     }
 
-    private fun createStages(numberOfSets: Int) {
+    private fun createListOfStages(): MutableList<Stage> {
         val ready = UiText.StringResource(R.string.ready_text)
         val work = UiText.StringResource(R.string.work_text)
         val rest = UiText.StringResource(R.string.rest_text)
@@ -212,24 +213,37 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         val listOfStages = mutableListOf<Stage>()
 
         for (n in 1..numberOfSets) {
-            listOfStages.add(Stage(rest, emptyString, false))
-            listOfStages.add(Stage(work, UiText.StringResource(R.string.sets_left, n), false))
+            listOfStages.add(Stage(n+1,rest, emptyString, false))
+            listOfStages.add(Stage(n+2,work, UiText.StringResource(R.string.sets_left, n), false))
         }
-        listOfStages.add(Stage(ready, emptyString, true))
-        _stageList.value = listOfStages
+        listOfStages.add(Stage(numberOfSets+3, ready, emptyString, true))
+        return listOfStages
     }
+
+
 
     private fun changeFocus(positionInFocus: Int) {
 
-        if (positionInFocus >= 0) {
-            val elementOnFocus = _stageList.value?.get(positionInFocus) ?: return
-            elementOnFocus.hasFocus = true
 
-            if (positionInFocus != _stageList.value!!.size) {
-                val elementOutOfFocus = _stageList.value?.get(positionInFocus + 1) ?: return
-                elementOutOfFocus.hasFocus = false
-            }
+        val tempStageList = createListOfStages()
+        tempStageList[positionInFocus].hasFocus = true
+
+        if (positionInFocus != tempStageList.lastIndex) {
+            tempStageList[positionInFocus + 1].hasFocus = false
         }
+        _stageList.value = tempStageList
+
+        /* if (positionInFocus >= 0) {
+
+             val elementOnFocus = _stageList.value?.get(positionInFocus) ?: return
+             elementOnFocus.hasFocus = true
+
+
+             if (positionInFocus != _stageList.value!!.size) {
+                 val elementOutOfFocus = _stageList.value?.get(positionInFocus + 1) ?: return
+                 elementOutOfFocus.hasFocus = false
+             }
+         }*/
 
     }
 
