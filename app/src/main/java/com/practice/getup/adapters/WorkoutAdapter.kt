@@ -11,8 +11,8 @@ import com.practice.getup.model.Stage
 
 
 class WorkoutDiffCallback(
-    private val oldList: List<Stage>,
-    private val newList: List<Stage>
+    private val oldList: MutableList<Stage>,
+    private val newList: MutableList<Stage>
 ): DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
@@ -38,15 +38,13 @@ class WorkoutAdapter(
     ) :
     RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
-    private var dataSet: List<Stage> = dataSetInput
-
-
-    fun setData(input: MutableList<Stage> ){
-        val diffCallback = WorkoutDiffCallback(dataSet,input)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        dataSet = input
-        diffResult.dispatchUpdatesTo(this)
-    }
+     var dataSet = dataSetInput
+            set(newList) {
+                val diffCallback = WorkoutDiffCallback(field,newList)
+                val diffResult = DiffUtil.calculateDiff(diffCallback)
+                field = newList
+                diffResult.dispatchUpdatesTo(this)
+            }
 
     class WorkoutViewHolder(val binding: WorkoutItemBinding) :
         RecyclerView.ViewHolder(binding.root)

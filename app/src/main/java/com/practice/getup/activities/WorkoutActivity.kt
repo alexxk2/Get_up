@@ -1,17 +1,11 @@
 package com.practice.getup.activities
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
-import androidx.core.view.get
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.adapters.WorkoutAdapter
@@ -38,10 +32,11 @@ class WorkoutActivity : AppCompatActivity() {
 
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = WorkoutAdapter(this, viewModel.stageList.value!!)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+
 
         viewModel.timerStage.observe(this) { timerStage ->
             switchControlButton(timerStage)
@@ -61,17 +56,12 @@ class WorkoutActivity : AppCompatActivity() {
 
         viewModel.stageList.observe(this) { stageList ->
 
-            adapter.setData(stageList)
-
-           /* binding.recyclerView.layoutManager = LinearLayoutManager(this)
-            binding.recyclerView.adapter = WorkoutAdapter(this, stageList)
-            binding.recyclerView.setHasFixedSize(true)
-            //scrollToCurrentStage2()*/
+            adapter.dataSet = stageList
 
         }
 
         viewModel.currentStagePosition.observe(this) { currentStagePosition ->
-            scrollToCurrentStage(currentStagePosition)
+            //scrollToCurrentStage(currentStagePosition)
         }
 
         binding.startButton.setOnClickListener { viewModel.startTimer() }
@@ -102,11 +92,8 @@ class WorkoutActivity : AppCompatActivity() {
 
         if (currentStagePosition >= 0) {
             binding.recyclerView.smoothScrollToPosition(currentStagePosition)
-
-            //adapter.notifyDataSetChanged()
-//            adapter.notifyItemChanged(currentStagePosition)
-//            adapter.notifyItemChanged(currentStagePosition + 1)
         }
+
 
 
 
@@ -117,24 +104,17 @@ class WorkoutActivity : AppCompatActivity() {
             if (it.hasFocus)
                 binding.recyclerView.smoothScrollToPosition(index)
         }
+    }
+    private fun getPosition(list: MutableList<Stage>): Int {
+        var indexOfPosition = 0
+       list.forEachIndexed { index, it ->
+            if (it.hasFocus)
+                indexOfPosition = index
+        }
 
-
-
-
+        return indexOfPosition
     }
 
-
-
-
-//    TODO идея: сделать recycler view (кастомный с анимацией) и поместить его в объект таймера, там можно
-//    будет привязать вьюхолдеры к любым данным в объекте, а значит можно будет вертеть recycler view
-//    как хочешь и кнопки сделать активные, надо найти как сделать, чтобы recycler view сам крутился +
-//    была одна выделенная вьюшка
-
-
-    companion object {
-        const val OPTIONS = "OPTIONS"
-    }
 
     private fun showResumeStageButtons() {
         binding.pauseButton.animate().translationX(-175f)
@@ -165,6 +145,7 @@ class WorkoutActivity : AppCompatActivity() {
         binding.pauseButton.visibility = View.INVISIBLE
         binding.startButton.visibility = View.INVISIBLE
     }
+
 
 }
 
