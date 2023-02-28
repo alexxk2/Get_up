@@ -1,6 +1,7 @@
 package com.practice.getup.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -63,6 +64,7 @@ class WorkoutAdapter(
 
         holder.binding.stageName.text = item.stageName.asString(context)
         holder.binding.numberOfSetsLeft.text = item.setsLeft.asString(context)
+
 
         if (item.hasFocus) {
             //holder.binding.stageName.setTextColor(Color.parseColor("#ff5b56"))

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import com.practice.getup.R
@@ -36,6 +37,9 @@ class WorkoutActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+        val itemAnimator = binding.recyclerView.itemAnimator
+
+        viewModel.currentStagePosition.value?.let { scrollToCurrentStage(it) }
 
 
         viewModel.timerStage.observe(this) { timerStage ->

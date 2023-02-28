@@ -102,6 +102,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                 totalTimeForGlobalTimer -= fixedSetTime
                 //createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2))
                 //changeFocus(_currentStagePosition.value?: 0)
+
                 removeLastStage()
 
                 if (isWorkTime == false || isWorkTime == null) {
@@ -208,14 +209,13 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         val rest = UiText.StringResource(R.string.rest_text)
         val emptyString = UiText.StringResource(R.string.empty_string)
 
-        val listOfStages = mutableListOf<Stage>(
-        )
+        val listOfStages = mutableListOf<Stage>()
 
         for (n in 1..numberOfSets) {
-            listOfStages.add(Stage(n+1,rest, emptyString, false))
-            listOfStages.add(Stage(n+2,work, UiText.StringResource(R.string.sets_left, n), false))
+            listOfStages.add(Stage(n + 1, rest, emptyString, false))
+            listOfStages.add(Stage(n + 2, work, UiText.StringResource(R.string.sets_left, n), false))
         }
-        listOfStages.add(Stage(numberOfSets+3, ready, emptyString, false))
+        listOfStages.add(Stage(numberOfSets + 3, ready, emptyString, false))
 
         listOfStages[positionInFocus].hasFocus = true
 
@@ -223,13 +223,16 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     }
 
     private fun removeLastStage(){
+
         val tempList = mutableListOf<Stage>()
         _stageList.value?.forEach {
             tempList.add(it)
         }
         tempList.removeLast()
+        tempList[tempList.size-1].hasFocus = true
         _stageList.value = tempList
     }
+
 
 
  /*   private fun changeFocus(positionInFocus: Int) {
