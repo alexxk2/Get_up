@@ -17,7 +17,6 @@ class WorkoutDiffCallback(
 ): DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
-
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -34,12 +33,12 @@ class WorkoutDiffCallback(
 }
 
 class WorkoutAdapter(
-    private val context: Context,
-    private val dataSetInput: MutableList<Stage>
+    private val context: Context
+    //private val dataSetInput: MutableList<Stage>
     ) :
     RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
-     var dataSet = dataSetInput
+     var dataSet = mutableListOf<Stage>()
             set(newList) {
                 val diffCallback = WorkoutDiffCallback(field,newList)
                 val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -66,7 +65,7 @@ class WorkoutAdapter(
         holder.binding.numberOfSetsLeft.text = item.setsLeft.asString(context)
 
 
-        if (item.hasFocus) {
+        /*if (item.hasFocus) {
             //holder.binding.stageName.setTextColor(Color.parseColor("#ff5b56"))
             holder.binding.constraintLayout.animate().scaleX(1.3f)
             holder.binding.constraintLayout.animate().scaleY(1.3f)
@@ -75,9 +74,10 @@ class WorkoutAdapter(
             //holder.binding.stageName.setTextColor(Color.parseColor("#bdbdbd"))
             holder.binding.constraintLayout.animate().scaleX(1.0f)
             holder.binding.constraintLayout.animate().scaleY(1.0f)
-        }
+        }*/
 
     }
+
 
     override fun getItemCount(): Int = dataSet.size
 }

@@ -6,5 +6,5 @@ data class Stage(
     val id: Int,
     val stageName: UiText,
     val setsLeft: UiText,
-    var hasFocus: Boolean
+    val hasFocus: Boolean
 )

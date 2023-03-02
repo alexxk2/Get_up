@@ -211,13 +211,13 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
 
         val listOfStages = mutableListOf<Stage>()
 
-        for (n in 1..numberOfSets) {
-            listOfStages.add(Stage(n + 1, rest, emptyString, false))
-            listOfStages.add(Stage(n + 2, work, UiText.StringResource(R.string.sets_left, n), false))
-        }
-        listOfStages.add(Stage(numberOfSets + 3, ready, emptyString, false))
 
-        listOfStages[positionInFocus].hasFocus = true
+
+        for (n in 1..numberOfSets) {
+            listOfStages.add(Stage(n , rest, emptyString, false))
+            listOfStages.add(Stage(n , work, UiText.StringResource(R.string.sets_left, n), false))
+        }
+        listOfStages.add(Stage(numberOfSets + 3, ready, emptyString, true))
 
         _stageList.value = listOfStages
     }
@@ -225,11 +225,15 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private fun removeLastStage(){
 
         val tempList = mutableListOf<Stage>()
-        _stageList.value?.forEach {
+        _stageList.value?.let { tempList.addAll(it) }
+        /*_stageList.value?.forEach {
             tempList.add(it)
-        }
+        }*/
         tempList.removeLast()
-        tempList[tempList.size-1].hasFocus = true
+
+        val updatedStage = tempList.last().copy(hasFocus = true)
+        tempList[tempList.size-1]= updatedStage
+
         _stageList.value = tempList
     }
 

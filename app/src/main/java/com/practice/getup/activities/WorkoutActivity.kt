@@ -33,7 +33,8 @@ class WorkoutActivity : AppCompatActivity() {
 
         binding = ActivityWorkoutBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        adapter = WorkoutAdapter(this, viewModel.stageList.value!!)
+        adapter = WorkoutAdapter(this)
+        adapter.dataSet = viewModel.stageList.value!!
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
@@ -98,9 +99,6 @@ class WorkoutActivity : AppCompatActivity() {
             binding.recyclerView.smoothScrollToPosition(currentStagePosition)
         }
 
-
-
-
     }
      private fun scrollToCurrentStage2() {
 
@@ -109,15 +107,7 @@ class WorkoutActivity : AppCompatActivity() {
                 binding.recyclerView.smoothScrollToPosition(index)
         }
     }
-    private fun getPosition(list: MutableList<Stage>): Int {
-        var indexOfPosition = 0
-       list.forEachIndexed { index, it ->
-            if (it.hasFocus)
-                indexOfPosition = index
-        }
 
-        return indexOfPosition
-    }
 
 
     private fun showResumeStageButtons() {
