@@ -61,16 +61,29 @@ class WorkoutAdapter(
         val item = dataSet[position]
 
 
+
+        if (item.hasFocus) {
+            holder.binding.stageName.setTextColor(Color.parseColor("#737373"))
+            holder.binding.numberOfSetsLeft.setTextColor(Color.parseColor("#63F44336"))
+            //holder.binding.stageName.textSize = 60f
+            holder.binding.constraintLayout.scaleX = 1.3f
+            holder.binding.constraintLayout.scaleY = 1.3f
+        }
+        else{
+            holder.binding.stageName.setTextColor(Color.parseColor("#B8B8B8"))
+            holder.binding.numberOfSetsLeft.setTextColor(Color.parseColor("#B8B8B8"))
+            //holder.binding.stageName.textSize = 60f
+            holder.binding.constraintLayout.scaleX = 1.0f
+            holder.binding.constraintLayout.scaleY = 1.0f
+        }
+
+
         holder.binding.stageName.text = item.stageName.asString(context)
         holder.binding.numberOfSetsLeft.text = item.setsLeft.asString(context)
 
 
-        /*if (item.hasFocus) {
-            //holder.binding.stageName.setTextColor(Color.parseColor("#ff5b56"))
-            holder.binding.constraintLayout.animate().scaleX(1.3f)
-            holder.binding.constraintLayout.animate().scaleY(1.3f)
-        }
-        if (!item.hasFocus) {
+
+       /* if (!item.hasFocus) {
             //holder.binding.stageName.setTextColor(Color.parseColor("#bdbdbd"))
             holder.binding.constraintLayout.animate().scaleX(1.0f)
             holder.binding.constraintLayout.animate().scaleY(1.0f)

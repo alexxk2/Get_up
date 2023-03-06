@@ -38,7 +38,7 @@ class WorkoutActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
-        val itemAnimator = binding.recyclerView.itemAnimator
+
 
         viewModel.currentStagePosition.value?.let { scrollToCurrentStage(it) }
 
@@ -66,7 +66,7 @@ class WorkoutActivity : AppCompatActivity() {
         }
 
         viewModel.currentStagePosition.observe(this) { currentStagePosition ->
-            //scrollToCurrentStage(currentStagePosition)
+            scrollToCurrentStage(currentStagePosition)
         }
 
         binding.startButton.setOnClickListener { viewModel.startTimer() }

@@ -95,5 +95,6 @@
     <string name="work_text">WORK</string>
     <string name="rest_text">REST</string>
     <string name="empty_string" />
+    <string name="blank">blank</string>
 
 </resources>

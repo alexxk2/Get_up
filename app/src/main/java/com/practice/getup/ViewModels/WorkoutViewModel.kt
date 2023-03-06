@@ -55,14 +55,14 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private val _stageList = MutableLiveData<MutableList<Stage>>()
     val stageList: LiveData<MutableList<Stage>> = _stageList
 
-    private val _currentStagePosition = MutableLiveData(numberOfSets * 2)
+    private val _currentStagePosition = MutableLiveData(numberOfSets * 2 + 3)
     val currentStagePosition: LiveData<Int> = _currentStagePosition
 
     init {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
         //_indicatorProgressValue.value = 0
-        createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2))
+        createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2 + 3))
     }
 
     fun startTimer() {
@@ -104,6 +104,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                 //changeFocus(_currentStagePosition.value?: 0)
 
                 removeLastStage()
+                updateFocus()
 
                 if (isWorkTime == false || isWorkTime == null) {
                     totalTimeForLocalTimer = workTime
@@ -149,7 +150,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
         //changeFocus(_currentStagePosition.value ?: 0)
-        createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2))
+        createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2 + 3))
     }
 
     private fun setValuesToDefault() {
@@ -162,7 +163,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         timePassed = 0
         _timerStage.value = TimerStages.PREPARATION
         _indicatorProgressValue.value = 0
-        _currentStagePosition.value = numberOfSets * 2
+        _currentStagePosition.value = numberOfSets * 2 + 3
     }
 
     private fun updateGlobalTime(millisUntilFinished: Long) {
@@ -203,53 +204,59 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         _indicatorProgressValue.value = (timePassedSec / totalTimeSec * 100).toInt()
     }
 
-    private fun createListOfStages(positionInFocus: Int){
+    private fun createListOfStages(positionInFocus: Int) {
         val ready = UiText.StringResource(R.string.ready_text)
         val work = UiText.StringResource(R.string.work_text)
         val rest = UiText.StringResource(R.string.rest_text)
+        val blank = UiText.StringResource(R.string.blank)
         val emptyString = UiText.StringResource(R.string.empty_string)
 
-        val listOfStages = mutableListOf<Stage>()
-
+        val listOfStages = mutableListOf<Stage>(
+            Stage("${blank}1", emptyString, emptyString, false),
+            Stage("${blank}2", emptyString, emptyString, false),
+            Stage("${blank}3", emptyString, emptyString, false)
+        )
 
 
         for (n in 1..numberOfSets) {
-            listOfStages.add(Stage(n , rest, emptyString, false))
-            listOfStages.add(Stage(n , work, UiText.StringResource(R.string.sets_left, n), false))
+            listOfStages.add(Stage("$rest$n", rest, emptyString, false))
+            listOfStages.add(Stage("$work$n", work, UiText.StringResource(R.string.sets_left, n),false))
         }
-        listOfStages.add(Stage(numberOfSets + 3, ready, emptyString, true))
+        listOfStages.add(Stage("$ready$numberOfSets", ready, emptyString, true))
 
         _stageList.value = listOfStages
     }
 
-    private fun removeLastStage(){
+    private fun removeLastStage() {
 
         val tempList = mutableListOf<Stage>()
         _stageList.value?.let { tempList.addAll(it) }
-        /*_stageList.value?.forEach {
-            tempList.add(it)
-        }*/
         tempList.removeLast()
+        _stageList.value = tempList
+
+    }
+    private fun updateFocus(){
+
+        val tempList = mutableListOf<Stage>()
+        _stageList.value?.let { tempList.addAll(it) }
 
         val updatedStage = tempList.last().copy(hasFocus = true)
-        tempList[tempList.size-1]= updatedStage
-
+        tempList[tempList.size - 1] = updatedStage
         _stageList.value = tempList
     }
 
 
+    /*   private fun changeFocus(positionInFocus: Int) {
 
- /*   private fun changeFocus(positionInFocus: Int) {
+           val tempStageList = createListOfStages()
+           tempStageList[positionInFocus].hasFocus = true
 
-        val tempStageList = createListOfStages()
-        tempStageList[positionInFocus].hasFocus = true
+           if (positionInFocus != tempStageList.lastIndex) {
+               tempStageList[positionInFocus + 1].hasFocus = false
+           }
+           _stageList.value = tempStageList
 
-        if (positionInFocus != tempStageList.lastIndex) {
-            tempStageList[positionInFocus + 1].hasFocus = false
-        }
-        _stageList.value = tempStageList
-
-        *//* if (positionInFocus >= 0) {
+           *//* if (positionInFocus >= 0) {
 
              val elementOnFocus = _stageList.value?.get(positionInFocus) ?: return
              elementOnFocus.hasFocus = true
