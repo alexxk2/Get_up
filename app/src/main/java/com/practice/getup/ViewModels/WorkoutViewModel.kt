@@ -9,12 +9,12 @@ import com.practice.getup.model.Options
 import com.practice.getup.model.Stage
 import com.practice.getup.model.TimerStages
 import com.practice.getup.activities.UiText
+import com.practice.getup.model.SoundStages
 
 class WorkoutViewModel(private val options: Options) : ViewModel() {
 
 
     private lateinit var timer: CountDownTimer
-
 
     private val workTime = (options.workTime * 1000).toLong()
     private val restTime = (options.restTime * 1000).toLong()
@@ -22,23 +22,13 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
     private val numberOfSets = (options.numberOfSets)
     private val totalWorkoutTime = (workTime + restTime) * numberOfSets + preparationTime
 
-
-    //переместить создание в активити
-    /*val countDownPlayer: MediaPlayer = MediaPlayer.create(getApplication(), R.raw.sound_countdown)
-    val workTimePlayer: MediaPlayer = MediaPlayer.create(getApplication(), R.raw.sound_work_start)
-    val restTimePlayer: MediaPlayer = MediaPlayer.create(getApplication(), R.raw.sound_rest_start)
-    val finishTimePlayer: MediaPlayer = MediaPlayer.create(getApplication(), R.raw.sound_workout_finish)*/
-
     private var totalTimeForLocalTimer: Long = preparationTime
     private var totalTimeForGlobalTimer: Long = totalWorkoutTime
     private var fixedSetTime = preparationTime
-
-
     private var setsDone = -1
     private var isWorkTime: Boolean? = null
     private var timePassed: Long = 0
     private var isTimerOn: Boolean = false
-
 
     private val _timerStage = MutableLiveData(TimerStages.PREPARATION)
     val timerStage: LiveData<TimerStages> = _timerStage
@@ -57,6 +47,9 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
 
     private val _currentStagePosition = MutableLiveData(numberOfSets * 2 + 3)
     val currentStagePosition: LiveData<Int> = _currentStagePosition
+
+    private val _soundStage = MutableLiveData<SoundStages>()
+    val soundStages: LiveData<SoundStages> = _soundStage
 
     init {
         updateLocalTime(preparationTime)
@@ -82,8 +75,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
             override fun onTick(millisUntilFinished: Long) {
                 isTimerOn = true
 
-                //TODO перенести свичстейджес
-                //switchStagesNames()
                 //allows to resume to the timer with the same time left
                 totalTimeForLocalTimer = millisUntilFinished
 
@@ -91,7 +82,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                 updateGlobalTime(millisUntilFinished)
                 updateGlobalProgressIndicator(millisUntilFinished)
                 //if (millisUntilFinished <= 3000) countDownPlayer.start()
-
+                if (millisUntilFinished <= 3000) _soundStage.value = SoundStages.COUNTDOWN
             }
 
             override fun onFinish() {
@@ -100,8 +91,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                 timePassed += fixedSetTime
                 _currentStagePosition.value = _currentStagePosition.value!! - 1
                 totalTimeForGlobalTimer -= fixedSetTime
-                //createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2))
-                //changeFocus(_currentStagePosition.value?: 0)
 
                 removeLastStage()
                 updateFocus()
@@ -120,18 +109,16 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                     _timerStage.value = TimerStages.RESTART
                 }
 
-                /* when (isWorkTime) {
-                     true -> workTimePlayer.start()
-                     false -> restTimePlayer.start()
-                     null -> finishTimePlayer.start()
-                 }*/
+                 when (isWorkTime) {
+                     true -> _soundStage.value = SoundStages.WORK
+                     false -> _soundStage.value = SoundStages.REST
+                     null -> _soundStage.value = SoundStages.FINISH
+                 }
 
                 if (setsDone == options.numberOfSets * 2) return
 
-
                 startTimer()
             }
-
         }.start()
         isTimerOn = true
     }
@@ -149,7 +136,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         setValuesToDefault()
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
-        //changeFocus(_currentStagePosition.value ?: 0)
         createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2 + 3))
     }
 
@@ -217,7 +203,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
             Stage("${blank}3", emptyString, emptyString, false)
         )
 
-
         for (n in 1..numberOfSets) {
             listOfStages.add(Stage("$rest$n", rest, emptyString, false))
             listOfStages.add(Stage("$work$n", work, UiText.StringResource(R.string.sets_left, n),false))
@@ -244,31 +229,5 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         tempList[tempList.size - 1] = updatedStage
         _stageList.value = tempList
     }
-
-
-    /*   private fun changeFocus(positionInFocus: Int) {
-
-           val tempStageList = createListOfStages()
-           tempStageList[positionInFocus].hasFocus = true
-
-           if (positionInFocus != tempStageList.lastIndex) {
-               tempStageList[positionInFocus + 1].hasFocus = false
-           }
-           _stageList.value = tempStageList
-
-           *//* if (positionInFocus >= 0) {
-
-             val elementOnFocus = _stageList.value?.get(positionInFocus) ?: return
-             elementOnFocus.hasFocus = true
-
-
-             if (positionInFocus != _stageList.value!!.size) {
-                 val elementOutOfFocus = _stageList.value?.get(positionInFocus + 1) ?: return
-                 elementOutOfFocus.hasFocus = false
-             }
-         }*//*
-
-    }*/
-
 
 }

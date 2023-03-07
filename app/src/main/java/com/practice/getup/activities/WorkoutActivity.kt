@@ -1,17 +1,16 @@
 package com.practice.getup.activities
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import com.practice.getup.R
 import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.adapters.WorkoutAdapter
 import com.practice.getup.databinding.ActivityWorkoutBinding
-import com.practice.getup.model.Stage
+import com.practice.getup.model.SoundStages
 import com.practice.getup.model.TimerStages
 
 
@@ -21,7 +20,7 @@ class WorkoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWorkoutBinding
     private lateinit var adapter: WorkoutAdapter
 
-
+    private var mediaPlayer: MediaPlayer? = null
     private val viewModel: WorkoutViewModel by viewModels { ViewModelFactory(this) }
     //private lateinit var timer: SuperTimer
 
@@ -60,13 +59,16 @@ class WorkoutActivity : AppCompatActivity() {
         }
 
         viewModel.stageList.observe(this) { stageList ->
-
             adapter.dataSet = stageList
-
         }
 
         viewModel.currentStagePosition.observe(this) { currentStagePosition ->
             scrollToCurrentStage(currentStagePosition)
+        }
+
+
+        viewModel.soundStages.observe(this) { soundStage ->
+            playTimerSound(soundStage)
         }
 
         binding.startButton.setOnClickListener { viewModel.startTimer() }
@@ -94,20 +96,8 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
     private fun scrollToCurrentStage(currentStagePosition: Int) {
-
-        if (currentStagePosition >= 0) {
-            binding.recyclerView.smoothScrollToPosition(currentStagePosition)
-        }
-
+        if (currentStagePosition >= 0) binding.recyclerView.smoothScrollToPosition(currentStagePosition)
     }
-     private fun scrollToCurrentStage2() {
-
-        viewModel.stageList.value?.forEachIndexed { index, it ->
-            if (it.hasFocus)
-                binding.recyclerView.smoothScrollToPosition(index)
-        }
-    }
-
 
 
     private fun showResumeStageButtons() {
@@ -141,6 +131,31 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
 
+    private fun playTimerSound(soundStage: SoundStages) {
+
+        when (soundStage) {
+            SoundStages.COUNTDOWN -> {
+                createMediaPlayer(R.raw.sound_countdown)
+            }
+            SoundStages.WORK -> {
+                createMediaPlayer(R.raw.sound_work_start)
+            }
+            SoundStages.REST -> {
+                createMediaPlayer(R.raw.sound_rest_start)
+            }
+            SoundStages.FINISH -> {
+                createMediaPlayer(R.raw.sound_workout_finish)
+            }
+        }
+        //mediaPlayer?.release()
+    }
+
+    private fun createMediaPlayer(soundRes: Int){
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(application, soundRes)
+            mediaPlayer?.start()
+        }
+    }
 }
 
 
