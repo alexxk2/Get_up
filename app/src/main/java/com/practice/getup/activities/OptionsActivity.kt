@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
@@ -44,8 +45,9 @@ class OptionsActivity : AppCompatActivity() {
 
                 val preparationTimeInput = it.toString().toIntOrNull()
                 if (preparationTimeInput == 0) {
-                    showZeroException(R.string.number_format_exception_preparation)
+                    inputPreparationTime.error = getString(R.string.number_format_exception_preparation_short)
                 }
+                else inputPreparationTime.error = null
             }
 
             editWorkTime.addTextChangedListener {
@@ -53,8 +55,9 @@ class OptionsActivity : AppCompatActivity() {
 
                 val workTimeInput = it.toString().toIntOrNull()
                 if (workTimeInput == 0) {
-                    showZeroException(R.string.number_format_exception_work)
+                    inputWorkTime.error = getString(R.string.number_format_exception_work_short)
                 }
+                else inputWorkTime.error = null
             }
 
             editRestTime.addTextChangedListener {
@@ -62,8 +65,9 @@ class OptionsActivity : AppCompatActivity() {
 
                 val restTimeInput = it.toString().toIntOrNull()
                 if (restTimeInput == 0) {
-                    showZeroException(R.string.number_format_exception_rest)
+                    inputRestTime.error = getString(R.string.number_format_exception_rest_short)
                 }
+                else inputRestTime.error = null
             }
 
             editSetsNumber.addTextChangedListener {
@@ -71,16 +75,18 @@ class OptionsActivity : AppCompatActivity() {
 
                 val numberOfSetsInput = it.toString().toIntOrNull()
                 if (numberOfSetsInput == 0) {
-                    showZeroException(R.string.number_format_exception_sets)
+                    inputSetsNumber.error = getString(R.string.number_format_exception_sets_short)
                 }
+                else inputSetsNumber.error = null
+            }
+
+
+            optionsBackButton.setOnClickListener {
+                finish()
             }
         }
-    }
 
-   /* override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(KEY_OPTIONS, options)
-    }*/
+    }
 
     private fun setOptions(){
 
@@ -124,6 +130,7 @@ class OptionsActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK, backOptionsIntent)
         finish()
     }
+
 
 
     private fun showZeroException(exceptionString: Int){

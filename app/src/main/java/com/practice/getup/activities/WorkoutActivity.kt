@@ -22,10 +22,8 @@ class WorkoutActivity : AppCompatActivity() {
 
     private var mediaPlayer: MediaPlayer? = null
     private val viewModel: WorkoutViewModel by viewModels { ViewModelFactory(this) }
-    //private lateinit var timer: SuperTimer
 
 
-    //TODO не сохраняет текущее положение данных при повороте во всех активностях
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -38,9 +36,7 @@ class WorkoutActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
 
-
         viewModel.currentStagePosition.value?.let { scrollToCurrentStage(it) }
-
 
         viewModel.timerStage.observe(this) { timerStage ->
             switchControlButton(timerStage)
@@ -65,7 +61,6 @@ class WorkoutActivity : AppCompatActivity() {
         viewModel.currentStagePosition.observe(this) { currentStagePosition ->
             scrollToCurrentStage(currentStagePosition)
         }
-
 
         viewModel.soundStages.observe(this) { soundStage ->
             playTimerSound(soundStage)
@@ -131,7 +126,12 @@ class WorkoutActivity : AppCompatActivity() {
     }
 
 
+
     private fun playTimerSound(soundStage: SoundStages) {
+
+
+        mediaPlayer?.release()
+        mediaPlayer = null
 
         when (soundStage) {
             SoundStages.COUNTDOWN -> {
@@ -147,7 +147,7 @@ class WorkoutActivity : AppCompatActivity() {
                 createMediaPlayer(R.raw.sound_workout_finish)
             }
         }
-        //mediaPlayer?.release()
+
     }
 
     private fun createMediaPlayer(soundRes: Int){
@@ -155,6 +155,12 @@ class WorkoutActivity : AppCompatActivity() {
             mediaPlayer = MediaPlayer.create(application, soundRes)
             mediaPlayer?.start()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }
 

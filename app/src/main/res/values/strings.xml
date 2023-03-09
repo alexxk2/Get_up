@@ -81,6 +81,11 @@
     <string name="number_format_exception_work">Ошибка ввода. Введите время работы в секундах больше ноля</string>
     <string name="number_format_exception_rest">Ошибка ввода. Введите время отдыха в секундах больше ноля</string>
     <string name="number_format_exception_sets">Ошибка ввода. Введите количество подходов больше ноля</string>
+
+    <string name="number_format_exception_preparation_short">Введите время в секундах больше ноля</string>
+    <string name="number_format_exception_work_short">Введите время в секундах больше ноля</string>
+    <string name="number_format_exception_rest_short">Введите время в секундах больше ноля</string>
+    <string name="number_format_exception_sets_short">Введите количество подходов больше ноля</string>
     <string name="snackbar_ok_button">OK</string>
 
     <!--strings for timer-->
@@ -88,7 +93,7 @@
 
 
     <!--other strings-->
-    <string name="total_time">WORKOUT TIME</string>
+    <string name="total_time">TOTAL</string>
     <string name="colon">:</string>
     <string name="ready_text">READY</string>
     <string name="sets_left">%1$d left</string>

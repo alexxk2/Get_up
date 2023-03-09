@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--General-->
+    <style name="GeneralRedButton" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/main_app_color_soft</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!--Options screen-->
+    <style name="OptionsEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/main_app_color_soft</item>
+        <item name="counterEnabled">true</item>
+        <item name="counterMaxLength">4</item>
+        <item name="counterTextColor">@color/grey</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorIconDrawable">@drawable/ic_edit_text_error</item>
+        <item name="helperTextTextColor">@color/grey</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="hintEnabled">true</item>
+        <item name="hintTextColor">@color/grey_hard</item>
+    </style>
+
+
+</resources>
