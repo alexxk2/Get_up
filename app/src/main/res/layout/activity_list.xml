@@ -5,6 +5,7 @@
     android:id="@+id/frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.ListActivity">
 
     <com.google.android.material.chip.ChipGroup
@@ -21,39 +22,34 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_all"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
+            style="@style/Chips"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="@string/chip_all"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="13sp" />
+             />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_easy"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
+            style="@style/Chips"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="@string/chip_easy"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="13sp" />
+             />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_medium"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
+            style="@style/Chips"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="@string/chip_medium"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="13sp" />
+             />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_hard"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
+            style="@style/Chips"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="@string/chip_hard"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="13sp" />
+            android:text="@string/chip_hard"  />
 
     </com.google.android.material.chip.ChipGroup>
 

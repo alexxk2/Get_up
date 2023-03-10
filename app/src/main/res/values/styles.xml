@@ -9,7 +9,7 @@
 
     <!--Options screen-->
     <style name="OptionsEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/main_app_color_soft</item>
+        <item name="boxStrokeColor">@color/hard_grey</item>
         <item name="counterEnabled">true</item>
         <item name="counterMaxLength">4</item>
         <item name="counterTextColor">@color/grey</item>
@@ -18,8 +18,15 @@
         <item name="helperTextTextColor">@color/grey</item>
         <item name="hintAnimationEnabled">true</item>
         <item name="hintEnabled">true</item>
-        <item name="hintTextColor">@color/grey_hard</item>
+        <item name="hintTextColor">@color/hard_grey</item>
     </style>
 
+
+
+    <!--list screen-->
+    <style name="Chips" parent="Widget.Material3.Chip.Filter">
+        <item name="android:textSize">16sp</item>
+
+    </style>
 
 </resources>

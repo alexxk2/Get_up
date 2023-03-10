@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.GetUp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.GetUp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -11,7 +11,31 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">#F44336</item>
-        <!-- Customize your theme here. -->
+
+        <!-- Customizing  -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/soft_black</item>
+        <item name="colorSecondaryContainer">@color/main_app_color_soft</item>
+        <item name="colorOnSecondaryContainer">@color/soft_black</item>
+        <item name="colorSurface">@color/white</item>
+
+<!--        items for material3 theme that are not implemented yet-->
+
+         <!-- <item name="colorPrimaryContainer">@color/main_app_color_soft</item>
+          <item name="colorOnPrimaryContainer">@color/main_app_color_soft</item>
+          <item name="colorPrimaryInverse">@color/main_app_color_soft</item>-->
+
+
+
+        <!--  <item name="colorTertiary">@color/main_app_color_soft</item>
+          <item name="colorOnTertiary">@color/main_app_color_soft</item>
+          <item name="colorTertiaryContainer">@color/main_app_color_soft</item>
+          <item name="colorOnTertiaryContainer">@color/main_app_color_soft</item>
+
+          <item name="colorOnBackground">@color/easy</item>
+          <item name="colorOnSurface">@color/hard</item>
+          <item name="colorSurfaceVariant">@color/main_app_color_soft</item>
+          <item name="colorSurfaceInverse">@color/main_app_color_soft</item>-->
 
     </style>
 </resources>
