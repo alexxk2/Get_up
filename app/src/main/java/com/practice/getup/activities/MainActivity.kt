@@ -28,22 +28,22 @@ class MainActivity : AppCompatActivity() {
 
         options = savedInstanceState?.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
 
-        binding.testTextView0.text = options.preparingTime.toString()
-        binding.testTextView1.text = options.workTime.toString()
-        binding.testTextView2.text = options.restTime.toString()
-        binding.testTextView3.text = options.numberOfSets.toString()
-        binding.testTextView4.text = this.getString(options.exerciseType)
+//        binding.testTextView0.text = options.preparingTime.toString()
+//        binding.testTextView1.text = options.workTime.toString()
+//        binding.testTextView2.text = options.restTime.toString()
+//        binding.testTextView3.text = options.numberOfSets.toString()
+//        binding.testTextView4.text = this.getString(options.exerciseType)
 
         launcherOptions =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
 
                 if (result.resultCode == RESULT_OK) {
                     options = result.data?.getParcelableExtra(BACK_OPTIONS)!!
-                    binding.testTextView0.text = options.preparingTime.toString()
-                    binding.testTextView1.text = options.workTime.toString()
-                    binding.testTextView2.text = options.restTime.toString()
-                    binding.testTextView3.text = options.numberOfSets.toString()
-                    binding.testTextView4.text = this.getString(options.exerciseType)
+//                    binding.testTextView0.text = options.preparingTime.toString()
+//                    binding.testTextView1.text = options.workTime.toString()
+//                    binding.testTextView2.text = options.restTime.toString()
+//                    binding.testTextView3.text = options.numberOfSets.toString()
+//                    binding.testTextView4.text = this.getString(options.exerciseType)
                 }
             }
 

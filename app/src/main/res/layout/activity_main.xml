@@ -10,25 +10,25 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="@dimen/margin_sides"
+        android:fontFamily="@font/lato_light"
         android:lines="1"
         android:padding="2dp"
         android:text="@string/app_name"
-        android:textSize="25sp"
-        android:fontFamily="@font/lato_light"
         android:textColor="@color/black"
+        android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/button_start"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="500dp"
         android:background="?android:selectableItemBackgroundBorderless"
         android:contentDescription="@string/button_start"
         android:scaleType="centerCrop"
@@ -60,55 +60,125 @@
         app:layout_constraintStart_toStartOf="@+id/button_start"
         app:layout_constraintTop_toBottomOf="@+id/button_settings" />
 
-
-    <TextView
-        android:id="@+id/test_text_view0"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/default_text"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="5dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="16dp"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/half_margin_sides"
+        app:layout_constraintBottom_toTopOf="@+id/card3"
+        app:layout_constraintEnd_toStartOf="@+id/card2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_watch_list"/>
+        app:layout_constraintTop_toBottomOf="@+id/title">
 
-    <TextView
-        android:id="@+id/test_text_view1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/default_text"
-        android:layout_marginStart="5dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card1_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:src="@drawable/workout"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/card1_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/card1_info_total_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/half_margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/margin_sides"
+        app:layout_constraintBottom_toTopOf="@+id/card4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/card1"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card2_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:src="@drawable/workout"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/card2_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/card2_info"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/half_margin_sides"
+        android:layout_marginBottom="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/card4"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_text_view0"/>
+        app:layout_constraintTop_toBottomOf="@+id/card1" />
 
-    <TextView
-        android:id="@+id/test_text_view2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/default_text"
-        android:layout_marginStart="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_text_view1"/>
-    <TextView
-
-        android:id="@+id/test_text_view3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/default_text"
-        android:layout_marginStart="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_text_view2"/>
-
-    <TextView
-
-        android:id="@+id/test_text_view4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/default_text"
-        android:layout_marginStart="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_text_view3"/>
-
-
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/half_margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/margin_sides"
+        android:layout_marginBottom="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/card3"
+        app:layout_constraintTop_toBottomOf="@+id/card2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
