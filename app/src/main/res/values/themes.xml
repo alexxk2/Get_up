@@ -13,7 +13,10 @@
         <item name="android:statusBarColor">#F44336</item>
 
         <!-- Customizing  -->
+        <!--Basic background color-->
         <item name="android:colorBackground">@color/white</item>
+
+        <!--Colors for chips-->
         <item name="colorOnSurfaceVariant">@color/soft_black</item>
         <item name="colorSecondaryContainer">@color/main_app_color_soft</item>
         <item name="colorOnSecondaryContainer">@color/soft_black</item>
@@ -21,21 +24,21 @@
 
 <!--        items for material3 theme that are not implemented yet-->
 
-         <!-- <item name="colorPrimaryContainer">@color/main_app_color_soft</item>
-          <item name="colorOnPrimaryContainer">@color/main_app_color_soft</item>
-          <item name="colorPrimaryInverse">@color/main_app_color_soft</item>-->
+          <!--<item name="colorPrimaryContainer">@color/black</item>
+          <item name="colorOnPrimaryContainer">@color/black</item>
+          <item name="colorPrimaryInverse">@color/black</item>-->
 
 
 
-        <!--  <item name="colorTertiary">@color/main_app_color_soft</item>
-          <item name="colorOnTertiary">@color/main_app_color_soft</item>
-          <item name="colorTertiaryContainer">@color/main_app_color_soft</item>
-          <item name="colorOnTertiaryContainer">@color/main_app_color_soft</item>
+        <!--  <item name="colorTertiary">@color/black</item>
+          <item name="colorOnTertiary">@color/black</item>
+          <item name="colorTertiaryContainer">@color/black</item>
+          <item name="colorOnTertiaryContainer">@color/black</item>
 
           <item name="colorOnBackground">@color/easy</item>
           <item name="colorOnSurface">@color/hard</item>
-          <item name="colorSurfaceVariant">@color/main_app_color_soft</item>
-          <item name="colorSurfaceInverse">@color/main_app_color_soft</item>-->
+          <item name="colorSurfaceVariant">@color/black</item>
+          <item name="colorSurfaceInverse">@color/black</item>-->
 
     </style>
 </resources>

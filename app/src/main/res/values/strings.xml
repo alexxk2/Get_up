@@ -101,5 +101,6 @@
     <string name="rest_text">REST</string>
     <string name="empty_string" />
     <string name="blank">blank</string>
+    <string name="image_for_card_view">image_for_card_view</string>
 
 </resources>

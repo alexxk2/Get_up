@@ -26,6 +26,19 @@
     <!--list screen-->
     <style name="Chips" parent="Widget.Material3.Chip.Filter">
         <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <!--Main screen-->
+    <style name="CardButtons" parent="Widget.Material3.CardView.Outlined">
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginStart">@dimen/margin_sides</item>
+        <item name="android:layout_marginTop">@dimen/margin_sides</item>
+        <item name="android:layout_marginEnd">@dimen/half_margin_sides</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+
 
     </style>
 
