@@ -13,19 +13,17 @@
         android:layout_marginStart="@dimen/margin_sides"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="@dimen/margin_sides"
-        android:fontFamily="@font/lato_light"
         android:lines="1"
         android:padding="2dp"
         android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/button_start"
+    <!--<ImageButton
+        android:id="@+id/button_start1"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="500dp"
@@ -37,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <ImageButton
-        android:id="@+id/button_settings"
+        android:id="@+id/button_settings1"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:layout_marginTop="20dp"
@@ -49,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button_start" />
 
     <ImageButton
-        android:id="@+id/button_watch_list"
+        android:id="@+id/button_watch_list1"
         android:layout_width="46dp"
         android:layout_height="46dp"
         android:layout_marginTop="20dp"
@@ -58,13 +56,13 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_list"
         app:layout_constraintStart_toStartOf="@+id/button_start"
-        app:layout_constraintTop_toBottomOf="@+id/button_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/button_settings" />-->
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card1"
+        android:id="@+id/button_start"
         style="@style/CardButtons"
-        app:layout_constraintBottom_toTopOf="@+id/card3"
-        app:layout_constraintEnd_toStartOf="@+id/card2"
+        app:layout_constraintBottom_toTopOf="@+id/button_watch_list"
+        app:layout_constraintEnd_toStartOf="@+id/button_settings"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title">
@@ -78,22 +76,15 @@
                 android:id="@+id/card1_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:contentDescription="@string/image_for_card_view"
                 android:scaleType="centerCrop"
                 android:src="@drawable/workout_1" />
 
             <TextView
                 android:id="@+id/card1_title"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/card1_info_total_time"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                style="@style/CardTitleText"
+                android:text="@string/card1_title" />
 
         </LinearLayout>
 
@@ -101,7 +92,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card2"
+        android:id="@+id/button_settings"
         style="@style/CardButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -111,7 +102,7 @@
         app:layout_constraintBottom_toTopOf="@+id/card4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/card1"
+        app:layout_constraintStart_toEndOf="@+id/button_start"
         app:layout_constraintTop_toBottomOf="@+id/title">
 
         <LinearLayout
@@ -123,40 +114,34 @@
                 android:id="@+id/card2_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:contentDescription="@string/image_for_card_view"
                 android:scaleType="centerCrop"
-                android:src="@drawable/settings_2" />
+                android:src="@drawable/settings_4" />
 
             <TextView
                 android:id="@+id/card2_title"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                style="@style/CardTitleText"
+                android:text="@string/card2_title" />
 
-            <TextView
-                android:id="@+id/card2_info"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card3"
+        android:id="@+id/button_watch_list"
         style="@style/CardButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/margin_sides"
         android:layout_marginTop="@dimen/margin_sides"
         android:layout_marginEnd="@dimen/half_margin_sides"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/card4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card1">
+        app:layout_constraintTop_toBottomOf="@+id/button_start">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -164,25 +149,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/card1_image"
+                android:id="@+id/card3_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:contentDescription="@string/image_for_card_view"
                 android:scaleType="centerCrop"
-                android:src="@drawable/workout_1" />
+                android:src="@drawable/list_of_exercises" />
 
             <TextView
-                android:id="@+id/card1_title"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/card1_info_total_time"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:id="@+id/card3_title"
+                style="@style/CardTitleText"
+                android:text="@string/card3_title" />
 
         </LinearLayout>
 
@@ -196,12 +174,13 @@
         android:layout_marginStart="@dimen/half_margin_sides"
         android:layout_marginTop="@dimen/margin_sides"
         android:layout_marginEnd="@dimen/margin_sides"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="100dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/card3"
-        app:layout_constraintTop_toBottomOf="@+id/card2">
+        app:layout_constraintStart_toEndOf="@+id/button_watch_list"
+        app:layout_constraintTop_toBottomOf="@+id/button_settings">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -209,25 +188,18 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/card1_image"
+                android:id="@+id/card4_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:contentDescription="@string/image_for_card_view"
                 android:scaleType="centerCrop"
                 android:src="@drawable/workout_1" />
 
             <TextView
-                android:id="@+id/card1_title"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/card1_info_total_time"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:id="@+id/card4_title"
+                style="@style/CardTitleText"
+                android:text="@string/default_text" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -8,8 +8,8 @@
     <dimen name="button_width">130dp</dimen>
 
     <!--Main screen-->
-    <dimen name="margin_sides">36dp</dimen>
-    <dimen name="half_margin_sides">18dp</dimen>
+    <dimen name="margin_sides">28dp</dimen>
+    <dimen name="half_margin_sides">14dp</dimen>
     <dimen name="card_corner_radius">16dp</dimen>
 
 </resources>
