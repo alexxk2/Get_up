@@ -1,13 +1,12 @@
 package com.practice.getup.activities
 
-import android.app.ActivityManager
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.practice.getup.ViewModels.WorkoutViewModel
 import com.practice.getup.databinding.ActivityMainBinding
 import com.practice.getup.model.Options
 
@@ -28,33 +27,18 @@ class MainActivity : AppCompatActivity() {
 
         options = savedInstanceState?.getParcelable(KEY_OPTIONS) ?: Options.DEFAULT
 
-//        binding.testTextView0.text = options.preparingTime.toString()
-//        binding.testTextView1.text = options.workTime.toString()
-//        binding.testTextView2.text = options.restTime.toString()
-//        binding.testTextView3.text = options.numberOfSets.toString()
-//        binding.testTextView4.text = this.getString(options.exerciseType)
+
 
         launcherOptions =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
 
                 if (result.resultCode == RESULT_OK) {
                     options = result.data?.getParcelableExtra(BACK_OPTIONS)!!
-//                    binding.testTextView0.text = options.preparingTime.toString()
-//                    binding.testTextView1.text = options.workTime.toString()
-//                    binding.testTextView2.text = options.restTime.toString()
-//                    binding.testTextView3.text = options.numberOfSets.toString()
-//                    binding.testTextView4.text = this.getString(options.exerciseType)
                 }
             }
-
         binding.buttonSettings.setOnClickListener { onOptionsClick() }
-
         binding.buttonWatchList.setOnClickListener { onListClick() }
-
         binding.buttonStart.setOnClickListener { onStartClick() }
-
-
-
     }
 
 

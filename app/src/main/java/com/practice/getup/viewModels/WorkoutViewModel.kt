@@ -1,4 +1,4 @@
-package com.practice.getup.ViewModels
+package com.practice.getup.viewModels
 
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData

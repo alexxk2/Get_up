@@ -7,7 +7,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.practice.getup.R
-import com.practice.getup.ViewModels.WorkoutViewModel
+import com.practice.getup.viewModels.WorkoutViewModel
 import com.practice.getup.adapters.WorkoutAdapter
 import com.practice.getup.databinding.ActivityWorkoutBinding
 import com.practice.getup.model.SoundStages

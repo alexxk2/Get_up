@@ -3,7 +3,7 @@ package com.practice.getup.activities
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.practice.getup.ViewModels.WorkoutViewModel
+import com.practice.getup.viewModels.WorkoutViewModel
 
 
 class ViewModelFactory(private val workoutActivity: WorkoutActivity) : ViewModelProvider.Factory {
