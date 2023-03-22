@@ -5,8 +5,7 @@
     android:id="@+id/options_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.OptionsActivity">
-
+    tools:context=".fragments.OptionsFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_preparation_time"

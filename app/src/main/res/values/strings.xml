@@ -108,6 +108,8 @@
     <string name="card1_title">Start workout</string>
     <string name="card2_title">Settings</string>
     <string name="card3_title">List of exercises</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
