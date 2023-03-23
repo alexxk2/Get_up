@@ -94,7 +94,6 @@ class WorkoutActivity : AppCompatActivity() {
         if (currentStagePosition >= 0) binding.recyclerView.smoothScrollToPosition(currentStagePosition)
     }
 
-
     private fun showResumeStageButtons() {
         binding.pauseButton.animate().translationX(-175f)
         binding.startButton.animate().translationX(-175f)
@@ -125,10 +124,7 @@ class WorkoutActivity : AppCompatActivity() {
         binding.startButton.visibility = View.INVISIBLE
     }
 
-
-
     private fun playTimerSound(soundStage: SoundStages) {
-
 
         mediaPlayer?.release()
         mediaPlayer = null
@@ -147,7 +143,6 @@ class WorkoutActivity : AppCompatActivity() {
                 createMediaPlayer(R.raw.sound_workout_finish)
             }
         }
-
     }
 
     private fun createMediaPlayer(soundRes: Int){

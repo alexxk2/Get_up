@@ -179,7 +179,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         return timeToShow
     }
 
-
     private fun updateGlobalProgressIndicator(millisUntilFinished: Long) {
 
         val totalTimeSec = (totalWorkoutTime / 1000).toDouble()
@@ -229,5 +228,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         tempList[tempList.size - 1] = updatedStage
         _stageList.value = tempList
     }
+
+
 
 }

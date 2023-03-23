@@ -24,7 +24,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/button_start"
+        android:id="@+id/button_start_workout"
         style="@style/CardButtons"
         app:layout_constraintBottom_toTopOf="@+id/button_watch_list"
         app:layout_constraintEnd_toStartOf="@+id/button_settings"
@@ -67,7 +67,7 @@
         app:layout_constraintBottom_toTopOf="@+id/card4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button_start"
+        app:layout_constraintStart_toEndOf="@+id/button_start_workout"
         app:layout_constraintTop_toBottomOf="@+id/title">
 
         <LinearLayout
@@ -106,7 +106,7 @@
         app:layout_constraintEnd_toStartOf="@+id/card4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_start">
+        app:layout_constraintTop_toBottomOf="@+id/button_start_workout">
 
         <LinearLayout
             android:layout_width="match_parent"

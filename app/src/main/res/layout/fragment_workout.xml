@@ -12,10 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="192dp"
         android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@id/local_timer_view"
-        app:layout_constraintStart_toStartOf="parent"
         android:orientation="horizontal"
-        />
+        app:layout_constraintBottom_toTopOf="@id/local_timer_view"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/local_timer_view"
@@ -27,9 +26,9 @@
         android:singleLine="true"
         android:text="@string/default_text"
         android:textAlignment="center"
+        android:textColor="@color/hard_grey"
         android:textSize="75sp"
         android:textStyle="bold"
-        android:textColor="@color/hard_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

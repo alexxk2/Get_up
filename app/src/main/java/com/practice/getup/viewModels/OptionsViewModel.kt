@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.practice.getup.model.Options
 
-class OptionsViewModel : ViewModel() {
+class OptionsViewModel(optionsInput: Options) : ViewModel() {
 
-    private val _options = MutableLiveData(Options.DEFAULT)
+    private val _options = MutableLiveData(optionsInput)
     val options: LiveData<Options> = _options
 
     private val _totalTime = MutableLiveData<String>()
@@ -16,7 +16,7 @@ class OptionsViewModel : ViewModel() {
 
     private var preparationTimeInput =
         _options.value?.preparingTime ?: Options.DEFAULT.preparingTime
-    private var workTimeInput = _options.value?.preparingTime ?: Options.DEFAULT.workTime
+    private var workTimeInput = _options.value?.workTime ?: Options.DEFAULT.workTime
     private var restTimeInput = _options.value?.restTime ?: Options.DEFAULT.restTime
     private var numberOfSetsInput = _options.value?.numberOfSets ?: Options.DEFAULT.numberOfSets
 

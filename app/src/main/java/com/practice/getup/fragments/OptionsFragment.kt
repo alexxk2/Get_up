@@ -14,8 +14,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
+import com.practice.getup.activities.OptionsActivity.Companion.BACK_OPTIONS
+import com.practice.getup.activities.ViewModelFactoryForFragments
 import com.practice.getup.databinding.FragmentOptionsBinding
 import com.practice.getup.model.Options
 import com.practice.getup.viewModels.OptionsViewModel
@@ -25,8 +28,17 @@ class OptionsFragment : Fragment() {
 
     private var _binding: FragmentOptionsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: OptionsViewModel by viewModels()
     private lateinit var options: Options
+    private val viewModel: OptionsViewModel by viewModels{ViewModelFactoryForFragments(options)}
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+                options  = it.getParcelable(OPTIONS)?: Options.DEFAULT
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +55,6 @@ class OptionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        options = Options.DEFAULT
 
         viewModel.totalTime.observe(viewLifecycleOwner) { newTotalTime ->
             binding.totalWorkoutTime.text = newTotalTime
@@ -93,8 +104,8 @@ class OptionsFragment : Fragment() {
             }
 
             optionsBackButton.setOnClickListener {
-                //TODO надо сделать выход назад в главное меню
-                finish()
+
+                binding.root.findNavController().navigateUp()
             }
         }
 
@@ -139,11 +150,9 @@ class OptionsFragment : Fragment() {
 
             hideKeyboard(binding.optionsActivity)
 
-            //TODO сделать посылку options на главный экран
-            val backOptionsIntent = Intent()
-            backOptionsIntent.putExtra(BACK_OPTIONS, value)
-            setResult(Activity.RESULT_OK, backOptionsIntent)
-            finish()
+            val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment(viewModel.options.value?: Options.DEFAULT)
+            binding.root.findNavController().navigate(action)
+
         }
     }
 
@@ -161,7 +170,7 @@ class OptionsFragment : Fragment() {
     }
 
     companion object {
-        const val BACK_OPTIONS = "BACK OPTIONS"
+        const val OPTIONS = "options"
     }
 
 
