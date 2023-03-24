@@ -72,7 +72,6 @@ class ListFragment : Fragment() {
                 binding.recyclerView[4].animation = AnimationUtils.loadAnimation(context, R.anim.has_focus_animation)
                 binding.recyclerView[4].scaleX =1.2f
                 binding.recyclerView[4].scaleY =1.2f
-
             }
 
             override fun onClickExercise(exercise: Exercise) {

@@ -19,6 +19,7 @@ import com.practice.getup.model.Options
 import com.practice.getup.model.SoundStages
 import com.practice.getup.model.TimerStages
 import com.practice.getup.viewModels.WorkoutViewModel
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.delay
 
 
@@ -34,7 +35,6 @@ class WorkoutFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
                 options = it.getParcelable(OPTIONS)?: Options.DEFAULT
         }
@@ -59,10 +59,9 @@ class WorkoutFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
 
-        //TODO не работает скролл при начальном запуске, потом работает как надо
-
-        //viewModel.currentStagePosition.value?.let { scrollToCurrentStage(it) }
-
+        binding.recyclerView.post(
+            Runnable { viewModel.currentStagePosition.value?.let { scrollToCurrentStage(it) } }
+        )
 
         viewModel.timerStage.observe(viewLifecycleOwner) { timerStage ->
             switchControlButton(timerStage)
@@ -99,7 +98,6 @@ class WorkoutFragment : Fragment() {
         binding.pauseButton.setOnClickListener { viewModel.pauseTimer() }
         binding.restartButton.setOnClickListener { viewModel.restartTimer() }
 
-
     }
 
     private fun switchControlButton(timerStage: TimerStages) {
@@ -120,7 +118,7 @@ class WorkoutFragment : Fragment() {
     }
 
     private fun scrollToCurrentStage(currentStagePosition: Int) {
-        if (currentStagePosition >= 0) binding.recyclerView.smoothScrollToPosition(currentStagePosition)
+        binding.recyclerView.smoothScrollToPosition(currentStagePosition)
     }
 
     private fun showResumeStageButtons() {

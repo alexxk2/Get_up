@@ -81,7 +81,6 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                 updateLocalTime(millisUntilFinished)
                 updateGlobalTime(millisUntilFinished)
                 updateGlobalProgressIndicator(millisUntilFinished)
-                //if (millisUntilFinished <= 3000) countDownPlayer.start()
                 if (millisUntilFinished <= 3000) _soundStage.value = SoundStages.COUNTDOWN
             }
 
@@ -157,13 +156,11 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         val timePassed = fixedSetTime - millisUntilFinished
         val totalSecondsLeft = ((totalTimeForGlobalTimer - timePassed) / 1000).toInt()//9000
         _globalTimeToShow.value = calculateTimeForUpdaters(totalSecondsLeft)
-        //binding.generalTimerView.text = calculateTimeForTimersUpdaters(totalSecondsLeft)
     }
 
     private fun updateLocalTime(millisUntilFinished: Long) {
         val totalSecondsLeft = (millisUntilFinished / 1000).toInt()
         _localTimeToShow.value = calculateTimeForUpdaters(totalSecondsLeft)
-        //binding.localTimerView.text = calculateTimeForTimersUpdaters(totalSecondsLeft)
     }
 
     private fun calculateTimeForUpdaters(totalSecondsLeft: Int): String {
