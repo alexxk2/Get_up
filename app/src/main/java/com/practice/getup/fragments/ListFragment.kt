@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
@@ -75,9 +76,8 @@ class ListFragment : Fragment() {
             }
 
             override fun onClickExercise(exercise: Exercise) {
-                val intent = Intent(context, DetailActivity::class.java)
-                intent.putExtra(DetailActivity.VIDEO_ID,exercise.videoResource)
-                startActivity(intent)
+                val action = ListFragmentDirections.actionListFragmentToDetailFragment(exercise.videoResource)
+                binding.root.findNavController().navigate(action)
             }
             override fun onAddExercise(exercise: Exercise) {
                 Snackbar.make(binding.recyclerView, R.string.snackbar_delete, Snackbar.LENGTH_SHORT)
