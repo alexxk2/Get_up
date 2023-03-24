@@ -1,24 +1,19 @@
 package com.practice.getup.fragments
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
-import com.practice.getup.activities.OptionsActivity.Companion.BACK_OPTIONS
-import com.practice.getup.activities.ViewModelFactoryForFragments
+import com.practice.getup.activities.ViewModelFactoryFragments
 import com.practice.getup.databinding.FragmentOptionsBinding
 import com.practice.getup.model.Options
 import com.practice.getup.viewModels.OptionsViewModel
@@ -29,7 +24,7 @@ class OptionsFragment : Fragment() {
     private var _binding: FragmentOptionsBinding? = null
     private val binding get() = _binding!!
     private lateinit var options: Options
-    private val viewModel: OptionsViewModel by viewModels{ViewModelFactoryForFragments(options)}
+    private val viewModel: OptionsViewModel by viewModels{ViewModelFactoryFragments(options)}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

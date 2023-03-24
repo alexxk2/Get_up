@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.practice.getup.R
-import com.practice.getup.activities.DetailActivity
 
 import com.practice.getup.databinding.FragmentDetailBinding
 

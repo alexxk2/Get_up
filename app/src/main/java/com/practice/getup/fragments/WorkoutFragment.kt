@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
-import androidx.recyclerview.widget.RecyclerView
 import com.practice.getup.R
-import com.practice.getup.activities.ViewModelFactoryForFragments
+import com.practice.getup.activities.ViewModelFactoryFragments
 import com.practice.getup.adapters.WorkoutAdapter
 import com.practice.getup.databinding.FragmentWorkoutBinding
 import com.practice.getup.model.Options
@@ -20,7 +18,6 @@ import com.practice.getup.model.SoundStages
 import com.practice.getup.model.TimerStages
 import com.practice.getup.viewModels.WorkoutViewModel
 import kotlinx.coroutines.Runnable
-import kotlinx.coroutines.delay
 
 
 class WorkoutFragment : Fragment() {
@@ -28,7 +25,7 @@ class WorkoutFragment : Fragment() {
     private var _binding: FragmentWorkoutBinding? = null
     private val binding get() = _binding!!
     private lateinit var options: Options
-    private val viewModel: WorkoutViewModel by viewModels{ViewModelFactoryForFragments(options) }
+    private val viewModel: WorkoutViewModel by viewModels{ViewModelFactoryFragments(options) }
     private lateinit var adapter: WorkoutAdapter
     private var mediaPlayer: MediaPlayer? = null
 

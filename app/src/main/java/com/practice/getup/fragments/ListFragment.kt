@@ -1,7 +1,6 @@
 package com.practice.getup.fragments
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
-import com.practice.getup.activities.DetailActivity
 import com.practice.getup.adapters.ListAdapter
 import com.practice.getup.data.DataSource
 import com.practice.getup.databinding.FragmentListBinding

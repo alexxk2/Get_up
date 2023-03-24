@@ -8,23 +8,8 @@ import com.practice.getup.viewModels.OptionsViewModel
 import com.practice.getup.viewModels.WorkoutViewModel
 
 
-class ViewModelFactory(private val workoutActivity: WorkoutActivity) : ViewModelProvider.Factory {
 
-    companion object {
-        const val OPTIONS = "OPTIONS"
-    }
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-        val viewModel: WorkoutViewModel = when (modelClass) {
-            WorkoutViewModel::class.java -> WorkoutViewModel(workoutActivity.intent.getParcelableExtra(OPTIONS)!!)
-            else -> throw java.lang.IllegalStateException("Unknown view model class")
-        }
-        return viewModel as T
-    }
-}
-
-class ViewModelFactoryForFragments(private val options: Options) : ViewModelProvider.Factory {
+class ViewModelFactoryFragments(private val options: Options) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
