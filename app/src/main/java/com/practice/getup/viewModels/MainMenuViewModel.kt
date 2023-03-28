@@ -12,6 +12,7 @@ class MainMenuViewModel: ViewModel() {
 
     fun setOptions(optionsImport: Options){
         _options.value = optionsImport
+
     }
 
 }

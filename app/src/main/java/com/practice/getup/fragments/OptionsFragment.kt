@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.practice.getup.R
 import com.practice.getup.activities.ViewModelFactoryFragments
 import com.practice.getup.databinding.FragmentOptionsBinding
@@ -144,7 +145,7 @@ class OptionsFragment : Fragment() {
             }
 
             hideKeyboard(binding.optionsActivity)
-
+            saveOptions()
             val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment(viewModel.options.value?: Options.DEFAULT)
             binding.root.findNavController().navigate(action)
 
@@ -164,13 +165,21 @@ class OptionsFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    companion object {
-        const val OPTIONS = "options"
+    private fun saveOptions(){
+        val sharedPref = activity?.getSharedPreferences(SHARED_PREF,0)
+        val jSonOptions  = Gson().toJson(viewModel.options.value)
+        sharedPref?.edit()?.putString(SAVED_OPTIONS,jSonOptions)?.apply()
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val OPTIONS = "options"
+        const val SAVED_OPTIONS = "saved_options"
+        const val SHARED_PREF = "shared_preferences"
     }
 }

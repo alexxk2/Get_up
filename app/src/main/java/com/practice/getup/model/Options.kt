@@ -1,7 +1,6 @@
 package com.practice.getup.model
 
 import android.os.Parcelable
-import com.practice.getup.R
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

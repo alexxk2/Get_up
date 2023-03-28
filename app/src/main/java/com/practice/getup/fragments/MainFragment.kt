@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigatorDestinationBuilder
-import com.practice.getup.activities.MainActivity
+import com.google.gson.Gson
 import com.practice.getup.databinding.FragmentMainBinding
 import com.practice.getup.model.Options
 import com.practice.getup.viewModels.MainMenuViewModel
@@ -21,15 +20,15 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainMenuViewModel by viewModels()
-    private var options: Options? = Options.DEFAULT
+    private var options: Options = Options.DEFAULT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-                options = it.getParcelable(OPTIONS)
+                options = it.getParcelable(OPTIONS)?: Options.DEFAULT
         }
-        viewModel.setOptions(options?: Options.DEFAULT)
+
     }
 
     override fun onCreateView(
@@ -46,6 +45,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkForSavedOptions()
+        viewModel.setOptions(options)
 
         binding.buttonSettings.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToOptionsFragment(viewModel.options.value?: Options.DEFAULT)
@@ -67,6 +68,15 @@ class MainFragment : Fragment() {
         binding.root.findNavController().navigate(action)
     }
 
+    private fun checkForSavedOptions(){
+        val sharedPref = activity?.getSharedPreferences(SHARED_PREF, 0)
+        val jSonDefaultOptions = Gson().toJson(Options.DEFAULT)
+        val savedOptions = sharedPref?.getString(SAVED_OPTIONS,jSonDefaultOptions)
+        options =  Gson().fromJson(savedOptions, Options::class.java)
+    }
+
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -74,6 +84,7 @@ class MainFragment : Fragment() {
 
     companion object {
         const val OPTIONS = "options"
-
+        const val SHARED_PREF = "shared_preferences"
+        const val SAVED_OPTIONS = "saved_options"
     }
 }
