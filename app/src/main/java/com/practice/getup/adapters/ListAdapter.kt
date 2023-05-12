@@ -24,6 +24,7 @@ class ListAdapter(
     //create viewholder for adapter via binding
     class ListViewHolder(val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root)
 
+
     //create onClick method (necessary)
     override fun onClick(v: View?) {
         val exercise = v?.tag as Exercise

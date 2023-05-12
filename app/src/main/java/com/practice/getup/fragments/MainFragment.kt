@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
         checkForSavedOptions()
         viewModel.setOptions(options)
 
-        binding.buttonSettings.setOnClickListener {
+      /*  binding.buttonSettings.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToOptionsFragment(viewModel.options.value?: Options.DEFAULT)
             navigate(action)
         }
@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
         binding.buttonWatchList.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToListFragment()
             navigate(action)
-        }
+        }*/
     }
 
     private fun navigate(action: NavDirections){

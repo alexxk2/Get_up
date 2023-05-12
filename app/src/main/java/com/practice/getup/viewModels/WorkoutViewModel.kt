@@ -225,7 +225,4 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         tempList[tempList.size - 1] = updatedStage
         _stageList.value = tempList
     }
-
-
-
 }

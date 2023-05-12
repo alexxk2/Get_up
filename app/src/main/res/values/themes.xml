@@ -22,6 +22,8 @@
         <item name="colorOnSecondaryContainer">@color/soft_black</item>
         <item name="colorSurface">@color/white</item>
 
+
+
 <!--        items for material3 theme that are not implemented yet-->
 
           <!--<item name="colorPrimaryContainer">@color/black</item>
