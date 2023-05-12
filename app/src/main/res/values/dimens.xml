@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Options screen-->
+    <dimen name="margin_between_buttons">8dp</dimen>
+    <dimen name="vertical_margin">18dp</dimen>
+    <dimen name="edit_text_width">220dp</dimen>
+    <dimen name="button_width">130dp</dimen>
+
+    <!--Main screen-->
+    <dimen name="margin_sides">28dp</dimen>
+    <dimen name="half_margin_sides">14dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+
+</resources>

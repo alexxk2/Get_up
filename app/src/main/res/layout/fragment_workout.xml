@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.WorkoutFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:layout_marginBottom="64dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/local_timer_view"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/local_timer_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:ellipsize="start"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/default_text"
+        android:textAlignment="center"
+        android:textColor="@color/hard_grey"
+        android:textSize="75sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/general_timer_view"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/default_text"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/start_button"
+        style="@style/GeneralRedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_button"
+        app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
+        app:layout_constraintStart_toStartOf="@+id/local_timer_view"
+        app:layout_constraintTop_toBottomOf="@id/local_timer_view" />
+
+    <Button
+        android:id="@+id/pause_button"
+        style="@style/GeneralRedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pause_button"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
+        app:layout_constraintStart_toStartOf="@+id/local_timer_view"
+        app:layout_constraintTop_toBottomOf="@id/local_timer_view" />
+
+    <Button
+        android:id="@+id/restart_button"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="@string/restart_button"
+        android:textColor="@color/main_app_color_soft"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
+        app:layout_constraintStart_toStartOf="@+id/local_timer_view"
+        app:layout_constraintTop_toBottomOf="@id/local_timer_view"
+        app:rippleColor="@color/main_app_color_super_soft"
+        app:strokeColor="@color/main_app_color_soft" />
+
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/global_progress_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:contentDescription="@string/progress_indicator"
+        app:indicatorColor="@color/main_app_color"
+        app:indicatorDirectionLinear="startToEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/general_timer_view"
+        app:trackColor="@color/main_app_color_super_soft"
+        app:trackCornerRadius="8dp"
+        app:trackThickness="10dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

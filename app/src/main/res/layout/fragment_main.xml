@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.MainFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="@dimen/margin_sides"
+        android:lines="1"
+        android:padding="2dp"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/button_start_workout"
+        style="@style/CardButtons"
+        app:layout_constraintBottom_toTopOf="@+id/button_watch_list"
+        app:layout_constraintEnd_toStartOf="@+id/button_settings"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card1_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:contentDescription="@string/image_for_card_view"
+                android:scaleType="centerCrop"
+                android:src="@drawable/workout_1" />
+
+            <TextView
+                android:id="@+id/card1_title"
+                style="@style/CardTitleText"
+                android:text="@string/card1_title" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/button_settings"
+        style="@style/CardButtons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/half_margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/margin_sides"
+        app:layout_constraintBottom_toTopOf="@+id/card4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_start_workout"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card2_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:contentDescription="@string/image_for_card_view"
+                android:scaleType="centerCrop"
+                android:src="@drawable/settings_4" />
+
+            <TextView
+                android:id="@+id/card2_title"
+                style="@style/CardTitleText"
+                android:text="@string/card2_title" />
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/button_watch_list"
+        style="@style/CardButtons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/half_margin_sides"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/card4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_start_workout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card3_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:contentDescription="@string/image_for_card_view"
+                android:scaleType="centerCrop"
+                android:src="@drawable/list_of_exercises" />
+
+            <TextView
+                android:id="@+id/card3_title"
+                style="@style/CardTitleText"
+                android:text="@string/card3_title" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card4"
+        style="@style/CardButtons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/half_margin_sides"
+        android:layout_marginTop="@dimen/margin_sides"
+        android:layout_marginEnd="@dimen/margin_sides"
+        android:layout_marginBottom="100dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_watch_list"
+        app:layout_constraintTop_toBottomOf="@+id/button_settings">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/card4_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:contentDescription="@string/image_for_card_view"
+                android:scaleType="centerCrop"
+                android:src="@drawable/workout_1" />
+
+            <TextView
+                android:id="@+id/card4_title"
+                style="@style/CardTitleText"
+                android:text="@string/default_text" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

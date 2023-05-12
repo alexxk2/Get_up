@@ -20,10 +20,9 @@ class ListAdapter(
 
 ): RecyclerView.Adapter<ListAdapter.ListViewHolder>(), View.OnClickListener{
 
+
     //create viewholder for adapter via binding
-    class ListViewHolder(
-        val binding: ListItemBinding
-    ): RecyclerView.ViewHolder(binding.root)
+    class ListViewHolder(val binding: ListItemBinding): RecyclerView.ViewHolder(binding.root)
 
     //create onClick method (necessary)
     override fun onClick(v: View?) {
@@ -45,6 +44,7 @@ class ListAdapter(
         binding.buttonDelete.setOnClickListener(this)
         binding.buttonAdd.setOnClickListener(this)
 
+
         return ListViewHolder(binding)
     }
 
@@ -61,6 +61,8 @@ class ListAdapter(
             buttonAdd.tag = item
         }
 
+
+         //TODO add normal pictures not gif
         //load gif images via Glide
         Glide.with(context).load(item.gifImageResourceId).into(holder.binding.itemGifImage)
 
@@ -92,6 +94,8 @@ class ListAdapter(
 
     }
 
+
+
     override fun getItemCount() = dataSet.size
 
     //interface to move our functions to ListActivity. Don`t forget to put private val listener in class
@@ -100,6 +104,7 @@ class ListAdapter(
         fun onClickExercise(exercise: Exercise)
         fun onAddExercise(exercise: Exercise)
     }
+
 
 
 }

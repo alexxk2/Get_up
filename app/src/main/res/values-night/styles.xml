@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <!--list screen-->
+    <style name="Chips" parent="Widget.Material3.Chip.Filter">
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>

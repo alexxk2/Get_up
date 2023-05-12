@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="64dp">
+
+    <TextView
+        android:id="@+id/stage_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/ready_text"
+        android:textSize="48sp"
+        android:layout_centerInParent="true"
+        android:textColor="@color/grey"/>
+
+    <TextView
+        android:id="@+id/number_of_sets_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text ="123"
+        android:layout_toEndOf="@id/stage_name"
+        android:layout_alignBaseline="@id/stage_name"
+        android:layout_marginStart="8dp"
+        android:textSize="26sp"
+        android:textColor="@color/grey"  />
+
+</RelativeLayout>
