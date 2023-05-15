@@ -9,15 +9,20 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.practice.getup.App
 import com.practice.getup.R
 import com.practice.getup.activities.ViewModelFactoryFragments
 import com.practice.getup.databinding.FragmentOptionsBinding
 import com.practice.getup.model.Options
 import com.practice.getup.viewModels.OptionsViewModel
+import com.practice.getup.viewModels.WorkoutDatabaseViewModel
+import com.practice.getup.viewModels.WorkoutDatabaseViewModelFactory
 
 
 class OptionsFragment : Fragment() {
@@ -26,6 +31,12 @@ class OptionsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var options: Options
     private val viewModel: OptionsViewModel by viewModels{ViewModelFactoryFragments(options)}
+
+    private val databaseViewModel: WorkoutDatabaseViewModel by activityViewModels {
+        WorkoutDatabaseViewModelFactory(
+            (activity?.application as App).workoutDatabase.workoutDao()
+        )
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +63,17 @@ class OptionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        viewModel.totalTime.observe(viewLifecycleOwner) { newTotalTime ->
+
+        //NEW CODE
+
+        binding.optionsSaveButton.setOnClickListener {
+            addNewItem()
+        }
+        binding.optionsBackButton.setOnClickListener { findNavController().navigateUp() }
+
+        //OLD CODE
+
+        /*viewModel.totalTime.observe(viewLifecycleOwner) { newTotalTime ->
             binding.totalWorkoutTime.text = newTotalTime
         }
 
@@ -103,10 +124,44 @@ class OptionsFragment : Fragment() {
 
                 binding.root.findNavController().navigateUp()
             }
-        }
+        }*/
 
     }
 
+    //NEW CODE
+    private fun isInputValid(): Boolean{
+        return databaseViewModel.isInputValid(
+            binding.editWorkoutName.text.toString(),
+            binding.editPreparationTime.text.toString(),
+            binding.editWorkTime.text.toString(),
+            binding.editRestTime.text.toString(),
+            binding.editSetsNumber.text.toString()
+        )
+    }
+
+    private fun addNewItem(){
+        if (isInputValid()){
+            databaseViewModel.addNewItem(
+                binding.editWorkoutName.text.toString(),
+                binding.editPreparationTime.text.toString(),
+                binding.editWorkTime.text.toString(),
+                binding.editRestTime.text.toString(),
+                binding.editSetsNumber.text.toString()
+            )
+            val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment()
+            findNavController().navigate(action)
+        }
+        else showInputException()
+    }
+
+    private fun showInputException() {
+        Snackbar.make(binding.optionsActivity, getString(R.string.number_format_exception_rest_short), 20000)
+            .setAction(R.string.snackbar_ok_button) {}
+            .show()
+        hideKeyboard(binding.optionsActivity)
+    }
+
+    //OLD CODE
     private fun showZeroInputErrorTime(input: Editable?): String? {
         val convertedInput = input.toString().toIntOrNull()
         return if (convertedInput == 0) getString(R.string.number_format_exception_rest_short) else null
@@ -146,7 +201,7 @@ class OptionsFragment : Fragment() {
 
             hideKeyboard(binding.optionsActivity)
             saveOptions()
-            val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment(viewModel.options.value?: Options.DEFAULT)
+            val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment()
             binding.root.findNavController().navigate(action)
 
         }

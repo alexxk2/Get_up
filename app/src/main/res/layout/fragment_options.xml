@@ -8,6 +8,29 @@
     tools:context=".fragments.OptionsFragment">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_workout_name"
+        style="@style/OptionsEditText"
+        android:layout_width="@dimen/edit_text_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_margin"
+        app:counterMaxLength="12"
+        android:hint="@string/workout_name"
+        app:helperText="@string/helper_text_preparation_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_workout_time">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_workout_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/lato_light"
+            android:inputType="text"
+            android:maxLength="12"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_preparation_time"
         style="@style/OptionsEditText"
         android:layout_width="@dimen/edit_text_width"
@@ -15,9 +38,10 @@
         android:layout_marginTop="@dimen/vertical_margin"
         android:hint="@string/option_preparation_time"
         app:helperText="@string/helper_text_preparation_time"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_workout_time">
+        app:layout_constraintTop_toBottomOf="@+id/input_workout_name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_preparation_time"
