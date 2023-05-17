@@ -14,8 +14,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.practice.getup.App
+import com.practice.getup.R
 import com.practice.getup.adapters.WorkoutListAdapter
 import com.practice.getup.database.Workout
 import com.practice.getup.databinding.FragmentMainBinding
@@ -64,15 +66,18 @@ class MainFragment : Fragment() {
         val adapter = WorkoutListAdapter(requireContext(), object :
             WorkoutListAdapter.WorkoutActionListener {
             override fun onClickItem(workout: Workout) {
-                Toast.makeText(context,"123", Toast.LENGTH_SHORT).show()
+                Snackbar.make(view,"123",20000)
+                    .setAction("OK"){}
+                    .show()
             }
 
-            override fun onDeleteItem(workout: Workout) {
+            override fun onStartItem(workout: Workout) {
                 Toast.makeText(context,"123", Toast.LENGTH_SHORT).show()
             }
 
             override fun onEditItem(workout: Workout) {
-                Toast.makeText(context,"123", Toast.LENGTH_SHORT).show()
+                val action = MainFragmentDirections.actionMainFragmentToOptionsFragment(id = workout.id)
+                findNavController().navigate(action)
             }
 
         })
@@ -126,5 +131,6 @@ class MainFragment : Fragment() {
         const val OPTIONS = "options"
         const val SHARED_PREF = "shared_preferences"
         const val SAVED_OPTIONS = "saved_options"
+        const val ID = "id"
     }
 }

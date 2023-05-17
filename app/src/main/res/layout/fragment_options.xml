@@ -1,176 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/options_activity"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.OptionsFragment">
+    android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_workout_name"
-        style="@style/OptionsEditText"
-        android:layout_width="@dimen/edit_text_width"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/options_activity"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_margin"
-        app:counterMaxLength="12"
-        android:hint="@string/workout_name"
-        app:helperText="@string/helper_text_preparation_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_workout_time">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_workout_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/lato_light"
-            android:inputType="text"
-            android:maxLength="12"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_preparation_time"
-        style="@style/OptionsEditText"
-        android:layout_width="@dimen/edit_text_width"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:hint="@string/option_preparation_time"
-        app:helperText="@string/helper_text_preparation_time"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_workout_name">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_preparation_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/lato_light"
-            android:inputType="number"
-            android:maxLength="4"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_work_time"
-        style="@style/OptionsEditText"
-        android:layout_width="@dimen/edit_text_width"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:hint="@string/option_work_time"
-        app:helperText="@string/helper_text_work_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_preparation_time">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_work_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/lato_light"
-            android:inputType="number"
-            android:maxLength="4" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_rest_time"
-        style="@style/OptionsEditText"
-        android:layout_width="@dimen/edit_text_width"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:hint="@string/option_rest_time"
-        app:helperText="@string/helper_text_rest_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_work_time">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_rest_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/lato_light"
-            android:inputType="number"
-            android:maxLength="4" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        tools:context=".fragments.OptionsFragment">
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_sets_number"
-        style="@style/OptionsEditText"
-        android:layout_width="@dimen/edit_text_width"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:hint="@string/number_of_sets"
-        app:counterMaxLength="2"
-        app:helperText="@string/helper_text_sets_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_rest_time">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_workout_name"
+            style="@style/OptionsEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:hint="@string/workout_name"
+            app:counterMaxLength="12"
+            app:endIconCheckable="true"
+            app:endIconDrawable="@drawable/ic_delete_x"
+            app:endIconMode="clear_text"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_sets_number"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/lato_light"
-            android:inputType="number"
-            android:maxLength="2" />
+            app:layout_constraintEnd_toEndOf="@+id/input_sets_number"
+            app:layout_constraintStart_toStartOf="@+id/input_preparation_time"
+            app:layout_constraintTop_toBottomOf="@+id/total_workout_time">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_workout_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-    <Button
-        android:id="@+id/options_save_button"
-        style="@style/GeneralRedButton"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:text="@string/save_button"
-        app:layout_constraintEnd_toStartOf="@id/options_back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_sets_number" />
+                android:inputType="text"
+                android:maxLength="12"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/options_back_button"
-        style="@style/GeneralRedButton"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:layout_marginEnd="40dp"
-        android:text="@string/back_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/options_save_button"
-        app:layout_constraintTop_toBottomOf="@id/input_sets_number" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_preparation_time"
+            style="@style/OptionsEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/option_preparation_time"
+            app:endIconCheckable="true"
+            app:endIconDrawable="@drawable/ic_delete_x"
+            app:endIconMode="clear_text"
+            app:errorIconDrawable="@null"
+            app:layout_constraintEnd_toStartOf="@+id/input_sets_number"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_workout_name"
+            app:suffixText="sec"
+            app:suffixTextColor="@color/grey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_preparation_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_work_time"
+            style="@style/OptionsEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/option_work_time"
+            android:orientation="vertical"
+            app:endIconCheckable="true"
+            app:endIconDrawable="@drawable/ic_delete_x"
+            app:endIconMode="clear_text"
+            app:errorIconDrawable="@null"
+            app:layout_constraintEnd_toStartOf="@+id/input_rest_time"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_preparation_time"
+            app:suffixText="sec"
+            app:suffixTextColor="@color/grey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_work_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textAlignment="viewEnd" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_rest_time"
+            style="@style/OptionsEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginEnd="36dp"
+            android:hint="@string/option_rest_time"
+            app:endIconCheckable="true"
+            app:endIconDrawable="@drawable/ic_delete_x"
+            app:endIconMode="clear_text"
+            app:errorIconDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/input_work_time"
+            app:layout_constraintTop_toBottomOf="@+id/input_sets_number"
+            app:suffixText="sec"
+            app:suffixTextColor="@color/grey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_rest_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textAlignment="viewEnd" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <TextView
-        android:id="@+id/test_text_view6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/lato_light"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/total_workout_time"
-        app:layout_constraintStart_toEndOf="@+id/total_workout_time"
-        app:layout_constraintTop_toTopOf="@id/total_workout_time" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_sets_number"
+            style="@style/OptionsEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:layout_marginEnd="36dp"
+            android:hint="@string/number_of_sets"
+            app:counterMaxLength="2"
+            app:endIconCheckable="true"
+            app:endIconDrawable="@drawable/ic_delete_x"
+            app:endIconMode="clear_text"
+            app:errorIconDrawable="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/input_preparation_time"
+            app:layout_constraintTop_toBottomOf="@+id/input_workout_name">
 
-    <TextView
-        android:id="@+id/total_workout_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vertical_margin"
-        android:fontFamily="@font/lato_light"
-        android:text="@string/default_text"
-        android:textColor="@color/hard_grey"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/test_text_view6"
-        app:layout_constraintEnd_toEndOf="@+id/input_preparation_time"
-        app:layout_constraintStart_toStartOf="@+id/input_preparation_time"
-        app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_sets_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:inputType="number"
+                android:maxLength="2" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/options_add_update_button"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:backgroundTint="@color/dark_blue"
+            android:text="@string/add"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/options_delete_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_rest_time" />
+
+        <Button
+            android:id="@+id/options_delete_button"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_margin"
+            android:backgroundTint="@color/white"
+            android:text="@string/delete"
+            android:textColor="@color/dark_blue"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/options_add_update_button"
+            app:layout_constraintTop_toBottomOf="@+id/input_rest_time" />
+
+
+        <TextView
+            android:id="@+id/test_text_view6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/total_workout_time"
+            app:layout_constraintStart_toEndOf="@+id/total_workout_time"
+            app:layout_constraintTop_toTopOf="@id/total_workout_time" />
+
+        <TextView
+            android:id="@+id/total_workout_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/default_total_time"
+            android:textColor="@color/hard_grey"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/test_text_view6"
+            app:layout_constraintEnd_toEndOf="@+id/input_workout_name"
+            app:layout_constraintStart_toStartOf="@+id/input_workout_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/options_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/total_workout_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/total_time_title"
+            android:textColor="@color/grey"
+            android:textSize="15sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/total_workout_time"
+            app:layout_constraintBottom_toBottomOf="@+id/total_workout_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/total_workout_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
+

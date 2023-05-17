@@ -59,11 +59,11 @@
     <string name="chip_medium">Medium</string>
     <string name="chip_hard">Hard</string>
 
-    <!--string options-->
-    <string name="option_preparation_time">Preparation time</string>
+    <!--Options screen-->
+    <string name="option_preparation_time">Preparation</string>
     <string name="option_work_time">Work time</string>
     <string name="option_rest_time">Rest time</string>
-    <string name="number_of_sets">Number of sets</string>
+    <string name="number_of_sets">Sets</string>
     <string name="ok_button">OK</string>
     <string name="start_button">START</string>
     <string name="pause_button">PAUSE</string>
@@ -75,6 +75,17 @@
     <string name="helper_text_work_time">30 sec by default*</string>
     <string name="helper_text_rest_time">60 sec by default*</string>
     <string name="helper_text_sets_number">5 sets by default*</string>
+    <string name="add">ADD</string>
+    <string name="delete">DELETE</string>
+    <string name="no_input_name_message">Введите название тренировки</string>
+    <string name="no_input_message">Заполните поля, кроме названия тренировки, ненулевыми значениями</string>
+    <string name="zero_input_message">Введите значение больше ноля</string>
+    <string name="non_null">Ненулевое</string>
+    <string name="default_total_time">0 : 0 : 0</string>
+    <string name="total_time_title">TOTAL TIME</string>
+    <string name="update">UPDATE</string>
+
+
 
     <!--strings for Snackbars-->
     <string name="number_format_exception_preparation">Ошибка ввода. Введите время подготовки в секундах больше ноля</string>
@@ -84,7 +95,7 @@
 
     <string name="number_format_exception_preparation_short">Введите время в секундах больше ноля</string>
     <string name="number_format_exception_work_short">Введите время в секундах больше ноля</string>
-    <string name="number_format_exception_rest_short">Введите время в секундах больше ноля</string>
+    <string name="number_format_exception_rest_short">Ненулевое</string>
     <string name="number_format_exception_sets_short">Введите количество подходов больше ноля</string>
     <string name="snackbar_ok_button">OK</string>
 
@@ -116,6 +127,8 @@
     <string name="workout_name">Workout name</string>
     <string name="start_workout">Start workout</string>
     <string name="my_workouts">My workouts</string>
+    <string name="edit">Edit</string>
+
 
 
 </resources>

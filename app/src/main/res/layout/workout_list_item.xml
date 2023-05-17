@@ -10,15 +10,16 @@
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:backgroundTint="@color/white"
+        android:layout_height="140dp"
+        android:backgroundTint="@color/light_blue"
         app:cardCornerRadius="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="1dp">
 
             <TextView
                 android:id="@+id/workout_name"
@@ -26,11 +27,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:lines="1"
                 android:textColor="@color/soft_black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:lines="1"
-                android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/default_text" />
@@ -40,26 +41,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:lines="1"
                 android:textColor="@color/soft_black"
                 android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                android:lines="1"
-                android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/workout_name"
                 tools:text="@string/total_workout_time" />
 
             <Button
+                android:id="@+id/item_start_workout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:layout_marginBottom="6dp"
-                android:backgroundTint="@color/main_app_color_soft"
+                android:backgroundTint="@color/dark_blue"
                 android:text="@string/start_workout"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                 />
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:id="@+id/item_edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:textColor="@color/dark_blue"
+                android:layout_marginStart="6dp"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/item_start_workout"
+                app:layout_constraintStart_toEndOf="@+id/item_start_workout"
+                app:layout_constraintTop_toTopOf="@+id/item_start_workout" />
 
             <ImageButton
                 android:id="@+id/delete_button"
@@ -70,20 +84,10 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_delete_x"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/edit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/delete_button"
                 app:layout_constraintTop_toTopOf="parent"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_edit"
-                android:layout_marginEnd="12dp"
-                android:visibility="gone"
-                />
+                android:visibility="gone"/>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
