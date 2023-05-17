@@ -4,6 +4,7 @@ import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bumptech.glide.Glide.init
 import com.practice.getup.model.Options
 
 class OptionsViewModel(optionsInput: Options) : ViewModel() {
@@ -15,10 +16,10 @@ class OptionsViewModel(optionsInput: Options) : ViewModel() {
     val totalTime: LiveData<String> = _totalTime
 
     private var preparationTimeInput =
-        _options.value?.preparingTime ?: Options.DEFAULT.preparingTime
-    private var workTimeInput = _options.value?.workTime ?: Options.DEFAULT.workTime
-    private var restTimeInput = _options.value?.restTime ?: Options.DEFAULT.restTime
-    private var numberOfSetsInput = _options.value?.numberOfSets ?: Options.DEFAULT.numberOfSets
+        0
+    private var workTimeInput = 0
+    private var restTimeInput = 0
+    private var numberOfSetsInput = 0
 
     init {
         calculateTotalTime()
@@ -42,12 +43,17 @@ class OptionsViewModel(optionsInput: Options) : ViewModel() {
 
 
     fun calculateTotalTime() {
-        val totalSeconds = (workTimeInput + restTimeInput) * numberOfSetsInput + preparationTimeInput
-        val secondsToShow = totalSeconds % 60
-        val minutesToShow = (totalSeconds / 60) % 60
-        val hoursToShow = totalSeconds / 3600
+        val totalSeconds =
+            (workTimeInput + restTimeInput) * numberOfSetsInput + preparationTimeInput
+        val secondsToShow = (totalSeconds % 60).toString().padStart(2, '0')
+        val minutesToShow = ((totalSeconds / 60) % 60).toString().padStart(2, '0')
+        val hoursToShow = (totalSeconds / 3600).toString().padStart(2, '0')
 
-        _totalTime.value = "$hoursToShow : $minutesToShow : $secondsToShow"
+        _totalTime.value = when {
+            (totalSeconds / 3600) > 0 -> "$hoursToShow : $minutesToShow : $secondsToShow"
+            else -> "$minutesToShow : $secondsToShow"
+        }
+
     }
 
     fun updateOptions(){

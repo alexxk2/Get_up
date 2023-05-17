@@ -52,15 +52,22 @@ class WorkoutDatabaseViewModel(private val workoutDao: WorkoutDao) : ViewModel()
         insertWorkout(newWorkout)
     }
 
-    fun isInputValid(
-        name: String,
+    fun isNumberInputValid(
         preparingTime: String,
         workTime: String,
         restTime: String,
         numberOfSets: String
     ) =
-        (name.isNotBlank() && preparingTime.isNotBlank() && workTime.isNotBlank() && restTime.isNotBlank() && numberOfSets.isNotBlank())
+        (preparingTime.isNotBlank() && workTime.isNotBlank() && restTime.isNotBlank() && numberOfSets.isNotBlank()
+                && preparingTime.toInt()>0 && workTime.toInt()>0 && restTime.toInt()>0 && numberOfSets.toInt()>0)
 
+    fun isNameInputValid(
+        name: String
+    ) = (name.isNotBlank())
+
+    fun retrieveWorkout(id: Int): LiveData<Workout>{
+        return workoutDao.getWorkout(id).asLiveData()
+    }
 
 }
 

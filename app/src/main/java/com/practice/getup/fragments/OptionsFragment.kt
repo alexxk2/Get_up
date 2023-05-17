@@ -7,17 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.practice.getup.App
 import com.practice.getup.R
 import com.practice.getup.activities.ViewModelFactoryFragments
+import com.practice.getup.database.Workout
 import com.practice.getup.databinding.FragmentOptionsBinding
 import com.practice.getup.model.Options
 import com.practice.getup.viewModels.OptionsViewModel
@@ -31,6 +34,9 @@ class OptionsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var options: Options
     private val viewModel: OptionsViewModel by viewModels{ViewModelFactoryFragments(options)}
+    private var id = 0
+    private lateinit var workout: Workout
+
 
     private val databaseViewModel: WorkoutDatabaseViewModel by activityViewModels {
         WorkoutDatabaseViewModelFactory(
@@ -38,12 +44,12 @@ class OptionsFragment : Fragment() {
         )
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
                 options  = it.getParcelable(OPTIONS)?: Options.DEFAULT
+                id = it.getInt(ID)
         }
     }
 
@@ -66,10 +72,53 @@ class OptionsFragment : Fragment() {
 
         //NEW CODE
 
-        binding.optionsSaveButton.setOnClickListener {
-            addNewItem()
+        changeAppearance()
+
+        viewModel.totalTime.observe(viewLifecycleOwner) { newTotalTime ->
+            binding.totalWorkoutTime.text = newTotalTime
         }
+
+        if (id > 0) {
+            databaseViewModel.retrieveWorkout(id).observe(viewLifecycleOwner) { currentWorkout ->
+                workout = currentWorkout
+                bind(workout)
+            }
+        } else binding.optionsAddUpdateButton.setOnClickListener { addNewItem() }
+
+
         binding.optionsBackButton.setOnClickListener { findNavController().navigateUp() }
+
+        binding.editPreparationTime.addTextChangedListener {
+            viewModel.getPreparationTimeInput(it)
+            viewModel.calculateTotalTime()
+            if (it.toString().toIntOrNull() == 0)
+                binding.inputPreparationTime.error = showZeroInputErrorTime(it)
+            else binding.inputPreparationTime.error = null
+        }
+
+        binding.editSetsNumber.addTextChangedListener {
+            viewModel.getSetsNumberInput(it)
+            viewModel.calculateTotalTime()
+            if (it.toString().toIntOrNull() == 0)
+                binding.inputSetsNumber.error = showZeroInputErrorTime(it)
+            else binding.inputSetsNumber.error = null
+        }
+
+        binding.editWorkTime.addTextChangedListener {
+            viewModel.getWorkTimeInput(it)
+            viewModel.calculateTotalTime()
+            if (it.toString().toIntOrNull() == 0)
+                binding.inputWorkTime.error = showZeroInputErrorTime(it)
+            else binding.inputWorkTime.error = null
+        }
+
+        binding.editRestTime.addTextChangedListener {
+            viewModel.getRestTimeInput(it)
+            viewModel.calculateTotalTime()
+            if (it.toString().toIntOrNull() == 0)
+                binding.inputRestTime.error = showZeroInputErrorTime(it)
+            else binding.inputRestTime.error = null
+        }
 
         //OLD CODE
 
@@ -129,9 +178,8 @@ class OptionsFragment : Fragment() {
     }
 
     //NEW CODE
-    private fun isInputValid(): Boolean{
-        return databaseViewModel.isInputValid(
-            binding.editWorkoutName.text.toString(),
+    private fun isNumberInputValid(): Boolean{
+        return databaseViewModel.isNumberInputValid(
             binding.editPreparationTime.text.toString(),
             binding.editWorkTime.text.toString(),
             binding.editRestTime.text.toString(),
@@ -139,8 +187,12 @@ class OptionsFragment : Fragment() {
         )
     }
 
-    private fun addNewItem(){
-        if (isInputValid()){
+    private fun isNameInputValid(): Boolean{
+        return databaseViewModel.isNameInputValid(binding.editWorkoutName.text.toString())
+    }
+
+    private fun addNewItem() {
+        if (isNumberInputValid() && isNameInputValid()) {
             databaseViewModel.addNewItem(
                 binding.editWorkoutName.text.toString(),
                 binding.editPreparationTime.text.toString(),
@@ -150,21 +202,48 @@ class OptionsFragment : Fragment() {
             )
             val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment()
             findNavController().navigate(action)
-        }
-        else showInputException()
+        } else if (!isNameInputValid()) {
+            showTextInputException()
+        } else showNumberInputException()
     }
 
-    private fun showInputException() {
-        Snackbar.make(binding.optionsActivity, getString(R.string.number_format_exception_rest_short), 20000)
+    private fun showNumberInputException() {
+        Snackbar.make(binding.optionsActivity, getString(R.string.no_input_message), 20000)
             .setAction(R.string.snackbar_ok_button) {}
             .show()
         hideKeyboard(binding.optionsActivity)
     }
 
+    private fun showTextInputException() {
+        Snackbar.make(binding.optionsActivity, getString(R.string.no_input_name_message), 20000)
+            .setAction(R.string.snackbar_ok_button) {}
+            .show()
+        hideKeyboard(binding.optionsActivity)
+    }
+
+    private fun changeAppearance(){
+        if (id <= 0){
+            binding.optionsDeleteButton.visibility = View.GONE
+        }
+        else  binding.optionsAddUpdateButton.text = getString(R.string.update)
+    }
+
+    private fun bind(workout: Workout){
+        binding.apply {
+            editWorkoutName.setText(workout.name, TextView.BufferType.SPANNABLE)
+            editPreparationTime.setText(workout.preparingTime.toString(),TextView.BufferType.SPANNABLE)
+            editSetsNumber.setText(workout.numberOfSets.toString(), TextView.BufferType.SPANNABLE)
+            editWorkTime.setText(workout.workTime.toString(), TextView.BufferType.SPANNABLE)
+            editRestTime.setText(workout.restTime.toString(), TextView.BufferType.SPANNABLE)
+            //добавить клик листенер на апдейт объекта
+        }
+
+    }
+
     //OLD CODE
     private fun showZeroInputErrorTime(input: Editable?): String? {
         val convertedInput = input.toString().toIntOrNull()
-        return if (convertedInput == 0) getString(R.string.number_format_exception_rest_short) else null
+        return if (convertedInput == 0) getString(R.string.non_null) else null
     }
 
     private fun showZeroInputErrorSets(input: Editable?): String? {
@@ -236,5 +315,6 @@ class OptionsFragment : Fragment() {
         const val OPTIONS = "options"
         const val SAVED_OPTIONS = "saved_options"
         const val SHARED_PREF = "shared_preferences"
+        const val ID = "id"
     }
 }
