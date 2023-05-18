@@ -21,7 +21,7 @@ class WorkoutDatabaseViewModel(private val workoutDao: WorkoutDao) : ViewModel()
         }
     }
 
-    private fun getNewItemInput(
+    private fun getNewWorkoutInput(
         name: String,
         preparingTime: String,
         workTime: String,
@@ -35,14 +35,30 @@ class WorkoutDatabaseViewModel(private val workoutDao: WorkoutDao) : ViewModel()
         numberOfSets = numberOfSets.toInt()
     )
 
-    fun addNewItem(
+    private fun getUpdatedWorkoutInput(
+        id: Int,
+        name: String,
+        preparingTime: String,
+        workTime: String,
+        restTime: String,
+        numberOfSets: String
+    ) = Workout(
+        id = id,
+        name = name,
+        preparingTime = preparingTime.toInt(),
+        workTime = workTime.toInt(),
+        restTime = restTime.toInt(),
+        numberOfSets = numberOfSets.toInt()
+    )
+
+    fun addNewWorkout(
         name: String,
         preparingTime: String,
         workTime: String,
         restTime: String,
         numberOfSets: String
     ) {
-        val newWorkout = getNewItemInput(
+        val newWorkout = getNewWorkoutInput(
             name = name,
             preparingTime = preparingTime,
             workTime = workTime,
@@ -67,6 +83,44 @@ class WorkoutDatabaseViewModel(private val workoutDao: WorkoutDao) : ViewModel()
 
     fun retrieveWorkout(id: Int): LiveData<Workout>{
         return workoutDao.getWorkout(id).asLiveData()
+    }
+
+    fun deleteWorkout(workout: Workout){
+        viewModelScope.launch {
+            workoutDao.delete(workout)
+        }
+    }
+
+    private fun updateWorkout(workout: Workout){
+        viewModelScope.launch {
+            workoutDao.update(workout)
+        }
+    }
+
+    fun updateWorkout(
+        id: Int,
+        name: String,
+        preparingTime: String,
+        workTime: String,
+        restTime: String,
+        numberOfSets: String
+
+    ) {
+        val updatedWorkout = getUpdatedWorkoutInput(
+            id = id,
+            name = name,
+            preparingTime = preparingTime,
+            workTime = workTime,
+            restTime = restTime,
+            numberOfSets = numberOfSets
+        )
+        updateWorkout(updatedWorkout)
+    }
+
+    fun deleteAll(){
+        viewModelScope.launch {
+            workoutDao.deleteAll()
+        }
     }
 
 }

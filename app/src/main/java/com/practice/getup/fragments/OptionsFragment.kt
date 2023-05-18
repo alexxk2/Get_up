@@ -14,7 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.practice.getup.App
@@ -68,8 +69,6 @@ class OptionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         //NEW CODE
 
         changeAppearance()
@@ -83,7 +82,7 @@ class OptionsFragment : Fragment() {
                 workout = currentWorkout
                 bind(workout)
             }
-        } else binding.optionsAddUpdateButton.setOnClickListener { addNewItem() }
+        } else binding.optionsAddUpdateButton.setOnClickListener { addNewWorkout() }
 
 
         binding.optionsBackButton.setOnClickListener { findNavController().navigateUp() }
@@ -191,9 +190,26 @@ class OptionsFragment : Fragment() {
         return databaseViewModel.isNameInputValid(binding.editWorkoutName.text.toString())
     }
 
-    private fun addNewItem() {
+    private fun addNewWorkout() {
         if (isNumberInputValid() && isNameInputValid()) {
-            databaseViewModel.addNewItem(
+            databaseViewModel.addNewWorkout(
+                binding.editWorkoutName.text.toString(),
+                binding.editPreparationTime.text.toString(),
+                binding.editWorkTime.text.toString(),
+                binding.editRestTime.text.toString(),
+                binding.editSetsNumber.text.toString()
+            )
+            val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment()
+            findNavController().navigate(action)
+        } else if (!isNameInputValid()) {
+            showTextInputException()
+        } else showNumberInputException()
+    }
+
+    private fun updateWorkout(){
+        if (isNumberInputValid() && isNameInputValid()) {
+            databaseViewModel.updateWorkout(
+                id,
                 binding.editWorkoutName.text.toString(),
                 binding.editPreparationTime.text.toString(),
                 binding.editWorkTime.text.toString(),
@@ -236,8 +252,27 @@ class OptionsFragment : Fragment() {
             editWorkTime.setText(workout.workTime.toString(), TextView.BufferType.SPANNABLE)
             editRestTime.setText(workout.restTime.toString(), TextView.BufferType.SPANNABLE)
             //добавить клик листенер на апдейт объекта
+            optionsDeleteButton.setOnClickListener { showDeleteConfirmationDialog() }
+            optionsAddUpdateButton.setOnClickListener { updateWorkout() }
         }
 
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.alert_dialog_title))
+            .setMessage(getString(R.string.alert_dialog_message_delete))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.answer_no)) { _, _ -> }
+            .setPositiveButton(getString(R.string.answer_yes)) { _, _ ->
+                deleteWorkout()
+            }
+            .show()
+    }
+
+    private fun deleteWorkout(){
+        databaseViewModel.deleteWorkout(workout)
+        findNavController().navigateUp()
     }
 
     //OLD CODE

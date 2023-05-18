@@ -1,6 +1,7 @@
 package com.practice.getup.fragments
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.practice.getup.App
@@ -86,12 +84,15 @@ class MainFragment : Fragment() {
         binding.recyclerView.setHasFixedSize(true)
         databaseViewModel.allWorkouts.observe(viewLifecycleOwner) { allWorkouts ->
             adapter.submitList(allWorkouts)
+            manageEmptyListUi(allWorkouts)
         }
 
-        binding.floatingButton.setOnClickListener {
+        binding.floatingButtonAdd.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToOptionsFragment()
             findNavController().navigate(action)
         }
+
+        binding.floatingButtonDelete.setOnClickListener { showDeleteAllConfirmationDialog()}
 
         /*checkForSavedOptions()
         viewModel.setOptions(options)*/
@@ -119,6 +120,34 @@ class MainFragment : Fragment() {
         val jSonDefaultOptions = Gson().toJson(Options.DEFAULT)
         val savedOptions = sharedPref?.getString(SAVED_OPTIONS, jSonDefaultOptions)
         options = Gson().fromJson(savedOptions, Options::class.java)
+    }
+
+    private fun manageEmptyListUi(list: List<Workout>){
+        if (list.isEmpty()){
+            binding.recyclerView.visibility = View.GONE
+            binding.floatingButtonDelete.visibility = View.GONE
+            binding.emptyListViews.visibility = View.VISIBLE
+
+        }
+
+        else {
+            binding.emptyListViews.visibility = View.GONE
+            binding.recyclerView.visibility = View.VISIBLE
+            binding.floatingButtonDelete.visibility = View.VISIBLE
+
+        }
+    }
+
+    private fun showDeleteAllConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.alert_dialog_title))
+            .setMessage(getString(R.string.alert_dialog_message_delete_all))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.answer_no)) { _, _ -> }
+            .setPositiveButton(getString(R.string.answer_yes)) { _, _ ->
+                databaseViewModel.deleteAll()
+            }
+            .show()
     }
 
 
