@@ -70,7 +70,8 @@ class MainFragment : Fragment() {
             }
 
             override fun onStartItem(workout: Workout) {
-                Toast.makeText(context,"123", Toast.LENGTH_SHORT).show()
+                val action = MainFragmentDirections.actionMainFragmentToWorkoutFragment(workout = workout)
+                findNavController().navigate(action)
             }
 
             override fun onEditItem(workout: Workout) {

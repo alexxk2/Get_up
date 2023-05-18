@@ -34,7 +34,7 @@ class OptionsFragment : Fragment() {
     private var _binding: FragmentOptionsBinding? = null
     private val binding get() = _binding!!
     private lateinit var options: Options
-    private val viewModel: OptionsViewModel by viewModels{ViewModelFactoryFragments(options)}
+    private val viewModel: OptionsViewModel by viewModels()
     private var id = 0
     private lateinit var workout: Workout
 
@@ -275,18 +275,26 @@ class OptionsFragment : Fragment() {
         findNavController().navigateUp()
     }
 
-    //OLD CODE
     private fun showZeroInputErrorTime(input: Editable?): String? {
         val convertedInput = input.toString().toIntOrNull()
         return if (convertedInput == 0) getString(R.string.non_null) else null
     }
 
-    private fun showZeroInputErrorSets(input: Editable?): String? {
-        val convertedInput = input.toString().toIntOrNull()
-        return if (convertedInput == 0) getString(R.string.number_format_exception_sets_short) else null
+    private fun hideKeyboard(view: View) {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun setOptions() {
+    //OLD CODE
+
+
+    /*private fun showZeroInputErrorSets(input: Editable?): String? {
+        val convertedInput = input.toString().toIntOrNull()
+        return if (convertedInput == 0) getString(R.string.number_format_exception_sets_short) else null
+    }*/
+
+    /*private fun setOptions() {
 
         viewModel.updateOptions()
 
@@ -319,26 +327,22 @@ class OptionsFragment : Fragment() {
             binding.root.findNavController().navigate(action)
 
         }
-    }
+    }*/
 
-    private fun showZeroException(exceptionString: Int) {
+    /*private fun showZeroException(exceptionString: Int) {
         Snackbar.make(binding.optionsActivity, exceptionString, 20000)
             .setAction(R.string.snackbar_ok_button) {}
             .show()
         hideKeyboard(binding.optionsActivity)
     }
 
-    private fun hideKeyboard(view: View) {
-        val inputMethodManager =
-            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
+
 
     private fun saveOptions(){
         val sharedPref = activity?.getSharedPreferences(SHARED_PREF,0)
         val jSonOptions  = Gson().toJson(viewModel.options.value)
         sharedPref?.edit()?.putString(SAVED_OPTIONS,jSonOptions)?.apply()
-    }
+    }*/
 
 
     override fun onDestroyView() {
