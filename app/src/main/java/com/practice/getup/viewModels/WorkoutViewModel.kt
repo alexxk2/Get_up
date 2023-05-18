@@ -4,22 +4,23 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.practice.getup.R
-import com.practice.getup.model.Options
 import com.practice.getup.model.Stage
 import com.practice.getup.model.TimerStages
 import com.practice.getup.activities.UiText
+import com.practice.getup.database.Workout
+import com.practice.getup.database.WorkoutDao
 import com.practice.getup.model.SoundStages
 
-class WorkoutViewModel(private val options: Options) : ViewModel() {
-
+class WorkoutViewModel(private val workout: Workout) : ViewModel() {
 
     private lateinit var timer: CountDownTimer
 
-    private val workTime = (options.workTime * 1000).toLong()
-    private val restTime = (options.restTime * 1000).toLong()
-    private val preparationTime = (options.preparingTime * 1000).toLong()
-    private val numberOfSets = (options.numberOfSets)
+    private val workTime = (workout.workTime * 1000).toLong()
+    private val restTime = (workout.restTime * 1000).toLong()
+    private val preparationTime = (workout.preparingTime * 1000).toLong()
+    private val numberOfSets = (workout.numberOfSets)
     private val totalWorkoutTime = (workTime + restTime) * numberOfSets + preparationTime
 
     private var totalTimeForLocalTimer: Long = preparationTime
@@ -57,6 +58,8 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
         //_indicatorProgressValue.value = 0
         createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2 + 3))
     }
+
+
 
     fun startTimer() {
 
@@ -103,7 +106,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                     isWorkTime = false
                 }
 
-                if (setsDone == options.numberOfSets * 2) {
+                if (setsDone == workout.numberOfSets * 2) {
                     isWorkTime = null
                     _timerStage.value = TimerStages.RESTART
                 }
@@ -114,7 +117,7 @@ class WorkoutViewModel(private val options: Options) : ViewModel() {
                      null -> _soundStage.value = SoundStages.FINISH
                  }
 
-                if (setsDone == options.numberOfSets * 2) return
+                if (setsDone == workout.numberOfSets * 2) return
 
                 startTimer()
             }

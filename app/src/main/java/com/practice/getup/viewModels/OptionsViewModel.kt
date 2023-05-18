@@ -7,10 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.bumptech.glide.Glide.init
 import com.practice.getup.model.Options
 
-class OptionsViewModel(optionsInput: Options) : ViewModel() {
+class OptionsViewModel : ViewModel() {
 
-    private val _options = MutableLiveData(optionsInput)
-    val options: LiveData<Options> = _options
 
     private val _totalTime = MutableLiveData<String>()
     val totalTime: LiveData<String> = _totalTime
@@ -26,19 +24,19 @@ class OptionsViewModel(optionsInput: Options) : ViewModel() {
     }
 
     fun getPreparationTimeInput(input: Editable?) {
-        preparationTimeInput = input.toString().toIntOrNull() ?: Options.DEFAULT.preparingTime
+        preparationTimeInput = input.toString().toInt()
     }
 
     fun getWorkTimeInput(input: Editable?) {
-        workTimeInput = input.toString().toIntOrNull() ?: Options.DEFAULT.workTime
+        workTimeInput = input.toString().toInt()
     }
 
     fun getRestTimeInput(input: Editable?) {
-        restTimeInput = input.toString().toIntOrNull() ?: Options.DEFAULT.restTime
+        restTimeInput = input.toString().toInt()
     }
 
     fun getSetsNumberInput(input: Editable?) {
-        numberOfSetsInput = input.toString().toIntOrNull() ?: Options.DEFAULT.numberOfSets
+        numberOfSetsInput = input.toString().toInt()
     }
 
 
@@ -55,9 +53,4 @@ class OptionsViewModel(optionsInput: Options) : ViewModel() {
         }
 
     }
-
-    fun updateOptions(){
-        _options.value = Options(preparationTimeInput,workTimeInput,restTimeInput,numberOfSetsInput)
-    }
-
 }

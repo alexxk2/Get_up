@@ -1,17 +1,23 @@
 package com.practice.getup.fragments
 
 
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.practice.getup.App
 import com.practice.getup.R
 import com.practice.getup.activities.ViewModelFactoryFragments
 import com.practice.getup.adapters.WorkoutAdapter
+import com.practice.getup.database.Workout
 import com.practice.getup.databinding.FragmentWorkoutBinding
 import com.practice.getup.model.Options
 import com.practice.getup.model.SoundStages
@@ -25,17 +31,23 @@ class WorkoutFragment : Fragment() {
     private var _binding: FragmentWorkoutBinding? = null
     private val binding get() = _binding!!
     private lateinit var options: Options
-    private val viewModel: WorkoutViewModel by viewModels{ViewModelFactoryFragments(options) }
+    private val viewModel: WorkoutViewModel by activityViewModels {
+        ViewModelFactoryFragments(workout)
+    }
     private lateinit var adapter: WorkoutAdapter
     private var mediaPlayer: MediaPlayer? = null
+    private lateinit var workout: Workout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-                options = it.getParcelable(OPTIONS)?: Options.DEFAULT
-        }
+            options = it.getParcelable(OPTIONS) ?: Options.DEFAULT
 
+            workout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.getParcelable(WORKOUT, Workout::class.java)!!
+            } else it.getParcelable(WORKOUT)!!
+        }
     }
 
     override fun onCreateView(
@@ -49,6 +61,7 @@ class WorkoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         adapter = WorkoutAdapter(requireContext())
         adapter.dataSet = viewModel.stageList.value!!
@@ -189,5 +202,6 @@ class WorkoutFragment : Fragment() {
 
     companion object{
         const val OPTIONS = "options"
+        const val WORKOUT = "workout"
     }
 }

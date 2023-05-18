@@ -14,7 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.practice.getup.App
@@ -33,7 +34,7 @@ class OptionsFragment : Fragment() {
     private var _binding: FragmentOptionsBinding? = null
     private val binding get() = _binding!!
     private lateinit var options: Options
-    private val viewModel: OptionsViewModel by viewModels{ViewModelFactoryFragments(options)}
+    private val viewModel: OptionsViewModel by viewModels()
     private var id = 0
     private lateinit var workout: Workout
 
@@ -68,8 +69,6 @@ class OptionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         //NEW CODE
 
         changeAppearance()
@@ -83,7 +82,7 @@ class OptionsFragment : Fragment() {
                 workout = currentWorkout
                 bind(workout)
             }
-        } else binding.optionsAddUpdateButton.setOnClickListener { addNewItem() }
+        } else binding.optionsAddUpdateButton.setOnClickListener { addNewWorkout() }
 
 
         binding.optionsBackButton.setOnClickListener { findNavController().navigateUp() }
@@ -191,9 +190,26 @@ class OptionsFragment : Fragment() {
         return databaseViewModel.isNameInputValid(binding.editWorkoutName.text.toString())
     }
 
-    private fun addNewItem() {
+    private fun addNewWorkout() {
         if (isNumberInputValid() && isNameInputValid()) {
-            databaseViewModel.addNewItem(
+            databaseViewModel.addNewWorkout(
+                binding.editWorkoutName.text.toString(),
+                binding.editPreparationTime.text.toString(),
+                binding.editWorkTime.text.toString(),
+                binding.editRestTime.text.toString(),
+                binding.editSetsNumber.text.toString()
+            )
+            val action = OptionsFragmentDirections.actionOptionsFragmentToMainFragment()
+            findNavController().navigate(action)
+        } else if (!isNameInputValid()) {
+            showTextInputException()
+        } else showNumberInputException()
+    }
+
+    private fun updateWorkout(){
+        if (isNumberInputValid() && isNameInputValid()) {
+            databaseViewModel.updateWorkout(
+                id,
                 binding.editWorkoutName.text.toString(),
                 binding.editPreparationTime.text.toString(),
                 binding.editWorkTime.text.toString(),
@@ -236,22 +252,49 @@ class OptionsFragment : Fragment() {
             editWorkTime.setText(workout.workTime.toString(), TextView.BufferType.SPANNABLE)
             editRestTime.setText(workout.restTime.toString(), TextView.BufferType.SPANNABLE)
             //добавить клик листенер на апдейт объекта
+            optionsDeleteButton.setOnClickListener { showDeleteConfirmationDialog() }
+            optionsAddUpdateButton.setOnClickListener { updateWorkout() }
         }
 
     }
 
-    //OLD CODE
+    private fun showDeleteConfirmationDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.alert_dialog_title))
+            .setMessage(getString(R.string.alert_dialog_message_delete))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.answer_no)) { _, _ -> }
+            .setPositiveButton(getString(R.string.answer_yes)) { _, _ ->
+                deleteWorkout()
+            }
+            .show()
+    }
+
+    private fun deleteWorkout(){
+        databaseViewModel.deleteWorkout(workout)
+        findNavController().navigateUp()
+    }
+
     private fun showZeroInputErrorTime(input: Editable?): String? {
         val convertedInput = input.toString().toIntOrNull()
         return if (convertedInput == 0) getString(R.string.non_null) else null
     }
 
-    private fun showZeroInputErrorSets(input: Editable?): String? {
-        val convertedInput = input.toString().toIntOrNull()
-        return if (convertedInput == 0) getString(R.string.number_format_exception_sets_short) else null
+    private fun hideKeyboard(view: View) {
+        val inputMethodManager =
+            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun setOptions() {
+    //OLD CODE
+
+
+    /*private fun showZeroInputErrorSets(input: Editable?): String? {
+        val convertedInput = input.toString().toIntOrNull()
+        return if (convertedInput == 0) getString(R.string.number_format_exception_sets_short) else null
+    }*/
+
+    /*private fun setOptions() {
 
         viewModel.updateOptions()
 
@@ -284,26 +327,22 @@ class OptionsFragment : Fragment() {
             binding.root.findNavController().navigate(action)
 
         }
-    }
+    }*/
 
-    private fun showZeroException(exceptionString: Int) {
+    /*private fun showZeroException(exceptionString: Int) {
         Snackbar.make(binding.optionsActivity, exceptionString, 20000)
             .setAction(R.string.snackbar_ok_button) {}
             .show()
         hideKeyboard(binding.optionsActivity)
     }
 
-    private fun hideKeyboard(view: View) {
-        val inputMethodManager =
-            activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
+
 
     private fun saveOptions(){
         val sharedPref = activity?.getSharedPreferences(SHARED_PREF,0)
         val jSonOptions  = Gson().toJson(viewModel.options.value)
         sharedPref?.edit()?.putString(SAVED_OPTIONS,jSonOptions)?.apply()
-    }
+    }*/
 
 
     override fun onDestroyView() {

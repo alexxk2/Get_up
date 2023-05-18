@@ -3,24 +3,26 @@ package com.practice.getup.activities
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.practice.getup.database.Workout
+import com.practice.getup.database.WorkoutDao
 import com.practice.getup.model.Options
 import com.practice.getup.viewModels.OptionsViewModel
+import com.practice.getup.viewModels.WorkoutDatabaseViewModel
 import com.practice.getup.viewModels.WorkoutViewModel
+import java.lang.IllegalArgumentException
 
 
-
-class ViewModelFactoryFragments(private val options: Options) : ViewModelProvider.Factory {
+class ViewModelFactoryFragments(private val workout: Workout) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
-        val viewModel: ViewModel = when (modelClass) {
-            OptionsViewModel::class.java -> OptionsViewModel(options)
-            WorkoutViewModel::class.java -> WorkoutViewModel(options)
-            else -> throw java.lang.IllegalStateException("Unknown view model class")
-        }
-
-        return viewModel as T
+        if (modelClass.isAssignableFrom(WorkoutViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return WorkoutViewModel(workout) as T
+        } else throw IllegalArgumentException("Unknown ViewModel class")
     }
+
+
 }
 
 

@@ -35,8 +35,8 @@
         android:label="fragment_workout"
         tools:layout="@layout/fragment_workout" >
         <argument
-            android:name="options"
-            app:argType="com.practice.getup.model.Options" />
+            android:name="workout"
+            app:argType="com.practice.getup.database.Workout" />
     </fragment>
     <fragment
         android:id="@+id/optionsFragment"
