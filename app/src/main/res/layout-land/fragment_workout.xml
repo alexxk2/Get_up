@@ -21,28 +21,26 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:layout_marginBottom="12dp"
+        android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/local_timer_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/back_button" />
 
     <TextView
+        android:layout_marginStart="48dp"
         android:id="@+id/local_timer_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:ellipsize="start"
         android:gravity="center"
         android:singleLine="true"
-        android:text="@string/default_text"
+        android:text="@string/default_total_time"
         android:textAlignment="center"
         android:textColor="@color/hard_grey"
         android:textSize="75sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
-        android:text="@string/default_text"
+        android:text="@string/default_total_time"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,9 +77,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_button"
-        app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
-        app:layout_constraintStart_toStartOf="@+id/local_timer_view"
-        app:layout_constraintTop_toBottomOf="@id/local_timer_view" />
+
+        app:layout_constraintBottom_toBottomOf="@+id/local_timer_view"
+        app:layout_constraintStart_toEndOf="@id/local_timer_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/local_timer_view" />
 
     <Button
         android:id="@+id/pause_button"
@@ -90,9 +90,11 @@
         android:layout_height="wrap_content"
         android:text="@string/pause_button"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
-        app:layout_constraintStart_toStartOf="@+id/local_timer_view"
-        app:layout_constraintTop_toBottomOf="@id/local_timer_view" />
+
+        app:layout_constraintBottom_toBottomOf="@+id/local_timer_view"
+        app:layout_constraintStart_toEndOf="@id/local_timer_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/local_timer_view" />
 
     <Button
         android:id="@+id/restart_button"
@@ -104,10 +106,10 @@
         android:textColor="@color/dark_blue"
         android:textSize="18sp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/local_timer_view"
-        app:layout_constraintStart_toStartOf="@+id/local_timer_view"
-        app:layout_constraintTop_toBottomOf="@id/local_timer_view"
-
+        app:layout_constraintBottom_toBottomOf="@+id/local_timer_view"
+        app:layout_constraintStart_toEndOf="@id/local_timer_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/local_timer_view"
         app:strokeColor="@color/dark_blue" />
 
 

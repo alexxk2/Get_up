@@ -24,19 +24,19 @@ class OptionsViewModel : ViewModel() {
     }
 
     fun getPreparationTimeInput(input: Editable?) {
-        preparationTimeInput = input.toString().toInt()
+        preparationTimeInput = input.toString().toIntOrNull() ?: 0
     }
 
     fun getWorkTimeInput(input: Editable?) {
-        workTimeInput = input.toString().toInt()
+        workTimeInput = input.toString().toIntOrNull() ?: 0
     }
 
     fun getRestTimeInput(input: Editable?) {
-        restTimeInput = input.toString().toInt()
+        restTimeInput = input.toString().toIntOrNull() ?: 0
     }
 
     fun getSetsNumberInput(input: Editable?) {
-        numberOfSetsInput = input.toString().toInt()
+        numberOfSetsInput = input.toString().toIntOrNull() ?: 0
     }
 
 

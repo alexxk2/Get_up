@@ -7,13 +7,33 @@
 
     tools:context=".fragments.MainFragment">
 
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/top_app_bar"
+            app:title="@string/my_workouts"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/my_workouts"
-        android:textSize="30sp"
         android:textColor="@color/dark_blue"
+        android:textSize="30sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/settings_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/settings_button" />
@@ -26,6 +46,7 @@
         android:layout_marginEnd="24dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_settings"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,11 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        app:srcCompat="@drawable/ic_add"
         app:backgroundTint="@color/dark_blue"
-        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add"
+        app:tint="@color/white" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -57,39 +78,28 @@
         app:srcCompat="@drawable/ic_delete"
         app:tint="@color/white" />
 
-    <!--<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floating_button"
-        android:layout_width="180dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/add_workout"
-        app:icon="@drawable/ic_add"
-        app:iconGravity="start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />-->
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
         android:paddingHorizontal="12dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_button"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/top_app_bar"
+        app:layout_constraintVertical_bias="0.0"
+
+        />
 
     <LinearLayout
         android:id="@+id/empty_list_views"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,9 +111,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_weight"
             android:contentDescription="@string/weight_image"
-            />
+            android:src="@drawable/ic_weight" />
 
         <TextView
             android:id="@+id/empty_list_message"
@@ -114,10 +123,6 @@
             android:textAlignment="center"
             android:textSize="20sp" />
     </LinearLayout>
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

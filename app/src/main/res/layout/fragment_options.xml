@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin"
             android:hint="@string/workout_name"
-            app:counterMaxLength="12"
+            app:counterMaxLength="22"
             app:endIconCheckable="true"
             app:endIconDrawable="@drawable/ic_delete_x"
             app:endIconMode="clear_text"
@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"
 
                 android:inputType="text"
-                android:maxLength="12"
+                android:maxLength="22"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +57,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_workout_name"
-            app:suffixText="sec"
+            app:prefixText="@string/time_type"
             app:suffixTextColor="@color/grey">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,7 +66,6 @@
                 android:layout_height="match_parent"
                 android:inputType="number"
                 android:maxLength="4"
-                android:textAlignment="viewEnd"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,7 +87,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_preparation_time"
-            app:suffixText="sec"
+            app:prefixText="@string/time_type"
             app:suffixTextColor="@color/grey">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -96,8 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
-                android:maxLength="4"
-                android:textAlignment="viewEnd" />
+                android:maxLength="4" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +115,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/input_work_time"
             app:layout_constraintTop_toBottomOf="@+id/input_sets_number"
-            app:suffixText="sec"
+            app:prefixText="@string/time_type"
             app:suffixTextColor="@color/grey">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -125,8 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
-                android:maxLength="4"
-                android:textAlignment="viewEnd" />
+                android:maxLength="4" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -224,7 +221,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/total_workout_title"
+            android:id="@+id/total_time_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
