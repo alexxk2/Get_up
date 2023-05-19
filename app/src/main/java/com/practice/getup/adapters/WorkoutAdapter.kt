@@ -62,7 +62,7 @@ class WorkoutAdapter(
 
         if (item.hasFocus) {
             holder.binding.stageName.setTextColor(Color.parseColor("#737373"))
-            holder.binding.numberOfSetsLeft.setTextColor(Color.parseColor("#63F44336"))
+            holder.binding.numberOfSetsLeft.setTextColor(Color.parseColor("#1769AA"))
             holder.binding.constraintLayout.scaleX = 1.3f
             holder.binding.constraintLayout.scaleY = 1.3f
         }

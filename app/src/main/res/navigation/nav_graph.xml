@@ -37,6 +37,9 @@
         <argument
             android:name="workout"
             app:argType="com.practice.getup.database.Workout" />
+        <action
+            android:id="@+id/action_workoutFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/optionsFragment"

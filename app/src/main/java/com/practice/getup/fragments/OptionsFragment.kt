@@ -251,7 +251,7 @@ class OptionsFragment : Fragment() {
             editSetsNumber.setText(workout.numberOfSets.toString(), TextView.BufferType.SPANNABLE)
             editWorkTime.setText(workout.workTime.toString(), TextView.BufferType.SPANNABLE)
             editRestTime.setText(workout.restTime.toString(), TextView.BufferType.SPANNABLE)
-            //добавить клик листенер на апдейт объекта
+
             optionsDeleteButton.setOnClickListener { showDeleteConfirmationDialog() }
             optionsAddUpdateButton.setOnClickListener { updateWorkout() }
         }

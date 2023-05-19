@@ -88,6 +88,7 @@
     <string name="alert_dialog_message_delete">Are you sure you want to delete this workout?</string>
     <string name="answer_yes">YES</string>
     <string name="answer_no">NO</string>
+    <string name="time_type">sec</string>
 
 
     <!--strings for Snackbars-->
@@ -134,5 +135,7 @@
     <string name="alert_dialog_message_delete_all">Are you sure you want to delete all workouts?</string>
 
 
+    <!--Workout screen-->
+    <string name="alert_dialog_message_finish">Are you sure you want to finish this workout?</string>
 
 </resources>

@@ -9,10 +9,14 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Priority
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.practice.getup.App
 import com.practice.getup.R
 import com.practice.getup.activities.ViewModelFactoryFragments
@@ -31,7 +35,7 @@ class WorkoutFragment : Fragment() {
     private var _binding: FragmentWorkoutBinding? = null
     private val binding get() = _binding!!
     private lateinit var options: Options
-    private val viewModel: WorkoutViewModel by activityViewModels {
+    private val viewModel: WorkoutViewModel by viewModels {
         ViewModelFactoryFragments(workout)
     }
     private lateinit var adapter: WorkoutAdapter
@@ -48,6 +52,11 @@ class WorkoutFragment : Fragment() {
                 it.getParcelable(WORKOUT, Workout::class.java)!!
             } else it.getParcelable(WORKOUT)!!
         }
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this){
+            showFinishConfirmationDialog()
+        }
+
     }
 
     override fun onCreateView(
@@ -107,6 +116,9 @@ class WorkoutFragment : Fragment() {
         }
         binding.pauseButton.setOnClickListener { viewModel.pauseTimer() }
         binding.restartButton.setOnClickListener { viewModel.restartTimer() }
+        binding.backButton.setOnClickListener {
+            showFinishConfirmationDialog()
+        }
 
     }
 
@@ -182,12 +194,27 @@ class WorkoutFragment : Fragment() {
         }
     }
 
+    private fun showFinishConfirmationDialog(){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.alert_dialog_title))
+            .setMessage(getString(R.string.alert_dialog_message_finish))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.answer_no)){_,_ ->}
+            .setPositiveButton(getString(R.string.answer_yes)){_,_ ->
+                val action = WorkoutFragmentDirections.actionWorkoutFragmentToMainFragment()
+                findNavController().navigate(action)
+            }
+            .show()
+    }
+
     private fun createMediaPlayer(soundRes: Int){
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer.create(context, soundRes)
             mediaPlayer?.start()
         }
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
