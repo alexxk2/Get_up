@@ -1,4 +1,4 @@
-package com.practice.getup.model
+package com.practice.getup.models
 
 enum class TimerStages {
     PREPARATION,

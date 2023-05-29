@@ -11,7 +11,7 @@
         android:id="@+id/options_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".fragments.OptionsFragment">
+        tools:context=".ui.edit.OptionsFragment">
 
 
         <com.google.android.material.textfield.TextInputLayout

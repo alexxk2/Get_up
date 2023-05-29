@@ -1,11 +1,9 @@
-package com.practice.getup.viewModels
+package com.practice.getup.presentation.edit
 
 import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide.init
-import com.practice.getup.model.Options
 
 class OptionsViewModel : ViewModel() {
 

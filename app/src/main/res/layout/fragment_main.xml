@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".fragments.MainFragment">
-
+    tools:context=".ui.main.MainFragment">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/top_app_bar"
+        android:id="@+id/top_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/dark_blue"
@@ -17,9 +15,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/top_app_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
             app:menu="@menu/top_app_bar"
             app:title="@string/my_workouts"
             app:titleTextColor="@color/white" />
@@ -51,7 +50,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-
         android:id="@+id/floating_button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,7 +63,6 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-
         android:id="@+id/floating_button_delete"
         style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
@@ -78,7 +75,6 @@
         app:srcCompat="@drawable/ic_delete"
         app:tint="@color/white" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
@@ -89,10 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_app_bar"
-        app:layout_constraintVertical_bias="0.0"
-
-        />
+        app:layout_constraintTop_toBottomOf="@id/top_app_bar_layout"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/empty_list_views"

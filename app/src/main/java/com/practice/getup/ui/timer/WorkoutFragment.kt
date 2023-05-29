@@ -1,31 +1,26 @@
-package com.practice.getup.fragments
+package com.practice.getup.ui.timer
 
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Priority
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.practice.getup.App
 import com.practice.getup.R
-import com.practice.getup.activities.ViewModelFactoryFragments
 import com.practice.getup.adapters.WorkoutAdapter
 import com.practice.getup.database.Workout
 import com.practice.getup.databinding.FragmentWorkoutBinding
-import com.practice.getup.model.Options
-import com.practice.getup.model.SoundStages
-import com.practice.getup.model.TimerStages
+
+import com.practice.getup.models.SoundStages
+import com.practice.getup.models.TimerStages
+import com.practice.getup.viewModels.ViewModelFactoryFragments
 import com.practice.getup.viewModels.WorkoutViewModel
 import kotlinx.coroutines.Runnable
 
@@ -34,7 +29,6 @@ class WorkoutFragment : Fragment() {
 
     private var _binding: FragmentWorkoutBinding? = null
     private val binding get() = _binding!!
-    private lateinit var options: Options
     private val viewModel: WorkoutViewModel by viewModels {
         ViewModelFactoryFragments(workout)
     }
@@ -46,8 +40,6 @@ class WorkoutFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            options = it.getParcelable(OPTIONS) ?: Options.DEFAULT
-
             workout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 it.getParcelable(WORKOUT, Workout::class.java)!!
             } else it.getParcelable(WORKOUT)!!
@@ -213,8 +205,6 @@ class WorkoutFragment : Fragment() {
             mediaPlayer?.start()
         }
     }
-
-
 
     override fun onDestroy() {
         super.onDestroy()

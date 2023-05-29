@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.getup.databinding.WorkoutItemBinding
-import com.practice.getup.model.Stage
+import com.practice.getup.models.Stage
 
 
 class WorkoutDiffCallback(

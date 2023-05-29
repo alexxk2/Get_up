@@ -1,4 +1,4 @@
-package com.practice.getup.activities
+package com.practice.getup.utils
 
 import android.content.Context
 import androidx.annotation.StringRes

@@ -7,6 +7,13 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="AnyScreenBackButton">
+        <item name="android:src">@drawable/ic_arrow_back</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
+
     <!--Options screen-->
     <style name="OptionsEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/hard_grey</item>
@@ -55,6 +62,46 @@
         <item name="android:layout_marginTop">24dp</item>
         <item name="android:layout_marginEnd">24dp</item>
         <item name="android:src">@drawable/ic_settings</item>
+    </style>
+
+    <!--Settings screen-->
+    <style name="SettingsTitle">
+        <item name="android:text">@string/settings</item>
+        <item name="android:textSize">@dimen/settings_title_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginStart">@dimen/navigation_buttons_margin</item>
+    </style>
+
+    <style name="SettingsTextItems">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">@dimen/settings_text_items_margin_top</item>
+        <item name="android:textSize">@dimen/settings_text_items_size</item>
+    </style>
+
+    <style name="SettingsSwitchers">
+        <item name="android:layout_marginEnd">@dimen/navigation_buttons_margin</item>
+    </style>
+
+    <style name="Material3CustomTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorSecondaryContainer">@color/soft_blue</item>
+        <item name="colorSurface">@color/white</item>
+        <!--switch thumb and track colors unchecked -->
+        <!--<item name="colorOnSurface">@color/soft_blue</item>-->
+    </style>
+
+    <style name="LanguageChipGroup">
+        <item name="selectionRequired">true</item>
+        <item name="singleLine">true</item>
+        <item name="singleSelection">true</item>
+        <item name="android:layout_marginEnd">@dimen/navigation_buttons_margin</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:theme">@style/Material3CustomTheme</item>
+        <item name="checkedChip">@id/chip_english</item>
+    </style>
+
+    <style name="LanguageChip" parent="Widget.Material3.Chip.Filter">
+        <item name="android:textSize">12sp</item>
+        <item name="chipCornerRadius">10dp</item>
     </style>
 
 </resources>

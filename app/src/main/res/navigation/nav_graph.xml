@@ -7,31 +7,22 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.practice.getup.fragments.MainFragment"
+        android:name="com.practice.getup.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_workoutFragment"
             app:destination="@id/workoutFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_listFragment"
-            app:destination="@id/listFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_optionsFragment"
             app:destination="@id/optionsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/listFragment"
-        android:name="com.practice.getup.fragments.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/action_listFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/workoutFragment"
-        android:name="com.practice.getup.fragments.WorkoutFragment"
+        android:name="com.practice.getup.ui.timer.WorkoutFragment"
         android:label="fragment_workout"
         tools:layout="@layout/fragment_workout" >
         <argument
@@ -43,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/optionsFragment"
-        android:name="com.practice.getup.fragments.OptionsFragment"
+        android:name="com.practice.getup.ui.edit.OptionsFragment"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" >
         <action
@@ -55,12 +46,8 @@
             android:defaultValue="0" />
     </fragment>
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.practice.getup.fragments.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
-        <argument
-            android:name="intres"
-            app:argType="integer" />
-    </fragment>
+        android:id="@+id/settingsFragment"
+        android:name="com.practice.getup.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

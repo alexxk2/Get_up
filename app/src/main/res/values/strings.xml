@@ -69,7 +69,6 @@
     <string name="pause_button">PAUSE</string>
     <string name="resume_button">RESUME</string>
     <string name="save_button">SAVE</string>
-    <string name="back_button">BACK</string>
     <string name="restart_button">RESTART</string>
     <string name="helper_text_preparation_time">10 sec by default*</string>
     <string name="helper_text_work_time">30 sec by default*</string>
@@ -137,5 +136,16 @@
 
     <!--Workout screen-->
     <string name="alert_dialog_message_finish">Are you sure you want to finish this workout?</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Settings screen-->
+    <string name="back_button">back button</string>
+    <string name="settings">Settings</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="russian">Russian</string>
+
 
 </resources>
