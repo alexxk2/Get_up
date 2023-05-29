@@ -1,28 +1,24 @@
-package com.practice.getup.fragments
+package com.practice.getup.ui.main
 
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import com.practice.getup.App
 import com.practice.getup.R
-import com.practice.getup.adapters.WorkoutListAdapter
 import com.practice.getup.database.Workout
 import com.practice.getup.databinding.FragmentMainBinding
-import com.practice.getup.model.Options
-import com.practice.getup.viewModels.MainMenuViewModel
-import com.practice.getup.viewModels.WorkoutDatabaseViewModel
-import com.practice.getup.viewModels.WorkoutDatabaseViewModelFactory
+import com.practice.getup.presentation.main.MainMenuViewModel
+import com.practice.getup.presentation.WorkoutDatabaseViewModel
+import com.practice.getup.presentation.WorkoutDatabaseViewModelFactory
 
 
 class MainFragment : Fragment() {
@@ -30,7 +26,7 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainMenuViewModel by viewModels()
-    private var options: Options = Options.DEFAULT
+
 
     private val databaseViewModel: WorkoutDatabaseViewModel by activityViewModels {
         WorkoutDatabaseViewModelFactory(
@@ -40,10 +36,6 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            options = it.getParcelable(OPTIONS) ?: Options.DEFAULT
-        }
 
     }
 
@@ -70,13 +62,15 @@ class MainFragment : Fragment() {
             }
 
             override fun onStartItem(workout: Workout) {
-                val action = MainFragmentDirections.actionMainFragmentToWorkoutFragment(workout = workout)
-                findNavController().navigate(action)
+                val action =
+                    MainFragmentDirections.actionMainFragmentToWorkoutFragment(workout = workout)
+                navigate(action)
             }
 
             override fun onEditItem(workout: Workout) {
-                val action = MainFragmentDirections.actionMainFragmentToOptionsFragment(id = workout.id)
-                findNavController().navigate(action)
+                val action =
+                    MainFragmentDirections.actionMainFragmentToOptionsFragment(id = workout.id)
+                navigate(action)
             }
 
         })
@@ -95,33 +89,20 @@ class MainFragment : Fragment() {
 
         binding.floatingButtonDelete.setOnClickListener { showDeleteAllConfirmationDialog()}
 
-        /*checkForSavedOptions()
-        viewModel.setOptions(options)*/
+        binding.topAppBar.setOnMenuItemClickListener {menuItem ->
+            when(menuItem.itemId){
+                R.id.settings -> {
+                    val action = MainFragmentDirections.actionMainFragmentToSettingsFragment()
+                    navigate(action)
+                    true
+                }
+                else ->false
+            }
 
-        /*  binding.buttonSettings.setOnClickListener {
-              val action = MainFragmentDirections.actionMainFragmentToOptionsFragment(viewModel.options.value?: Options.DEFAULT)
-              navigate(action)
-          }
+        }
 
-          binding.buttonStartWorkout.setOnClickListener {
-              val action = MainFragmentDirections.actionMainFragmentToWorkoutFragment(viewModel.options.value?: Options.DEFAULT)
-              navigate(action)
-          }
-
-          binding.buttonWatchList.setOnClickListener {
-              val action = MainFragmentDirections.actionMainFragmentToListFragment()
-              navigate(action)
-          }*/
     }
 
-
-
-    private fun checkForSavedOptions() {
-        val sharedPref = activity?.getSharedPreferences(SHARED_PREF, 0)
-        val jSonDefaultOptions = Gson().toJson(Options.DEFAULT)
-        val savedOptions = sharedPref?.getString(SAVED_OPTIONS, jSonDefaultOptions)
-        options = Gson().fromJson(savedOptions, Options::class.java)
-    }
 
     private fun manageEmptyListUi(list: List<Workout>){
         if (list.isEmpty()){
@@ -151,6 +132,9 @@ class MainFragment : Fragment() {
             .show()
     }
 
+    private fun navigate(action: NavDirections){
+        findNavController().navigate(action)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -158,9 +142,6 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        const val OPTIONS = "options"
         const val SHARED_PREF = "shared_preferences"
-        const val SAVED_OPTIONS = "saved_options"
-        const val ID = "id"
     }
 }

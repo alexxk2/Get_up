@@ -11,5 +11,16 @@
     <dimen name="margin_sides">28dp</dimen>
     <dimen name="half_margin_sides">14dp</dimen>
     <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <!--Settings screen-->
+    <dimen name="settings_title_size">22sp</dimen>
+    <dimen name="settings_text_items_margin_top">48dp</dimen>
+    <dimen name="settings_text_items_size">16sp</dimen>
+    <dimen name="language_chip_text_size">12sp</dimen>
+    <dimen name="chip_corner_radius">10dp</dimen>
+    <dimen name="navigation_buttons_margin">24dp</dimen>
 
 </resources>

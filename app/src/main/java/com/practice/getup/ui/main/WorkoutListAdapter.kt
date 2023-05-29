@@ -1,4 +1,4 @@
-package com.practice.getup.adapters
+package com.practice.getup.ui.main
 
 import android.content.Context
 import android.view.LayoutInflater

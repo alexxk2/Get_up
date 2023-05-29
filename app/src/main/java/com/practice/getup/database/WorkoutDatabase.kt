@@ -13,7 +13,7 @@ abstract class WorkoutDatabase() : RoomDatabase() {
     companion object{
         private var INSTANCE: WorkoutDatabase? = null
 
-        fun getDataBase(context: Context): WorkoutDatabase{
+        fun getDataBase(context: Context): WorkoutDatabase {
             return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(
                     context,

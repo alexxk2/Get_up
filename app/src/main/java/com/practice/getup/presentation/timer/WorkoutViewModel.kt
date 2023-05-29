@@ -4,14 +4,14 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.ViewModelProvider
 import com.practice.getup.R
-import com.practice.getup.model.Stage
-import com.practice.getup.model.TimerStages
-import com.practice.getup.activities.UiText
+import com.practice.getup.models.Stage
+import com.practice.getup.models.TimerStages
+import com.practice.getup.utils.UiText
 import com.practice.getup.database.Workout
-import com.practice.getup.database.WorkoutDao
-import com.practice.getup.model.SoundStages
+import com.practice.getup.models.SoundStages
+import java.lang.IllegalArgumentException
 
 class WorkoutViewModel(private val workout: Workout) : ViewModel() {
 
@@ -40,7 +40,7 @@ class WorkoutViewModel(private val workout: Workout) : ViewModel() {
     private val _globalTimeToShow = MutableLiveData("")
     val globalTimeToShow: LiveData<String> = _globalTimeToShow
 
-    private val _indicatorProgressValue = MutableLiveData<Int>(0)
+    private val _indicatorProgressValue = MutableLiveData(0)
     val indicatorProgressValue: LiveData<Int> = _indicatorProgressValue
 
     private val _stageList = MutableLiveData<MutableList<Stage>>()
@@ -55,7 +55,6 @@ class WorkoutViewModel(private val workout: Workout) : ViewModel() {
     init {
         updateLocalTime(preparationTime)
         updateGlobalTime(preparationTime)
-        //_indicatorProgressValue.value = 0
         createListOfStages(_currentStagePosition.value ?: (numberOfSets * 2 + 3))
     }
 
@@ -228,5 +227,18 @@ class WorkoutViewModel(private val workout: Workout) : ViewModel() {
         tempList[tempList.size - 1] = updatedStage
         _stageList.value = tempList
     }
+
+}
+
+class ViewModelFactoryFragments(private val workout: Workout) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+
+        if (modelClass.isAssignableFrom(WorkoutViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return WorkoutViewModel(workout) as T
+        } else throw IllegalArgumentException("Unknown ViewModel class")
+    }
+
 
 }

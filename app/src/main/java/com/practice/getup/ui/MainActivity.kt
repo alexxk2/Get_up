@@ -1,4 +1,4 @@
-package com.practice.getup.activities
+package com.practice.getup.ui
 
 
 import androidx.appcompat.app.AppCompatActivity

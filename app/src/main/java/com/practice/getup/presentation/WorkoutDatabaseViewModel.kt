@@ -1,4 +1,4 @@
-package com.practice.getup.viewModels
+package com.practice.getup.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
