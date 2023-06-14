@@ -77,9 +77,9 @@
     <string name="add">ADD</string>
     <string name="delete">DELETE</string>
     <string name="no_input_name_message">Введите название тренировки</string>
-    <string name="no_input_message">Заполните поля, кроме названия тренировки, ненулевыми значениями</string>
+    <string name="no_input_message">Заполните поля данных о тренировке ненулевыми значениями</string>
     <string name="zero_input_message">Введите значение больше ноля</string>
-    <string name="non_null">Ненулевое</string>
+    <string name="non_null">Больше ноля</string>
     <string name="default_total_time">0 : 0 : 0</string>
     <string name="total_time_title">TOTAL TIME</string>
     <string name="update">UPDATE</string>
