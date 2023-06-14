@@ -1,6 +1,6 @@
-package com.practice.getup.models
+package com.practice.getup.presentation.timer.models
 
-import com.practice.getup.utils.UiText
+import com.practice.getup.presentation.timer.utils.UiText
 
 data class Stage(
     val id: String,

@@ -1,6 +1,7 @@
 package com.practice.getup.presentation.timer.ui
 
 
+
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
@@ -14,14 +15,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.practice.getup.R
+import com.practice.getup.domain.models.Workout
 import com.practice.getup.presentation.timer.adapter.WorkoutAdapter
-import com.practice.getup.database.Workout
 import com.practice.getup.databinding.FragmentWorkoutBinding
 import com.practice.getup.presentation.timer.models.SoundStages
 import com.practice.getup.presentation.timer.models.TimerStages
 import com.practice.getup.presentation.timer.view_model.ViewModelFactoryFragments
 import com.practice.getup.presentation.timer.view_model.WorkoutViewModel
-import kotlinx.coroutines.Runnable
 
 
 class WorkoutFragment : Fragment() {

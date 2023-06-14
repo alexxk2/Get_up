@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.getup.R
-import com.practice.getup.database.Workout
+import com.practice.getup.domain.models.Workout
 import com.practice.getup.databinding.WorkoutListItemBinding
 
 

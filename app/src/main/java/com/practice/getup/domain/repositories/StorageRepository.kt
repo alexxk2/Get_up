@@ -1,6 +1,6 @@
 package com.practice.getup.domain.repositories
 
-import com.practice.getup.database.Workout
+import com.practice.getup.domain.models.Workout
 import kotlinx.coroutines.flow.Flow
 
 interface StorageRepository {

@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_workout" >
         <argument
             android:name="workout"
-            app:argType="com.practice.getup.database.Workout" />
+            app:argType="com.practice.getup.domain.models.Workout" />
         <action
             android:id="@+id/action_workoutFragment_to_mainFragment"
             app:destination="@id/mainFragment" />

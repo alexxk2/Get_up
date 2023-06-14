@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practice.getup.database.Workout
+import com.practice.getup.domain.models.Workout
 import com.practice.getup.domain.storage.AddNewWorkoutUseCase
 import com.practice.getup.domain.storage.DeleteWorkoutUseCase
 import com.practice.getup.domain.storage.GetWorkoutUseCase

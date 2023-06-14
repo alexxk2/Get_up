@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.practice.getup.R
-import com.practice.getup.models.Stage
+import com.practice.getup.domain.models.Workout
+import com.practice.getup.presentation.timer.models.Stage
 import com.practice.getup.presentation.timer.models.TimerStages
-import com.practice.getup.utils.UiText
-import com.practice.getup.database.Workout
+import com.practice.getup.presentation.timer.utils.UiText
 import com.practice.getup.presentation.timer.models.SoundStages
 import java.lang.IllegalArgumentException
 

@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.practice.getup.app.App
 import com.practice.getup.R
-import com.practice.getup.database.Workout
+import com.practice.getup.domain.models.Workout
 import com.practice.getup.databinding.FragmentMainBinding
 import com.practice.getup.presentation.main_menu.view_model.MainMenuViewModel
 import com.practice.getup.presentation.main_menu.adapter.WorkoutListAdapter
