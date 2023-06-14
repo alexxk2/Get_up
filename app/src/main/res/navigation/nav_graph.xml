@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.practice.getup.ui.main.MainFragment"
+        android:name="com.practice.getup.presentation.main_menu.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/workoutFragment"
-        android:name="com.practice.getup.ui.timer.WorkoutFragment"
+        android:name="com.practice.getup.presentation.timer.ui.WorkoutFragment"
         android:label="fragment_workout"
         tools:layout="@layout/fragment_workout" >
         <argument
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/optionsFragment"
-        android:name="com.practice.getup.ui.edit.OptionsFragment"
+        android:name="com.practice.getup.presentation.edit.ui.OptionsFragment"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.practice.getup.ui.settings.SettingsFragment"
+        android:name="com.practice.getup.presentation.settings.ui.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

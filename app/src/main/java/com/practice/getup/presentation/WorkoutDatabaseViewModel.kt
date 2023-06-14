@@ -1,3 +1,4 @@
+/*
 package com.practice.getup.presentation
 
 import androidx.lifecycle.LiveData
@@ -6,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.practice.getup.database.Workout
-import com.practice.getup.database.WorkoutDao
+import com.practice.getup.data.db.WorkoutDao
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -77,6 +78,7 @@ class WorkoutDatabaseViewModel(private val workoutDao: WorkoutDao) : ViewModel()
         (preparingTime.isNotBlank() && workTime.isNotBlank() && restTime.isNotBlank() && numberOfSets.isNotBlank()
                 && preparingTime.toInt()>0 && workTime.toInt()>0 && restTime.toInt()>0 && numberOfSets.toInt()>0)
 
+
     fun isNameInputValid(
         name: String
     ) = (name.isNotBlank())
@@ -134,4 +136,4 @@ class WorkoutDatabaseViewModelFactory(private val workoutDao: WorkoutDao) :
             return WorkoutDatabaseViewModel(workoutDao) as T
         } else throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}*/

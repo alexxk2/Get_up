@@ -11,7 +11,7 @@
         android:id="@+id/options_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.edit.OptionsFragment">
+        tools:context=".presentation.edit.ui.OptionsFragment">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -25,7 +25,6 @@
             app:endIconCheckable="true"
             app:endIconDrawable="@drawable/ic_delete_x"
             app:endIconMode="clear_text"
-
             app:layout_constraintEnd_toEndOf="@+id/input_sets_number"
             app:layout_constraintStart_toStartOf="@+id/input_preparation_time"
             app:layout_constraintTop_toBottomOf="@+id/total_workout_time">
@@ -34,7 +33,6 @@
                 android:id="@+id/edit_workout_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:inputType="text"
                 android:maxLength="22"
                 android:textColor="@color/black" />
