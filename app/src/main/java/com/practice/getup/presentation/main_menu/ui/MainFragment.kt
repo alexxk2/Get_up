@@ -40,14 +40,12 @@ class MainFragment : Fragment() {
         val adapter = WorkoutListAdapter(requireContext(), object :
             WorkoutListAdapter.WorkoutActionListener {
             override fun onClickItem(workout: Workout) {
-                Snackbar.make(view,"123",20000)
-                    .setAction("OK"){}
-                    .show()
+
             }
 
             override fun onStartItem(workout: Workout) {
                 val action =
-                    MainFragmentDirections.actionMainFragmentToWorkoutFragment(workout = workout)
+                    MainFragmentDirections.actionMainFragmentToTimerFragment(workout = workout)
                 navigate(action)
             }
 

@@ -1,6 +1,6 @@
-package com.practice.getup.presentation.timer.models
+package com.practice.getup.data.timer.dto
 
-enum class SoundStages {
+enum class SoundStagesDto {
     SILENT,
     COUNTDOWN3,
     COUNTDOWN2,

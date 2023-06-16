@@ -11,25 +11,25 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_mainFragment_to_workoutFragment"
-            app:destination="@id/workoutFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_optionsFragment"
             app:destination="@id/optionsFragment" />
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/workoutFragment"
-        android:name="com.practice.getup.presentation.timer.ui.WorkoutFragment"
-        android:label="fragment_workout"
-        tools:layout="@layout/fragment_workout" >
+        android:id="@+id/timerFragment"
+        android:name="com.practice.getup.presentation.timer.ui.TimerFragment"
+        android:label="fragment_timer"
+        tools:layout="@layout/fragment_workout">
         <argument
             android:name="workout"
             app:argType="com.practice.getup.domain.models.Workout" />
         <action
-            android:id="@+id/action_workoutFragment_to_mainFragment"
+            android:id="@+id/action_timerFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment

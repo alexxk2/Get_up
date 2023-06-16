@@ -72,8 +72,8 @@ class WorkoutAdapter(
             holder.binding.constraintLayout.scaleX = 1.0f
             holder.binding.constraintLayout.scaleY = 1.0f
         }
-        holder.binding.stageName.text = item.stageName.asString(context)
-        holder.binding.numberOfSetsLeft.text = item.setsLeft.asString(context)
+        holder.binding.stageName.text = item.stageName
+        holder.binding.numberOfSetsLeft.text = item.setsLeft
     }
 
     override fun getItemCount(): Int = dataSet.size

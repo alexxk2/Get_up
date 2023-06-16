@@ -1,15 +1,15 @@
-package com.practice.getup.presentation.timer.models
+package com.practice.getup.data.timer.dto
 
+import com.practice.getup.presentation.timer.utils.UiText
 
-data class Stage(
+data class StageDto(
     val id: String,
     val stageName: String,
     val setsLeft: String,
     val hasFocus: Boolean
-)
-{
+){
     companion object{
-        val DEFAULT = Stage(
+        val DEFAULT = StageDto(
             id = "default",
             stageName = "default",
             setsLeft = "default",
