@@ -14,8 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.practice.getup.R
-import com.practice.getup.database.Workout
 import com.practice.getup.databinding.FragmentOptionsBinding
+import com.practice.getup.domain.models.Workout
 import com.practice.getup.presentation.edit.view_model.OptionsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -17,3 +17,16 @@ data class WorkoutDto(
     @NonNull @ColumnInfo("rest_time") val restTime: Int,
     @NonNull @ColumnInfo("number_of_sets") val numberOfSets: Int
 ): Parcelable
+{
+    companion object {
+
+        val DEFAULT = WorkoutDto(
+            name = "default",
+            preparingTime = 10,
+            workTime = 10,
+            restTime = 10,
+            numberOfSets = 5
+        )
+    }
+
+}

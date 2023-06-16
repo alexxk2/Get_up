@@ -1,4 +1,4 @@
-package com.practice.getup.utils
+package com.practice.getup.presentation.timer.utils
 
 import android.content.Context
 import androidx.annotation.StringRes

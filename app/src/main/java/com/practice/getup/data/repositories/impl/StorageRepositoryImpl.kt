@@ -2,7 +2,7 @@ package com.practice.getup.data.repositories.impl
 
 import com.practice.getup.data.db.RoomStorage
 import com.practice.getup.data.db.dto.WorkoutDto
-import com.practice.getup.database.Workout
+import com.practice.getup.domain.models.Workout
 import com.practice.getup.domain.repositories.StorageRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -59,7 +59,7 @@ class StorageRepositoryImpl(private val roomStorage: RoomStorage): StorageReposi
         }
     }
 
-    private fun mapToDomain(workoutDto: WorkoutDto): Workout{
+    private fun mapToDomain(workoutDto: WorkoutDto): Workout {
 
         with(workoutDto) {
             return Workout(

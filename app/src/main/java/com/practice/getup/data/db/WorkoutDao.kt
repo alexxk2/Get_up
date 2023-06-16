@@ -13,13 +13,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorkoutDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(workout: WorkoutDto)
+    suspend fun insert(workoutDto: WorkoutDto)
 
     @Update
-    suspend fun update(workout: WorkoutDto)
+    suspend fun update(workoutDto: WorkoutDto)
 
     @Delete
-    suspend fun delete(workout: WorkoutDto)
+    suspend fun delete(workoutDto: WorkoutDto)
 
     @Query("SELECT * FROM workout ORDER BY name ASC")
     fun getAll(): Flow<List<WorkoutDto>>
