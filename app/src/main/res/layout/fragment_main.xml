@@ -4,97 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/MainMenu"
     tools:context=".presentation.main_menu.ui.MainFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_app_bar_layout"
+        style="@style/TopAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/top_app_bar"
+            style="@style/TopAppBarContent"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            app:menu="@menu/top_app_bar"
-            app:title="@string/my_workouts"
-            app:titleTextColor="@color/white" />
+            android:layout_height="?attr/actionBarSize" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="@string/my_workouts"
-        android:textColor="@color/dark_blue"
-        android:textSize="30sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/settings_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/settings_button" />
-
-    <ImageButton
-        android:id="@+id/settings_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_settings"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button_add"
+        style="@style/AddFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        app:backgroundTint="@color/dark_blue"
+        android:contentDescription="@string/add_fab"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add"
-        app:tint="@color/white" />
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button_delete"
-        style="?attr/floatingActionButtonSmallStyle"
+        style="@style/DeleteAllFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:backgroundTint="@color/dark_blue"
+        android:contentDescription="@string/delete_all_fab"
         app:layout_constraintBottom_toTopOf="@id/floating_button_add"
         app:layout_constraintEnd_toEndOf="@+id/floating_button_add"
-        app:layout_constraintStart_toStartOf="@+id/floating_button_add"
-        app:srcCompat="@drawable/ic_delete"
-        app:tint="@color/white" />
+        app:layout_constraintStart_toStartOf="@+id/floating_button_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
+        style="@style/RecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingHorizontal="12dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_app_bar_layout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/top_app_bar_layout" />
 
     <LinearLayout
         android:id="@+id/empty_list_views"
+        style="@style/EmptyListLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,12 +72,9 @@
 
         <TextView
             android:id="@+id/empty_list_message"
+            style="@style/EmptyListMessage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/empty_workout_list"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

@@ -132,6 +132,7 @@
     <string name="my_workouts">My workouts</string>
     <string name="edit">Edit</string>
     <string name="alert_dialog_message_delete_all">Are you sure you want to delete all workouts?</string>
+    <string name="add_fab">Add FAB</string>
 
 
     <!--Workout screen-->
@@ -146,6 +147,7 @@
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="russian">Russian</string>
+    <string name="delete_all_fab">delete all FAB</string>
 
 
 </resources>
