@@ -1,11 +1,9 @@
 package com.practice.getup.domain.repositories
 
 import com.practice.getup.domain.models.Workout
-import com.practice.getup.presentation.timer.models.SoundStages
 import com.practice.getup.presentation.timer.models.Stage
 import com.practice.getup.presentation.timer.models.TimerStages
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 
 interface TimerRepository {
 

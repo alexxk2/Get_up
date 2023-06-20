@@ -54,6 +54,8 @@ class TimerViewModel(
     private val _workoutStagePosition = MutableLiveData<Int>()
     val workoutStagePosition: LiveData<Int> = _workoutStagePosition
 
+    private var isFragmentJustCreated = true
+
 
     init {
 
@@ -104,6 +106,11 @@ class TimerViewModel(
 
     fun restartTimer() = restartTimerUseCase.execute()
 
-    fun prepareTimer() = prepareTimerUseCase.execute(workout)
+    fun prepareTimer() {
+        if (isFragmentJustCreated) {
+            prepareTimerUseCase.execute(workout)
+        }
+        isFragmentJustCreated = false
+    }
 }
 

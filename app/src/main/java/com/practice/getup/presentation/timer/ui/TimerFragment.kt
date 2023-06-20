@@ -15,7 +15,6 @@ import com.practice.getup.R
 import com.practice.getup.domain.models.Workout
 import com.practice.getup.presentation.timer.adapter.WorkoutAdapter
 import com.practice.getup.databinding.FragmentWorkoutBinding
-import com.practice.getup.presentation.timer.models.SoundStages
 import com.practice.getup.presentation.timer.models.TimerStages
 import com.practice.getup.presentation.timer.view_model.TimerViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,6 +41,7 @@ class TimerFragment : Fragment() {
         }
 
         viewModel.prepareTimer()
+
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this){
             showFinishConfirmationDialog()
         }

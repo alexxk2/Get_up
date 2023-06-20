@@ -6,7 +6,6 @@ import android.os.CountDownTimer
 import com.practice.getup.R
 import com.practice.getup.data.db.dto.WorkoutDto
 import com.practice.getup.data.timer.Timer
-import com.practice.getup.data.timer.dto.SoundStagesDto
 import com.practice.getup.data.timer.dto.StageDto
 import com.practice.getup.data.timer.dto.TimerStagesDto
 import kotlinx.coroutines.flow.Flow
@@ -127,9 +126,9 @@ class TimerImpl(
     }
 
     private fun makeCountdownSound(millisUntilFinished: Long){
-        if (millisUntilFinished <= 3000) makeTimerSound(R.raw.sound_countdown)//soundStage.value = SoundStagesDto.COUNTDOWN3
-        if (millisUntilFinished <= 2000) makeTimerSound(R.raw.sound_countdown)//soundStage.value = SoundStagesDto.COUNTDOWN2
-        if (millisUntilFinished <= 1000) makeTimerSound(R.raw.sound_countdown)//soundStage.value = SoundStagesDto.COUNTDOWN1
+        if (millisUntilFinished <= 3000) makeTimerSound(R.raw.sound_countdown)
+        if (millisUntilFinished <= 2000) makeTimerSound(R.raw.sound_countdown)
+        if (millisUntilFinished <= 1000) makeTimerSound(R.raw.sound_countdown)
     }
 
     private fun setValuesToDefault() {
