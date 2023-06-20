@@ -67,6 +67,7 @@
         <item name="android:text">@string/empty_workout_list</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/empty_message_text_size</item>
+        <item name="android:textColor">@color/dark_white</item>
     </style>
 
     <style name="ItemCardView" parent="@style/Widget.Material3.CardView.Filled">

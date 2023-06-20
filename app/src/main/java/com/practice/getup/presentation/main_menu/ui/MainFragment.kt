@@ -37,6 +37,11 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        with(viewModel){
+            setAppDayOrNightMode()
+            setAppLanguage()
+        }
+
         val adapter = WorkoutListAdapter(requireContext(), object :
             WorkoutListAdapter.WorkoutActionListener {
             override fun onClickItem(workout: Workout) {

@@ -1,5 +1,11 @@
 package com.practice.getup.di
 
+import com.practice.getup.domain.settings.GetCurrentLanguageUseCase
+import com.practice.getup.domain.settings.GetCurrentThemeUseCase
+import com.practice.getup.domain.settings.SetLanguageUseCase
+import com.practice.getup.domain.settings.SetNightModeUseCase
+import com.practice.getup.domain.settings.SwitchLanguageUseCase
+import com.practice.getup.domain.settings.SwitchThemeUseCase
 import com.practice.getup.domain.storage.AddNewWorkoutUseCase
 import com.practice.getup.domain.storage.DeleteAllWorkoutsUseCase
 import com.practice.getup.domain.storage.DeleteWorkoutUseCase
@@ -39,4 +45,12 @@ val domainModule = module {
     factory<PrepareTimerUseCase> {PrepareTimerUseCase(timerRepository = get())  }
     factory<RestartTimerUseCase> {RestartTimerUseCase(timerRepository = get())  }
     factory<StartTimerUseCase> {StartTimerUseCase(timerRepository = get())  }
+
+    factory<GetCurrentLanguageUseCase> {GetCurrentLanguageUseCase(settingsRepository = get()) }
+    factory<GetCurrentThemeUseCase> {GetCurrentThemeUseCase(settingsRepository = get()) }
+    factory<SetLanguageUseCase> {SetLanguageUseCase(settingsRepository = get()) }
+    factory<SetNightModeUseCase> {SetNightModeUseCase(settingsRepository = get()) }
+    factory<SwitchLanguageUseCase> {SwitchLanguageUseCase(settingsRepository = get()) }
+    factory<SwitchThemeUseCase> {SwitchThemeUseCase(settingsRepository = get()) }
+
 }
