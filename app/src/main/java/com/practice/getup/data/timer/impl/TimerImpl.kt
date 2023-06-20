@@ -56,9 +56,9 @@ class TimerImpl(
 
             override fun onTick(millisUntilFinished: Long) {
                 isTimerOn = true
-
                 //allows to resume to the timer with the same time left
                 totalTimeForLocalTimer = millisUntilFinished
+
 
                 updateLocalTime(millisUntilFinished)
                 updateGlobalTime(millisUntilFinished)
@@ -214,6 +214,8 @@ class TimerImpl(
         stageList.value = tempList
 
     }
+
+
 
     override fun prepareTimer(workoutDto: WorkoutDto) {
         this.workoutDto = workoutDto
