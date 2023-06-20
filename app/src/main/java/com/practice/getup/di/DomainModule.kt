@@ -15,7 +15,6 @@ import com.practice.getup.domain.storage.UpdateWorkoutUseCase
 import com.practice.getup.domain.timer.GetGlobalTimeUseCase
 import com.practice.getup.domain.timer.GetIndicatorProgressValueUseCase
 import com.practice.getup.domain.timer.GetLocalTimeUseCase
-import com.practice.getup.domain.timer.GetSoundStageUseCase
 import com.practice.getup.domain.timer.GetStageListUseCase
 import com.practice.getup.domain.timer.GetTimerStageUseCase
 import com.practice.getup.domain.timer.GetWorkoutStagePositionUseCase
@@ -37,7 +36,6 @@ val domainModule = module {
     factory<GetGlobalTimeUseCase> {GetGlobalTimeUseCase(timerRepository = get())  }
     factory<GetIndicatorProgressValueUseCase> {GetIndicatorProgressValueUseCase(timerRepository = get())  }
     factory<GetLocalTimeUseCase> {GetLocalTimeUseCase(timerRepository = get())  }
-    factory<GetSoundStageUseCase> {GetSoundStageUseCase(timerRepository = get())  }
     factory<GetStageListUseCase> {GetStageListUseCase(timerRepository = get())  }
     factory<GetTimerStageUseCase> {GetTimerStageUseCase(timerRepository = get())  }
     factory<GetWorkoutStagePositionUseCase> {GetWorkoutStagePositionUseCase(timerRepository = get())  }

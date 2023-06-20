@@ -1,9 +1,8 @@
 package com.practice.getup.presentation.timer.ui
 
-import android.media.MediaPlayer
+
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,14 +29,11 @@ class TimerFragment : Fragment() {
 
     private val viewModel: TimerViewModel by viewModel { parametersOf(workout)}
     private lateinit var adapter: WorkoutAdapter
-    private var mediaPlayer: MediaPlayer? = null
     private lateinit var workout: Workout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Log.d("LOG", "on create")
 
         arguments?.let {
             workout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -57,7 +53,6 @@ class TimerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("LOG", "on create view")
         _binding = FragmentWorkoutBinding.inflate(layoutInflater,container,false)
         return binding.root
 
@@ -65,7 +60,7 @@ class TimerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("LOG", "on view created")
+
         adapter = WorkoutAdapter(requireContext())
         adapter.dataSet = viewModel.stageList.value!!
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -99,10 +94,6 @@ class TimerFragment : Fragment() {
 
         viewModel.workoutStagePosition.observe(viewLifecycleOwner) { currentStagePosition ->
             scrollToCurrentStage(currentStagePosition)
-        }
-
-        viewModel.soundStages.observe(viewLifecycleOwner) { soundStage ->
-            playTimerSound(soundStage)
         }
 
         binding.startButton.setOnClickListener {
@@ -170,36 +161,11 @@ class TimerFragment : Fragment() {
         binding.startButton.visibility = View.INVISIBLE
     }
 
-    private fun playTimerSound(soundStage: SoundStages) {
-
-        mediaPlayer?.release()
-        mediaPlayer = null
-
-        when (soundStage) {
-
-            SoundStages.WORK -> makeBeepSound(R.raw.sound_work_start)
-
-            SoundStages.REST -> makeBeepSound(R.raw.sound_rest_start)
-
-            SoundStages.FINISH -> makeBeepSound(R.raw.sound_workout_finish)
-
-            SoundStages.COUNTDOWN3 -> makeBeepSound(R.raw.sound_countdown)
-
-            SoundStages.COUNTDOWN2 -> makeBeepSound(R.raw.sound_countdown)
-
-            SoundStages.COUNTDOWN1 -> makeBeepSound(R.raw.sound_countdown)
-
-            SoundStages.SILENT -> {
-
-            }
-        }
-    }
-
     private fun showFinishConfirmationDialog() {
         val action = TimerFragmentDirections.actionTimerFragmentToMainFragment()
 
         if (viewModel.timerStage.value == TimerStages.PREPARATION) {
-            finishWorkout()
+            viewModel.restartTimer()
             findNavController().navigate(action)
         } else {
             MaterialAlertDialogBuilder(requireContext())
@@ -208,60 +174,16 @@ class TimerFragment : Fragment() {
                 .setCancelable(false)
                 .setNegativeButton(getString(R.string.answer_no)) { _, _ -> }
                 .setPositiveButton(getString(R.string.answer_yes)) { _, _ ->
-                    finishWorkout()
+                    viewModel.restartTimer()
                     findNavController().navigate(action)
                 }
                 .show()
         }
     }
 
-    private fun makeBeepSound(soundRes: Int){
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, soundRes)
-            mediaPlayer?.start()
-        }
-    }
-
-    private fun finishWorkout(){
-        viewModel.restartTimer()
-        mediaPlayer?.release()
-        mediaPlayer = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        /*mediaPlayer?.release()
-        mediaPlayer = null*/
-        Log.d("LOG", "destroy fragment")
-    }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
-        mediaPlayer?.release()
-        mediaPlayer = null
         _binding = null
-        Log.d("LOG", "destroyView")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("LOG", "on pause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("LOG", "on stop")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("LOG", "on resume")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("LOG", "on start")
     }
 
     companion object{

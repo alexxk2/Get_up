@@ -35,7 +35,6 @@ val presentationModule = module {
             getGlobalTimeUseCase = get(),
             getIndicatorProgressValueUseCase = get(),
             getLocalTimeUseCase = get(),
-            getSoundStageUseCase = get(),
             getStageListUseCase = get(),
             getTimerStageUseCase = get(),
             getWorkoutStagePositionUseCase = get(),

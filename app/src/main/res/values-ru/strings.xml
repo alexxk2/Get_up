@@ -28,8 +28,8 @@
     <string name="progress_indicator">Это индикатор прогресса</string>
     <string name="start_button">СТАРТ</string>
     <string name="pause_button">ПАУЗА</string>
-    <string name="resume_button">ПРОДОЛЖИТЬ</string>
-    <string name="restart_button">ПЕРЕЗАПУСТИТЬ</string>
+    <string name="resume_button">ВОЗВРАТ</string>
+    <string name="restart_button">ПОВТОР</string>
     <string name="total_workout_time">Общее время тренировки: %1$s</string>
     <string name="ready_text">ПОДГОТОВКА</string>
     <string name="sets_left">%1$d left</string>

@@ -14,7 +14,6 @@ interface TimerRepository {
     fun getGlobalTime(): Flow<String>
     fun getIndicatorProgressValue(): Flow<Int>
     fun getLocalTime(): Flow<String>
-    fun getSoundStage(): Flow<SoundStages>
     fun getStageList(): Flow<MutableList<Stage>>
     fun getTimerStage(): Flow<TimerStages>
     fun pauseTimer()

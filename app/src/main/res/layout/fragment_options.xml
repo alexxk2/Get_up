@@ -160,7 +160,7 @@
         <Button
             android:id="@+id/options_add_update_button"
             style="@style/AddButton"
-            android:layout_width="@dimen/button_width"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/options_delete_button"
             app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +169,7 @@
         <Button
             android:id="@+id/options_delete_button"
             style="@style/DeleteButton"
-            android:layout_width="@dimen/button_width"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/options_add_update_button"

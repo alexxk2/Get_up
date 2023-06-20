@@ -3,16 +3,13 @@ package com.practice.getup.data.repositories.impl
 
 import com.practice.getup.data.db.dto.WorkoutDto
 import com.practice.getup.data.timer.Timer
-import com.practice.getup.data.timer.dto.SoundStagesDto
 import com.practice.getup.data.timer.dto.StageDto
 import com.practice.getup.data.timer.dto.TimerStagesDto
 import com.practice.getup.domain.models.Workout
 import com.practice.getup.domain.repositories.TimerRepository
-import com.practice.getup.presentation.timer.models.SoundStages
 import com.practice.getup.presentation.timer.models.Stage
 import com.practice.getup.presentation.timer.models.TimerStages
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 
 
@@ -32,12 +29,6 @@ class TimerRepositoryImpl(private val timer: Timer): TimerRepository {
 
     override fun getLocalTime(): Flow<String>  = timer.getLocalTime()
 
-    override fun getSoundStage(): Flow<SoundStages> {
-        val dataResult = timer.getSoundStage()
-        return dataResult.map {
-            mapSoundStagesToDomain(it)
-        }
-    }
 
     override fun getStageList(): Flow<MutableList<Stage>> {
         val dataResult = timer.getStageList()
@@ -75,17 +66,6 @@ class TimerRepositoryImpl(private val timer: Timer): TimerRepository {
             )
         }
     }
-
-    private fun mapSoundStagesToDomain(soundStagesDto: SoundStagesDto): SoundStages =
-        when (soundStagesDto) {
-            SoundStagesDto.WORK -> SoundStages.WORK
-            SoundStagesDto.REST -> SoundStages.REST
-            SoundStagesDto.FINISH -> SoundStages.FINISH
-            SoundStagesDto.SILENT -> SoundStages.SILENT
-            SoundStagesDto.COUNTDOWN3 -> SoundStages.COUNTDOWN3
-            SoundStagesDto.COUNTDOWN2 -> SoundStages.COUNTDOWN2
-            SoundStagesDto.COUNTDOWN1 -> SoundStages.COUNTDOWN1
-        }
 
     private fun mapStagesToDomain(stageDto: StageDto): Stage =
         with(stageDto) {
