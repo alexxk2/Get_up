@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Get up</string>
     <string name="default_text">Example of a text</string>
@@ -9,9 +10,9 @@
     <string name="number_of_sets">Sets</string>
     <string name="add">ADD</string>
     <string name="delete">DELETE</string>
-    <string name="no_input_name_message">Введите название тренировки</string>
-    <string name="no_input_message">Заполните поля данных о тренировке ненулевыми значениями</string>
-    <string name="non_null">Больше ноля</string>
+    <string name="no_input_name_message">Enter a name of the workout</string>
+    <string name="no_input_message">Fill in all fields about the workout with non-null values</string>
+    <string name="non_null">Only non-null</string>
     <string name="default_total_time">0 : 0 : 0</string>
     <string name="total_time_title">TOTAL TIME</string>
     <string name="update">UPDATE</string>
@@ -57,4 +58,5 @@
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="russian">Russian</string>
+
 </resources>

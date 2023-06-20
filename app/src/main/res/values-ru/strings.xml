@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Get up</string>
+    <string name="default_text">Пример текста</string>
+
+    <!--Options screen-->
+    <string name="option_preparation_time">Подготовка</string>
+    <string name="option_work_time">Время работы</string>
+    <string name="option_rest_time">Время отдыха</string>
+    <string name="number_of_sets">Количество подходов</string>
+    <string name="add">ДОБАВИТЬ</string>
+    <string name="delete">УДАЛИТЬ</string>
+    <string name="no_input_name_message">Введите название тренировки</string>
+    <string name="no_input_message">Заполните поля данных о тренировке ненулевыми значениями</string>
+    <string name="non_null">Больше ноля</string>
+    <string name="default_total_time">0 : 0 : 0</string>
+    <string name="total_time_title">ОБЩЕЕ ВРЕМЯ</string>
+    <string name="update">ОБНОВИТЬ</string>
+    <string name="alert_dialog_title">Внимание</string>
+    <string name="alert_dialog_message_delete">Вы уверены, что хотите удалить эту тренировку?</string>
+    <string name="answer_yes">ДА</string>
+    <string name="answer_no">НЕТ</string>
+    <string name="time_type">сек</string>
+    <string name="snackbar_ok_button">OK</string>
+    <string name="workout_name">Название тренировки</string>
+
+    <!--strings for timer-->
+    <string name="progress_indicator">Это индикатор прогресса</string>
+    <string name="start_button">СТАРТ</string>
+    <string name="pause_button">ПАУЗА</string>
+    <string name="resume_button">ПРОДОЛЖИТЬ</string>
+    <string name="restart_button">ПЕРЕЗАПУСТИТЬ</string>
+    <string name="total_workout_time">Общее время тренировки: %1$s</string>
+    <string name="ready_text">ПОДГОТОВКА</string>
+    <string name="sets_left">%1$d left</string>
+    <string name="work_text">РАБОТА</string>
+    <string name="rest_text">ОТДЫХ</string>
+    <string name="empty_string" />
+    <string name="blank">пустой</string>
+    <string name="alert_dialog_message_finish">Вы уверены, что хотите завершить эту тренировку?</string>
+
+
+    <!--Main menu screen-->
+    <string name="empty_workout_list">У Вас пока нет тренировок. Нажмите на плюс и добавьте свою первую тренировку</string>
+    <string name="weight_image">изображение гантели</string>
+    <string name="start_workout">Начать тренировку</string>
+    <string name="my_workouts">Мои тренировки</string>
+    <string name="edit">Изменить</string>
+    <string name="alert_dialog_message_delete_all">Вы уверены, что хотите удалить все тренировки?</string>
+    <string name="add_fab">Плавающая кнопка добавить</string>
+    <string name="delete_all_fab">Плавающая кнопка удалить все</string>
+
+
+    <!--Settings screen-->
+    <string name="back_button">кнопка назад</string>
+    <string name="settings">Настройки</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="language">Язык</string>
+    <string name="english">Английский</string>
+    <string name="russian">Русский</string>
+</resources>

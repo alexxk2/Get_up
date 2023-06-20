@@ -270,13 +270,12 @@
     </style>
 
 
-    <!--list screen-->
-    <style name="Chips" parent="Widget.Material3.Chip.Filter">
-        <item name="android:textSize">16sp</item>
-    </style>
-
 
     <!--Settings screen-->
+    <style name="Settings">
+        <item name="background">@color/white</item>
+    </style>
+
     <style name="SettingsTitle">
         <item name="android:text">@string/settings</item>
         <item name="android:textSize">@dimen/settings_title_size</item>
