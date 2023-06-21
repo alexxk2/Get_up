@@ -5,13 +5,18 @@
 
 ## Используемый стек
 
++ Clean Architecture
++ Koin
++ Room
++ SOLID
 + MVVM (ViewModel, LiveData)  
 + RecyclerView & DiffUtil  
 + ViewBinding  
 + Navigation Component  
-+ Retrofit2  
-+ Debounce  
-+ Glide
++ SharedPreferences
++ MediaPlayer
+  
+## Скриншоты основных экранов
 
 ![Main screen](https://github.com/alexxk2/CurrencyConverter/blob/dev/app/src/main/res/drawable/example_main_screen3.jpg)
 ![Search screen](https://github.com/alexxk2/CurrencyConverter/blob/dev/app/src/main/res/drawable/example_search_currency3.jpg)
