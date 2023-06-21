@@ -1,9 +1,8 @@
 package com.practice.getup.presentation.timer.ui
 
-import android.media.MediaPlayer
+
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.practice.getup.R
 import com.practice.getup.domain.models.Workout
 import com.practice.getup.presentation.timer.adapter.WorkoutAdapter
 import com.practice.getup.databinding.FragmentWorkoutBinding
-import com.practice.getup.presentation.timer.models.SoundStages
 import com.practice.getup.presentation.timer.models.TimerStages
 import com.practice.getup.presentation.timer.view_model.TimerViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +28,6 @@ class TimerFragment : Fragment() {
 
     private val viewModel: TimerViewModel by viewModel { parametersOf(workout)}
     private lateinit var adapter: WorkoutAdapter
-    private var mediaPlayer: MediaPlayer? = null
     private lateinit var workout: Workout
 
 
@@ -44,6 +41,7 @@ class TimerFragment : Fragment() {
         }
 
         viewModel.prepareTimer()
+
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this){
             showFinishConfirmationDialog()
         }
@@ -54,9 +52,10 @@ class TimerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWorkoutBinding.inflate(layoutInflater,container,false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,17 +89,11 @@ class TimerFragment : Fragment() {
         }
 
         viewModel.stageList.observe(viewLifecycleOwner) { stageList ->
-
-
             adapter.dataSet = stageList
         }
 
         viewModel.workoutStagePosition.observe(viewLifecycleOwner) { currentStagePosition ->
             scrollToCurrentStage(currentStagePosition)
-        }
-
-        viewModel.soundStages.observe(viewLifecycleOwner) { soundStage ->
-            playTimerSound(soundStage)
         }
 
         binding.startButton.setOnClickListener {
@@ -157,48 +150,27 @@ class TimerFragment : Fragment() {
     }
 
     private fun showPauseStageButtons() {
+        binding.pauseButton.animate().translationX(-175f)
+        binding.startButton.animate().translationX(-175f)
+        binding.restartButton.animate().translationX(175f)
         binding.startButton.text = resources.getText(R.string.resume_button)
         binding.pauseButton.visibility = View.INVISIBLE
         binding.startButton.visibility = View.VISIBLE
+        binding.restartButton.visibility = View.VISIBLE
     }
 
     private fun showRestartStageButtons() {
         binding.restartButton.animate().translationX(0f)
         binding.pauseButton.visibility = View.INVISIBLE
         binding.startButton.visibility = View.INVISIBLE
-    }
-
-    private fun playTimerSound(soundStage: SoundStages) {
-
-        mediaPlayer?.release()
-        mediaPlayer = null
-
-        when (soundStage) {
-
-            SoundStages.WORK -> {
-                makeBeepSound(R.raw.sound_work_start)
-            }
-
-            SoundStages.REST -> {
-                makeBeepSound(R.raw.sound_rest_start)
-            }
-
-            SoundStages.FINISH -> {
-                makeBeepSound(R.raw.sound_workout_finish)
-            }
-
-            SoundStages.SILENT -> {}
-
-            else -> {
-                makeBeepSound(R.raw.sound_countdown)
-            }
-        }
+        binding.restartButton.visibility = View.VISIBLE
     }
 
     private fun showFinishConfirmationDialog() {
         val action = TimerFragmentDirections.actionTimerFragmentToMainFragment()
 
-        if (viewModel.timerStage.value == TimerStages.PREPARATION) {
+        if (viewModel.timerStage.value == TimerStages.PREPARATION || viewModel.timerStage.value == TimerStages.RESTART) {
+            viewModel.restartTimer()
             findNavController().navigate(action)
         } else {
             MaterialAlertDialogBuilder(requireContext())
@@ -207,32 +179,15 @@ class TimerFragment : Fragment() {
                 .setCancelable(false)
                 .setNegativeButton(getString(R.string.answer_no)) { _, _ -> }
                 .setPositiveButton(getString(R.string.answer_yes)) { _, _ ->
-                    val action = TimerFragmentDirections.actionTimerFragmentToMainFragment()
+                    viewModel.restartTimer()
                     findNavController().navigate(action)
                 }
                 .show()
         }
     }
 
-    private fun makeBeepSound(soundRes: Int){
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, soundRes)
-            mediaPlayer?.start()
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer?.release()
-        mediaPlayer = null
-
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.restartTimer()
-        mediaPlayer?.release()
-        mediaPlayer = null
         _binding = null
     }
 

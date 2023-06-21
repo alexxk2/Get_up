@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.settings.ui.SettingsFragment"
+    style="@style/Options"
     >
 
     <ImageButton
@@ -49,7 +50,7 @@
         android:theme="@style/Material3CustomTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:pointerIcon="arrow"
+
         app:layout_constraintBottom_toBottomOf="@+id/dark_theme_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/dark_theme_settings" />

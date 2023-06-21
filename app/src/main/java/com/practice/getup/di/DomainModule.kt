@@ -1,5 +1,11 @@
 package com.practice.getup.di
 
+import com.practice.getup.domain.settings.GetCurrentLanguageUseCase
+import com.practice.getup.domain.settings.GetCurrentThemeUseCase
+import com.practice.getup.domain.settings.SetLanguageUseCase
+import com.practice.getup.domain.settings.SetNightModeUseCase
+import com.practice.getup.domain.settings.SwitchLanguageUseCase
+import com.practice.getup.domain.settings.SwitchThemeUseCase
 import com.practice.getup.domain.storage.AddNewWorkoutUseCase
 import com.practice.getup.domain.storage.DeleteAllWorkoutsUseCase
 import com.practice.getup.domain.storage.DeleteWorkoutUseCase
@@ -9,7 +15,6 @@ import com.practice.getup.domain.storage.UpdateWorkoutUseCase
 import com.practice.getup.domain.timer.GetGlobalTimeUseCase
 import com.practice.getup.domain.timer.GetIndicatorProgressValueUseCase
 import com.practice.getup.domain.timer.GetLocalTimeUseCase
-import com.practice.getup.domain.timer.GetSoundStageUseCase
 import com.practice.getup.domain.timer.GetStageListUseCase
 import com.practice.getup.domain.timer.GetTimerStageUseCase
 import com.practice.getup.domain.timer.GetWorkoutStagePositionUseCase
@@ -31,7 +36,6 @@ val domainModule = module {
     factory<GetGlobalTimeUseCase> {GetGlobalTimeUseCase(timerRepository = get())  }
     factory<GetIndicatorProgressValueUseCase> {GetIndicatorProgressValueUseCase(timerRepository = get())  }
     factory<GetLocalTimeUseCase> {GetLocalTimeUseCase(timerRepository = get())  }
-    factory<GetSoundStageUseCase> {GetSoundStageUseCase(timerRepository = get())  }
     factory<GetStageListUseCase> {GetStageListUseCase(timerRepository = get())  }
     factory<GetTimerStageUseCase> {GetTimerStageUseCase(timerRepository = get())  }
     factory<GetWorkoutStagePositionUseCase> {GetWorkoutStagePositionUseCase(timerRepository = get())  }
@@ -39,4 +43,12 @@ val domainModule = module {
     factory<PrepareTimerUseCase> {PrepareTimerUseCase(timerRepository = get())  }
     factory<RestartTimerUseCase> {RestartTimerUseCase(timerRepository = get())  }
     factory<StartTimerUseCase> {StartTimerUseCase(timerRepository = get())  }
+
+    factory<GetCurrentLanguageUseCase> {GetCurrentLanguageUseCase(settingsRepository = get()) }
+    factory<GetCurrentThemeUseCase> {GetCurrentThemeUseCase(settingsRepository = get()) }
+    factory<SetLanguageUseCase> {SetLanguageUseCase(settingsRepository = get()) }
+    factory<SetNightModeUseCase> {SetNightModeUseCase(settingsRepository = get()) }
+    factory<SwitchLanguageUseCase> {SwitchLanguageUseCase(settingsRepository = get()) }
+    factory<SwitchThemeUseCase> {SwitchThemeUseCase(settingsRepository = get()) }
+
 }

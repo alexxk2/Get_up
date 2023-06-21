@@ -1,11 +1,11 @@
 package com.practice.getup.data.timer.impl
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.CountDownTimer
 import com.practice.getup.R
 import com.practice.getup.data.db.dto.WorkoutDto
 import com.practice.getup.data.timer.Timer
-import com.practice.getup.data.timer.dto.SoundStagesDto
 import com.practice.getup.data.timer.dto.StageDto
 import com.practice.getup.data.timer.dto.TimerStagesDto
 import kotlinx.coroutines.flow.Flow
@@ -32,6 +32,7 @@ class TimerImpl(
     private var isWorkTime: Boolean? = null
     private var timePassed: Long = 0
     private var isTimerOn: Boolean = false
+    private var mediaPlayer: MediaPlayer? = null
 
     private val timerStage = MutableStateFlow(TimerStagesDto.PREPARATION)
     private val localTimeToShow = MutableStateFlow("")
@@ -39,7 +40,7 @@ class TimerImpl(
     private val indicatorProgressValue = MutableStateFlow(0)
     private val stageList = MutableStateFlow(mutableListOf(StageDto.DEFAULT))
     private val currentStagePosition = MutableStateFlow(numberOfSets * 2 + 3)
-    private val soundStage = MutableStateFlow(SoundStagesDto.SILENT)
+
 
     override fun startTimer() {
         if (isTimerOn) return
@@ -56,7 +57,6 @@ class TimerImpl(
 
             override fun onTick(millisUntilFinished: Long) {
                 isTimerOn = true
-
                 //allows to resume to the timer with the same time left
                 totalTimeForLocalTimer = millisUntilFinished
 
@@ -92,13 +92,18 @@ class TimerImpl(
                 }
 
                 when (isWorkTime) {
-                    true -> soundStage.value = SoundStagesDto.WORK
-                    false -> soundStage.value = SoundStagesDto.REST
-                    null -> soundStage.value = SoundStagesDto.FINISH
+                    true -> makeTimerSound(R.raw.sound_work_start)
+                    false -> makeTimerSound(R.raw.sound_rest_start)
+                    null -> makeTimerSound(R.raw.sound_workout_finish)
                 }
 
-                if (setsDone == workoutDto.numberOfSets * 2) return
-
+                if (setsDone == workoutDto.numberOfSets * 2) {
+                    mediaPlayer?.setOnCompletionListener {
+                        mediaPlayer?.release()
+                        mediaPlayer = null
+                    }
+                    return
+                }
                 startTimer()
             }
         }.start()
@@ -121,9 +126,9 @@ class TimerImpl(
     }
 
     private fun makeCountdownSound(millisUntilFinished: Long){
-        if (millisUntilFinished <= 3000) soundStage.value = SoundStagesDto.COUNTDOWN3
-        if (millisUntilFinished <= 2000) soundStage.value = SoundStagesDto.COUNTDOWN2
-        if (millisUntilFinished <= 1000) soundStage.value = SoundStagesDto.COUNTDOWN1
+        if (millisUntilFinished <= 3000) makeTimerSound(R.raw.sound_countdown)
+        if (millisUntilFinished <= 2000) makeTimerSound(R.raw.sound_countdown)
+        if (millisUntilFinished <= 1000) makeTimerSound(R.raw.sound_countdown)
     }
 
     private fun setValuesToDefault() {
@@ -137,7 +142,8 @@ class TimerImpl(
         timerStage.value = TimerStagesDto.PREPARATION
         indicatorProgressValue.value = 0
         currentStagePosition.value = numberOfSets * 2 + 3
-        soundStage.value = SoundStagesDto.SILENT
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     private fun updateGlobalTime(millisUntilFinished: Long) {
@@ -215,6 +221,13 @@ class TimerImpl(
 
     }
 
+    private fun makeTimerSound(soundRes: Int){
+        mediaPlayer?.release()
+        mediaPlayer = null
+        mediaPlayer = MediaPlayer.create(context, soundRes)
+        mediaPlayer?.start()
+    }
+
     override fun prepareTimer(workoutDto: WorkoutDto) {
         this.workoutDto = workoutDto
         workTime = (workoutDto.workTime * 1000).toLong()
@@ -240,8 +253,6 @@ class TimerImpl(
     override fun getIndicatorProgressValue(): Flow<Int> = indicatorProgressValue
 
     override fun getLocalTime(): Flow<String> = localTimeToShow
-
-    override fun getSoundStage(): Flow<SoundStagesDto> = soundStage
 
     override fun getStageList(): StateFlow<MutableList<StageDto>> = stageList
 

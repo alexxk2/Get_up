@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
     <!--General-->
-    <style name="GeneralRedButton" parent="Widget.Material3.Button">
+    <style name="GeneralBlueButton" parent="Widget.Material3.Button">
         <item name="android:backgroundTint">@color/dark_blue</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="AnyScreenBackButton">
@@ -14,8 +16,210 @@
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>
 
+
+    <!--Main menu screen-->
+    <style name="MainMenu">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="TopAppBar">
+        <item name="android:backgroundTint">@color/dark_blue</item>
+    </style>
+
+    <style name="TopAppBarContent">
+        <item name="layout_collapseMode">pin</item>
+        <item name="menu">@menu/top_app_bar</item>
+        <item name="title">@string/my_workouts</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="AddFAB">
+        <item name="android:layout_marginEnd">@dimen/margin_from_sides</item>
+        <item name="android:layout_marginBottom">@dimen/margin_from_sides</item>
+        <item name="backgroundTint">@color/dark_blue</item>
+        <item name="srcCompat">@drawable/ic_add</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="DeleteAllFAB" parent="@style/Widget.Material3.FloatingActionButton.Small.Primary">
+        <item name="android:layout_marginBottom">@dimen/margin_from_sides</item>
+        <item name="backgroundTint">@color/dark_blue</item>
+        <item name="srcCompat">@drawable/ic_delete</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="RecyclerView">
+        <item name="android:paddingStart">@dimen/recycler_view_padding</item>
+        <item name="android:paddingEnd">@dimen/recycler_view_padding</item>
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="layout_constraintHorizontal_bias">0.0</item>
+        <item name="layout_constraintVertical_bias">0.0</item>
+    </style>
+
+    <style name="EmptyListLayout">
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="EmptyListMessage">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:text">@string/empty_workout_list</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/empty_message_text_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ItemCardView" parent="@style/Widget.Material3.CardView.Filled">
+        <item name="android:backgroundTint">@color/light_blue</item>
+        <item name="cardCornerRadius">@dimen/card_view_radius</item>
+    </style>
+
+    <style name="ItemWorkoutName">
+        <item name="android:layout_marginStart">@dimen/item_name_margin_start</item>
+        <item name="android:layout_marginTop">@dimen/item_name_margin_top</item>
+        <item name="android:layout_marginEnd">@dimen/item_name_margin_end</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/soft_black</item>
+        <item name="android:textSize">@dimen/item_name_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ItemTotalTime">
+        <item name="android:layout_marginStart">@dimen/item_name_margin_start</item>
+        <item name="android:layout_marginTop">@dimen/item_name_margin_end</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/soft_black</item>
+        <item name="android:textSize">@dimen/item_total_text_size</item>
+    </style>
+
+    <style name="ItemStartButton">
+        <item name="android:layout_marginStart">@dimen/item_name_margin_start</item>
+        <item name="android:layout_marginBottom">@dimen/item_name_margin_end</item>
+        <item name="android:backgroundTint">@color/dark_blue</item>
+        <item name="android:text">@string/start_workout</item>
+        <item name="android:textSize">@dimen/item_button_text_size</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ItemEditButton" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_marginStart">@dimen/item_name_margin_end</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:text">@string/edit</item>
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="strokeColor">@color/dark_blue</item>
+    </style>
+
+    <!-- Timer screen-->
+    <style name="Timer">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="TimerRecyclerView">
+        <item name="android:layout_marginBottom">@dimen/recycler_view_margin</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="LocalTimeTextView">
+        <item name="android:layout_margin">@dimen/local_timer_margin</item>
+        <item name="android:ellipsize">start</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">@string/default_total_time</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/hard_grey</item>
+        <item name="android:textSize">@dimen/local_timer_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="GlobalTimerTextView">
+        <item name="android:layout_marginBottom">@dimen/global_timer_margin</item>
+        <item name="android:text">@string/default_total_time</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/hard_grey</item>
+        <item name="android:textSize">@dimen/global_timer_text_size</item>
+    </style>
+
+    <style name="TotalTimeTitleTextView">
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:text">@string/total_time_title</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/total_time_text_size</item>
+    </style>
+
+    <style name="RestartButton" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:text">@string/restart_button</item>
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:visibility">invisible</item>
+        <item name="strokeColor">@color/dark_blue</item>
+    </style>
+
+    <style name="TimerProgressBar">
+        <item name="indicatorColor">@color/dark_blue</item>
+        <item name="indicatorDirectionLinear">startToEnd</item>
+        <item name="trackColor">@color/light_blue</item>
+        <item name="trackCornerRadius">@dimen/track_corner_radius</item>
+        <item name="trackThickness">@dimen/track_thickness</item>
+    </style>
+
+    <style name="ItemStageName">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/ready_text</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/item_stage_text_size</item>
+    </style>
+
+    <style name="ItemNumberOfSets">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:textSize">@dimen/item_number_text_size</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <!-- Timer screen landscape-->
+    <style name="LocalTimeTextViewLand">
+        <item name="android:layout_marginStart">@dimen/local_timer_margin_land</item>
+        <item name="android:ellipsize">start</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:text">@string/default_total_time</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/hard_grey</item>
+        <item name="android:textSize">@dimen/local_timer_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="GlobalTimerTextViewLand">
+        <item name="android:layout_marginBottom">@dimen/global_timer_margin_land</item>
+        <item name="android:text">@string/default_total_time</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/hard_grey</item>
+        <item name="android:textSize">@dimen/global_timer_text_size_land</item>
+    </style>
+
+    <style name="TotalTimeTitleTextViewLand">
+        <item name="android:layout_marginStart">@dimen/total_time_margin_land</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:text">@string/total_time_title</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/total_time_title_text_size_land</item>
+    </style>
+
+
     <!--Options screen-->
-    <style name="OptionsEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Options">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="OptionsEditTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/hard_grey</item>
         <item name="counterEnabled">true</item>
         <item name="counterMaxLength">4</item>
@@ -25,46 +229,54 @@
         <item name="hintAnimationEnabled">true</item>
         <item name="hintEnabled">true</item>
         <item name="hintTextColor">@color/hard_grey</item>
+        <item name="android:textColorHint">@color/grey</item>
+
     </style>
 
-
-    <!--list screen-->
-    <style name="Chips" parent="Widget.Material3.Chip.Filter">
-        <item name="android:textSize">16sp</item>
+    <style name="OptionsEditTextInput">
+        <item name="android:textColor">@color/black</item>
     </style>
 
-
-    <!--Main screen-->
-    <style name="CardButtons" parent="Widget.Material3.CardView.Outlined">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_marginStart">@dimen/margin_sides</item>
-        <item name="android:layout_marginTop">@dimen/margin_sides</item>
-        <item name="android:layout_marginEnd">@dimen/half_margin_sides</item>
-        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
+    <style name="AddButton">
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:backgroundTint">@color/dark_blue</item>
+        <item name="android:text">@string/add</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="CardTitleText" parent="TextAppearance.MaterialComponents.Headline6" >
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:lines">1</item>
+    <style name="DeleteButton" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:text">@string/delete</item>
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="OptionsTotalTime">
+        <item name="android:layout_marginTop">@dimen/options_total_time_margin</item>
+        <item name="android:text">@string/default_total_time</item>
+        <item name="android:textColor">@color/hard_grey</item>
+        <item name="android:textSize">@dimen/options_total_time_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OptionsTotalTimeTitle">
+        <item name="android:layout_marginStart">@dimen/options_total_title_margin</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:lines">1</item>
+        <item name="android:text">@string/total_time_title</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/options_total_title_text_size</item>
     </style>
 
-    <style name="SettingButton">
-        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
-        <item name="android:layout_marginTop">24dp</item>
-        <item name="android:layout_marginEnd">24dp</item>
-        <item name="android:src">@drawable/ic_settings</item>
-    </style>
+
 
     <!--Settings screen-->
+    <style name="Settings">
+        <item name="background">@color/white</item>
+    </style>
+
     <style name="SettingsTitle">
         <item name="android:text">@string/settings</item>
         <item name="android:textSize">@dimen/settings_title_size</item>

@@ -1,6 +1,5 @@
 package com.practice.getup.presentation.timer.view_model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import com.practice.getup.domain.models.Workout
 import com.practice.getup.domain.timer.GetGlobalTimeUseCase
 import com.practice.getup.domain.timer.GetIndicatorProgressValueUseCase
 import com.practice.getup.domain.timer.GetLocalTimeUseCase
-import com.practice.getup.domain.timer.GetSoundStageUseCase
 import com.practice.getup.domain.timer.GetStageListUseCase
 import com.practice.getup.domain.timer.GetTimerStageUseCase
 import com.practice.getup.domain.timer.GetWorkoutStagePositionUseCase
@@ -19,7 +17,6 @@ import com.practice.getup.domain.timer.RestartTimerUseCase
 import com.practice.getup.domain.timer.StartTimerUseCase
 import com.practice.getup.presentation.timer.models.Stage
 import com.practice.getup.presentation.timer.models.TimerStages
-import com.practice.getup.presentation.timer.models.SoundStages
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -29,7 +26,6 @@ class TimerViewModel(
     private val getGlobalTimeUseCase: GetGlobalTimeUseCase,
     private val getIndicatorProgressValueUseCase: GetIndicatorProgressValueUseCase,
     private val getLocalTimeUseCase: GetLocalTimeUseCase,
-    private val getSoundStageUseCase: GetSoundStageUseCase,
     private val getStageListUseCase: GetStageListUseCase,
     private val getTimerStageUseCase: GetTimerStageUseCase,
     private val getWorkoutStagePositionUseCase: GetWorkoutStagePositionUseCase,
@@ -58,8 +54,8 @@ class TimerViewModel(
     private val _workoutStagePosition = MutableLiveData<Int>()
     val workoutStagePosition: LiveData<Int> = _workoutStagePosition
 
-    private val _soundStage = MutableLiveData<SoundStages>()
-    val soundStages: LiveData<SoundStages> = _soundStage
+    private var isFragmentJustCreated = true
+
 
     init {
 
@@ -102,12 +98,6 @@ class TimerViewModel(
             }
         }
 
-        viewModelScope.launch {
-            getSoundStageUseCase.execute().collectLatest {
-                _soundStage.postValue(it)
-            }
-        }
-
     }
 
     fun startTimer() = startTimerUseCase.execute()
@@ -116,6 +106,11 @@ class TimerViewModel(
 
     fun restartTimer() = restartTimerUseCase.execute()
 
-    fun prepareTimer() = prepareTimerUseCase.execute(workout)
+    fun prepareTimer() {
+        if (isFragmentJustCreated) {
+            prepareTimerUseCase.execute(workout)
+        }
+        isFragmentJustCreated = false
+    }
 }
 

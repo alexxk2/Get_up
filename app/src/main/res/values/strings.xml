@@ -1,84 +1,16 @@
 <resources>
     <string name="app_name">Get up</string>
-    <string name="gif">GIF</string>
     <string name="default_text">Example of a text</string>
-
-    <!--levels of difficulty-->
-    <string name="difficulty_easy">Level - easy</string>
-    <string name="difficulty_medium">Level - medium</string>
-    <string name="difficulty_hard">Level - hard</string>
-
-    <!--exercises-->
-    <string name="exercise1">Prone position</string>
-    <string name="exercise2">Push ups</string>
-    <string name="exercise3">Squats</string>
-    <string name="exercise4">Crunches with hands in front</string>
-    <string name="exercise5">Lunges</string>
-    <string name="exercise6">Crunches with hands on head</string>
-    <string name="exercise7">Plank</string>
-    <string name="exercise8">Slow push ups</string>
-    <string name="exercise9">Jump squats</string>
-    <string name="exercise10">Dynamic plank</string>
-    <string name="exercise11">Diamond push ups</string>
-    <string name="exercise12">Mountain climber</string>
-
-    <!--exercises description-->
-    <string name="exercise1_description">Prone position description</string>
-    <string name="exercise2_description">Push ups description</string>
-    <string name="exercise3_description">Squats description</string>
-    <string name="exercise4_description">Crunches with hands in front description</string>
-    <string name="exercise5_description">Lunges description</string>
-    <string name="exercise6_description">Crunches with hands on head description</string>
-    <string name="exercise7_description">Plank description</string>
-    <string name="exercise8_description">Slow push ups description</string>
-    <string name="exercise9_description">Jump squats description</string>
-    <string name="exercise10_description">Dynamic plank description</string>
-    <string name="exercise11_description">Diamond push ups description</string>
-    <string name="exercise12_description">Mountain climber description</string>
-
-    <!--uriStrings-->
-    <string name="exercise1_uri_string">android.resource://$packageName/${R.raw.prone_position_video}</string>
-
-    <!--Image views description-->
-    <string name="gif_view_description">item gif image</string>
-    <string name="button_start">start button</string>
-    <string name="button_list">list button</string>
-    <string name="button_add">Add button</string>
-    <string name="button_delete">Delete button</string>
-    <string name="difficulty_bricks">view to show lvl of difficulty</string>
-    <string name="progress_indicator">This is a progress indicator</string>
-
-    <!--strings for snackBars-->
-    <string name="snackbar_delete">Exercise has been deleted</string>
-    <string name="snackbar_add">Exercise has been added to the list</string>
-    <string name="snackbar_got_it">Got it</string>
-
-    <!--chip strings-->
-    <string name="chip_all">All levels</string>
-    <string name="chip_easy">Easy</string>
-    <string name="chip_medium">Medium</string>
-    <string name="chip_hard">Hard</string>
 
     <!--Options screen-->
     <string name="option_preparation_time">Preparation</string>
     <string name="option_work_time">Work time</string>
     <string name="option_rest_time">Rest time</string>
     <string name="number_of_sets">Sets</string>
-    <string name="ok_button">OK</string>
-    <string name="start_button">START</string>
-    <string name="pause_button">PAUSE</string>
-    <string name="resume_button">RESUME</string>
-    <string name="save_button">SAVE</string>
-    <string name="restart_button">RESTART</string>
-    <string name="helper_text_preparation_time">10 sec by default*</string>
-    <string name="helper_text_work_time">30 sec by default*</string>
-    <string name="helper_text_rest_time">60 sec by default*</string>
-    <string name="helper_text_sets_number">5 sets by default*</string>
     <string name="add">ADD</string>
     <string name="delete">DELETE</string>
     <string name="no_input_name_message">Введите название тренировки</string>
     <string name="no_input_message">Заполните поля данных о тренировке ненулевыми значениями</string>
-    <string name="zero_input_message">Введите значение больше ноля</string>
     <string name="non_null">Больше ноля</string>
     <string name="default_total_time">0 : 0 : 0</string>
     <string name="total_time_title">TOTAL TIME</string>
@@ -88,56 +20,35 @@
     <string name="answer_yes">YES</string>
     <string name="answer_no">NO</string>
     <string name="time_type">sec</string>
-
-
-    <!--strings for Snackbars-->
-    <string name="number_format_exception_preparation">Ошибка ввода. Введите время подготовки в секундах больше ноля</string>
-    <string name="number_format_exception_work">Ошибка ввода. Введите время работы в секундах больше ноля</string>
-    <string name="number_format_exception_rest">Ошибка ввода. Введите время отдыха в секундах больше ноля</string>
-    <string name="number_format_exception_sets">Ошибка ввода. Введите количество подходов больше ноля</string>
-
-    <string name="number_format_exception_preparation_short">Введите время в секундах больше ноля</string>
-    <string name="number_format_exception_work_short">Введите время в секундах больше ноля</string>
-    <string name="number_format_exception_rest_short">Ненулевое</string>
-    <string name="number_format_exception_sets_short">Введите количество подходов больше ноля</string>
     <string name="snackbar_ok_button">OK</string>
+    <string name="workout_name">Workout name</string>
 
     <!--strings for timer-->
-    <string name="timer_countdown">Осталось времени %1$s</string>
-
-
-    <!--other strings-->
-    <string name="total_time">TOTAL</string>
-    <string name="colon">:</string>
+    <string name="progress_indicator">This is a progress indicator</string>
+    <string name="start_button">START</string>
+    <string name="pause_button">PAUSE</string>
+    <string name="resume_button">RESUME</string>
+    <string name="restart_button">RESTART</string>
+    <string name="total_workout_time">Total workout time: %1$s</string>
     <string name="ready_text">READY</string>
     <string name="sets_left">%1$d left</string>
     <string name="work_text">WORK</string>
     <string name="rest_text">REST</string>
     <string name="empty_string" />
     <string name="blank">blank</string>
-    <string name="image_for_card_view">image_for_card_view</string>
+    <string name="alert_dialog_message_finish">Are you sure you want to finish this workout?</string>
 
 
-    <!--Main screen-->
-    <string name="card1_title">Start workout</string>
-    <string name="card2_title">Settings</string>
-    <string name="card3_title">List of exercises</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="total_workout_time">Total workout time: %1$s</string>
-    <string name="add_workout">ADD WORKOUT</string>
-    <string name="empty_workout_list">Your workout list is empty. Add a new workout</string>
+    <!--Main menu screen-->
+    <string name="empty_workout_list">Your workout list is empty. Press the plus button and add a new workout</string>
     <string name="weight_image">image of a weight</string>
-    <string name="workout_name">Workout name</string>
     <string name="start_workout">Start workout</string>
     <string name="my_workouts">My workouts</string>
     <string name="edit">Edit</string>
     <string name="alert_dialog_message_delete_all">Are you sure you want to delete all workouts?</string>
+    <string name="add_fab">Add FAB</string>
+    <string name="delete_all_fab">delete all FAB</string>
 
-
-    <!--Workout screen-->
-    <string name="alert_dialog_message_finish">Are you sure you want to finish this workout?</string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="action_settings">Settings</string>
 
     <!--Settings screen-->
     <string name="back_button">back button</string>
@@ -146,6 +57,4 @@
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="russian">Russian</string>
-
-
 </resources>

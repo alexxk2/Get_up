@@ -84,7 +84,6 @@ class WorkoutListAdapter(
             override fun areContentsTheSame(oldItem: Workout, newItem: Workout): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 

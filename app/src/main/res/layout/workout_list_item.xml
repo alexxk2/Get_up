@@ -8,11 +8,9 @@
     android:paddingVertical="5dp">
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Material3.CardView.Filled"
+        style="@style/ItemCardView"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:backgroundTint="@color/light_blue"
-        app:cardCornerRadius="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -23,16 +21,9 @@
 
             <TextView
                 android:id="@+id/workout_name"
+                style="@style/ItemWorkoutName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="6dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textColor="@color/soft_black"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,58 +31,30 @@
 
             <TextView
                 android:id="@+id/total_time"
+                style="@style/ItemTotalTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="6dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textColor="@color/soft_black"
-                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/workout_name"
                 tools:text="@string/total_workout_time" />
 
             <Button
                 android:id="@+id/item_start_workout"
+                style="@style/ItemStartButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginBottom="6dp"
-                android:backgroundTint="@color/dark_blue"
-                android:text="@string/start_workout"
-                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:id="@+id/item_edit_button"
+                style="@style/ItemEditButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/edit"
-                android:textColor="@color/dark_blue"
-                android:layout_marginStart="6dp"
-                android:backgroundTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/item_start_workout"
                 app:layout_constraintStart_toEndOf="@+id/item_start_workout"
                 app:layout_constraintTop_toTopOf="@+id/item_start_workout" />
 
-            <ImageButton
-                android:id="@+id/delete_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_delete_x"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="gone"/>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,24 +8,17 @@
 
     <TextView
         android:id="@+id/stage_name"
+        style="@style/ItemStageName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="@string/ready_text"
-        android:textColor="@color/grey"
-        android:textSize="48sp" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/number_of_sets_left"
+        style="@style/ItemNumberOfSets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        tools:text ="123"
-        android:layout_toEndOf="@id/stage_name"
         android:layout_alignBaseline="@id/stage_name"
-        android:layout_marginStart="8dp"
-        android:textSize="22sp"
-        android:textColor="@color/grey"  />
+        android:layout_toEndOf="@id/stage_name"
+        tools:text="123" />
 
 </RelativeLayout>

@@ -41,7 +41,7 @@ class OptionsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentOptionsBinding.inflate(layoutInflater,container,false)
         return binding.root

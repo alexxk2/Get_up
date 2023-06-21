@@ -28,7 +28,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -36,6 +36,11 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        with(viewModel){
+            setAppDayOrNightMode()
+            setAppLanguage()
+        }
 
         val adapter = WorkoutListAdapter(requireContext(), object :
             WorkoutListAdapter.WorkoutActionListener {

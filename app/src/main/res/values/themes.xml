@@ -24,25 +24,6 @@
         <item name="colorSurface">@color/soft_blue</item>
         <item name="colorOnSurface">@color/soft_black</item>
 
-
-        <!--        items for material3 theme that are not implemented yet-->
-
-        <!--<item name="colorPrimaryContainer">@color/black</item>
-          <item name="colorOnPrimaryContainer">@color/black</item>
-          <item name="colorPrimaryInverse">@color/black</item>
-
-
-
-          <item name="colorTertiary">@color/black</item>
-          <item name="colorOnTertiary">@color/black</item>
-          <item name="colorTertiaryContainer">@color/black</item>
-          <item name="colorOnTertiaryContainer">@color/black</item>
-
-          <item name="colorOnBackground">@color/easy</item>
-          <item name="colorOnSurface">@color/hard</item>
-          <item name="colorSurfaceVariant">@color/black</item>
-          <item name="colorSurfaceInverse">@color/black</item>-->
-
     </style>
 
     <style name="Theme.GetUp.NoActionBar">
@@ -50,7 +31,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.GetUp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.GetUp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
 </resources>
