@@ -52,7 +52,7 @@ class TimerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWorkoutBinding.inflate(layoutInflater,container,false)
         return binding.root
 
@@ -150,21 +150,26 @@ class TimerFragment : Fragment() {
     }
 
     private fun showPauseStageButtons() {
+        binding.pauseButton.animate().translationX(-175f)
+        binding.startButton.animate().translationX(-175f)
+        binding.restartButton.animate().translationX(175f)
         binding.startButton.text = resources.getText(R.string.resume_button)
         binding.pauseButton.visibility = View.INVISIBLE
         binding.startButton.visibility = View.VISIBLE
+        binding.restartButton.visibility = View.VISIBLE
     }
 
     private fun showRestartStageButtons() {
         binding.restartButton.animate().translationX(0f)
         binding.pauseButton.visibility = View.INVISIBLE
         binding.startButton.visibility = View.INVISIBLE
+        binding.restartButton.visibility = View.VISIBLE
     }
 
     private fun showFinishConfirmationDialog() {
         val action = TimerFragmentDirections.actionTimerFragmentToMainFragment()
 
-        if (viewModel.timerStage.value == TimerStages.PREPARATION) {
+        if (viewModel.timerStage.value == TimerStages.PREPARATION || viewModel.timerStage.value == TimerStages.RESTART) {
             viewModel.restartTimer()
             findNavController().navigate(action)
         } else {

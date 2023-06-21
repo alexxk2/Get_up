@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.practice.getup.data.db.dto.WorkoutDto
 
 @Database(entities = [WorkoutDto::class], version = 1, exportSchema = false)
-abstract class WorkoutDatabase() : RoomDatabase() {
+abstract class WorkoutDatabase : RoomDatabase() {
 
     abstract fun workoutDao(): WorkoutDao
 

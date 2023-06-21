@@ -31,7 +31,7 @@ class LocalSettingsImpl(private val context: Context) : LocalSettings {
             .putString(LANGUAGE, chosenLanguage)
             .apply()
 
-        setLanguage(chosenLanguage!!)
+        setLanguage(chosenLanguage)
     }
 
     override fun getCurrentTheme(): Boolean = sharedPrefs.getBoolean(IS_DARK_THEME, false)
