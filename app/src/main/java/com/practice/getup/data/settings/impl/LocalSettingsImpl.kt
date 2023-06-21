@@ -51,6 +51,7 @@ class LocalSettingsImpl(private val context: Context) : LocalSettings {
 
 
     private fun setNightMode(isDarkThemeEnabled: Boolean) {
+
         AppCompatDelegate.setDefaultNightMode(
             if (isDarkThemeEnabled) AppCompatDelegate.MODE_NIGHT_YES
             else AppCompatDelegate.MODE_NIGHT_NO

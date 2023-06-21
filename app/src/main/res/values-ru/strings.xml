@@ -31,10 +31,10 @@
     <string name="resume_button">ВОЗВРАТ</string>
     <string name="restart_button">ПОВТОР</string>
     <string name="total_workout_time">Общее время тренировки: %1$s</string>
-    <string name="ready_text">ПОДГОТОВКА</string>
+    <string name="ready_text">READY</string>
     <string name="sets_left">%1$d left</string>
-    <string name="work_text">РАБОТА</string>
-    <string name="rest_text">ОТДЫХ</string>
+    <string name="work_text">WORK</string>
+    <string name="rest_text">REST</string>
     <string name="empty_string" />
     <string name="blank">пустой</string>
     <string name="alert_dialog_message_finish">Вы уверены, что хотите завершить эту тренировку?</string>
