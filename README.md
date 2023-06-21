@@ -18,6 +18,6 @@
   
 ## Скриншоты основных экранов
 
-![Main screen](https://github.com/alexxk2/CurrencyConverter/blob/dev/app/src/main/res/drawable/example_main_screen3.jpg)
-![Search screen](https://github.com/alexxk2/CurrencyConverter/blob/dev/app/src/main/res/drawable/example_search_currency3.jpg)
-![Settings screen](https://github.com/alexxk2/CurrencyConverter/blob/dev/app/src/main/res/drawable/example_settings_english3.jpg)
+![Main screen](https://github.com/alexxk2/Get_up/blob/exp/app/src/main/res/raw/example2.jpg)
+![Editing screen](https://github.com/alexxk2/Get_up/blob/exp/app/src/main/res/raw/example1.jpg)
+![Timer screen](https://github.com/alexxk2/Get_up/blob/exp/app/src/main/res/raw/example3.jpg)
