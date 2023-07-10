@@ -11,11 +11,11 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "workout")
 data class WorkoutDto(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @NonNull @ColumnInfo val name: String,
-    @NonNull @ColumnInfo("preparing_time") val preparingTime: Int,
-    @NonNull @ColumnInfo("work_time") val workTime: Int,
-    @NonNull @ColumnInfo("rest_time") val restTime: Int,
-    @NonNull @ColumnInfo("number_of_sets") val numberOfSets: Int
+    @ColumnInfo val name: String,
+    @ColumnInfo("preparing_time") val preparingTime: Int,
+    @ColumnInfo("work_time") val workTime: Int,
+    @ColumnInfo("rest_time") val restTime: Int,
+    @ColumnInfo("number_of_sets") val numberOfSets: Int
 ): Parcelable
 {
     companion object {
