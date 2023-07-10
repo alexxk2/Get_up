@@ -1,6 +1,5 @@
 package com.practice.getup.data.timer.dto
 
-import com.practice.getup.presentation.timer.utils.UiText
 
 data class StageDto(
     val id: String,
