@@ -40,6 +40,7 @@ class WorkoutListAdapter(
         binding.itemStartWorkout.setOnClickListener(this)
         binding.itemEditButton.setOnClickListener(this)
 
+
         return WorkoutListViewHolder(binding)
     }
 
@@ -52,6 +53,7 @@ class WorkoutListAdapter(
             itemEditButton.tag = item
             itemStartWorkout.tag = item
         }
+
     }
 
     interface WorkoutActionListener {
