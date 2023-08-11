@@ -16,6 +16,10 @@
 + SharedPreferences
 + MutableStateFlow
 + MediaPlayer
+
+## Gif flow приложения
+
+<img src="https://github.com/alexxk2/Get_up/blob/exp/app/src/main/res/drawable-xhdpi/flow.gif" width="340" height="699" />  <br>
   
 ## Скриншоты основных экранов
 
