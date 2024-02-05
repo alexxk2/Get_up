@@ -15,7 +15,7 @@
 + Navigation Component  
 + SharedPreferences
 + MutableStateFlow
-+ MediaPlayer
++ CountDownTimer
 
 ## Gif flow приложения
 
